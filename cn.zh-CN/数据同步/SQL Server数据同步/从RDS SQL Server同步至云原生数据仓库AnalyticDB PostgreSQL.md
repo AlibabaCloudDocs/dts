@@ -2,7 +2,7 @@
 
 数据传输服务DTS（Data Transmission Service）支持将SQL Server同步至云原生数据仓库AnalyticDB PostgreSQL，帮助您轻松实现数据的流转，集中分析企业数据。
 
--   [创建RDS SQL Server实例](/cn.zh-CN/RDS SQL Server 数据库/快速入门/创建RDS SQL Server实例.md)（SQL Server 2008 R2、2012、2016或2017版本）。
+-   [创建RDS SQL Server实例](/cn.zh-CN/RDS SQL Server 数据库/快速入门/创建RDS SQL Server实例.md)（SQL Server 2012、2016或2017版本）。
 -   [创建云原生数据仓库AnalyticDB PostgreSQL实例](/cn.zh-CN/快速入门/创建实例.md)。
 -   RDS SQL Server实例中待同步的表需具备主键。
 -   云原生数据仓库AnalyticDB PostgreSQL实例中同步的目标表需具备主键或唯一索引。
@@ -15,14 +15,12 @@
 
     **警告：** 由于此场景属于异构数据库间的数据同步，数据类型无法一一对应，请谨慎评估数据类型的映射关系对业务的影响，详情请参见[结构初始化涉及的数据类型映射关系](/cn.zh-CN/数据同步/结构初始化涉及的数据类型映射关系.md)。
 
-
-## 功能限制
-
--   仅支持同步DML操作（INSERT、UPDATE、DELETE），不支持同步DDL操作。在数据同步的过程中，如果源表发生结构修改（例如ADD COLUMN），将导致数据同步失败。
-
-    **说明：** 如遇此类情况，您需要将目标表的结构调整同源表一致，然后重新启动该同步作业。
-
 -   不支持同步数据类型为TIMESTAMP、CURSOR、ROWVERSION、HIERACHYID、SQL\_VARIANT、SPATIAL GEOMETRY、SPATIAL GEOGRAPHY、TABLE的数据。
+
+## 支持同步的SQL操作
+
+-   DDL操作：ADD COLUMN、DROP COLUMN、ALTER COLUMN
+-   DML操作：INSERT、UPDATE、DELETE
 
 ## 数据库账号的权限要求
 
@@ -118,7 +116,8 @@
 
 **说明：** 特殊字符仅支持下划线（\_），井号（\#）和美元符号（$）。
 
-    -   待迁移的Schema、表或列名称是目标库的关键字、保留字或非法字符。 |
+    -   待迁移的Schema、表或列名称是目标库的关键字、保留字或非法字符。
+**说明：** 如果选择添加引号，在数据同步完成后，您需使用带引号的目标对象名进行查询。 |
 
 9.  设置待同步的表在云原生数据仓库AnalyticDB PostgreSQL中表类型、主键列和分布键信息。
 

@@ -4,9 +4,6 @@
 
 -   DRDS中的数据库须基于RDS MySQL创建。
 -   已创建目标云原生数据仓库AnalyticDB MySQL集群，详情请参见[创建云原生数据仓库AnalyticDB MySQL（2.0）](https://help.aliyun.com/document_detail/98724.html)或[创建云原生数据仓库AnalyticDB MySQL（3.0）](https://help.aliyun.com/document_detail/122234.html)。
-
-    **说明：** 不支持将华北 1（青岛）、美国东部 1（弗吉尼亚）、英国（伦敦）地域的云原生数据仓库AnalyticDB MySQL（2.0）集群作为同步的目标集群；不支持将美国西部 1（硅谷）地域的云原生数据仓库AnalyticDB MySQL（3.0）集群作为同步的目标集群。
-
 -   确保目标云原生数据仓库AnalyticDB MySQL具备充足的存储空间。
 -   如果同步的目标为云原生数据仓库AnalyticDB MySQL（2.0），那么源DRDS中待同步的库或列的名称不能包含云原生数据仓库AnalyticDB MySQL（2.0）的保留字，否则将造成数据同步失败，详情请参见[保留字](https://help.aliyun.com/document_detail/98800.html)。
 
@@ -15,6 +12,12 @@
 -   DTS在执行全量数据初始化时将占用源库和目标库一定的读写资源，可能会导致数据库的负载上升，在数据库性能较差、规格较低或业务量较大的情况下（例如源库有大量慢SQL、存在无主键表或目标库存在死锁等），可能会加重数据库压力，甚至导致数据库服务不可用。因此您需要在执行数据同步前评估源库和目标库的性能，同时建议您在业务低峰期执行数据同步（例如源库和目标库的CPU负载在30%以下）。
 -   数据同步期间，请勿对DRDS实例执行扩容、缩容、迁移热点表、变更拆分键和变更DDL等操作，否则将导致数据同步失败。
 -   如果需要在数据同步期间切换DRDS的网络类型，在您执行完网络类型切换操作后，请[提交工单](https://selfservice.console.aliyun.com/ticket/category/dts/today)调整同步链路的网络连接信息。
+-   请勿在数据同步时，对源库的同步对象使用gh-ost或pt-online-schema-change等类似工具执行在线DDL变更，否则会导致同步失败。
+
+    **说明：** 如果同步的目标为云原生数据仓库AnalyticDB MySQL（3.0），您可以使用[DMS企业版](https://help.aliyun.com/document_detail/57278.html)提供的相关功能来执行在线DDL变更，详情请参见[不锁表结构变更](https://help.aliyun.com/document_detail/98373.html)。
+
+-   由于云原生数据仓库AnalyticDB MySQL（3.0）本身的使用限制，当云原生数据仓库AnalyticDB MySQL（3.0）集群中的节点磁盘空间使用量超过80%，该集群将被锁定。请提前根据待同步的对象预估所需空间，确保目标集群具备充足的存储空间。
+-   暂不支持同步前缀索引，如果源库存在前缀索引可能导致数据同步失败。
 
 ## 术语/概念对应关系
 

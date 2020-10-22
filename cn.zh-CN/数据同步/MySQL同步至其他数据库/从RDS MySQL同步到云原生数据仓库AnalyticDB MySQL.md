@@ -4,9 +4,6 @@
 
 -   RDS MySQL中待同步的数据表必须具备主键。
 -   已创建目标云原生数据仓库AnalyticDB MySQL集群，详情请参见[创建云原生数据仓库AnalyticDB MySQL（2.0）](https://help.aliyun.com/document_detail/98724.html)或[创建云原生数据仓库AnalyticDB MySQL（3.0）](https://help.aliyun.com/document_detail/122234.html)。
-
-    **说明：** 不支持将华北 1（青岛）、美国东部 1（弗吉尼亚）、英国（伦敦）地域的云原生数据仓库AnalyticDB MySQL（2.0）集群作为同步的目标集群；不支持将美国西部 1（硅谷）地域的云原生数据仓库AnalyticDB MySQL（3.0）集群作为同步的目标集群。
-
 -   确保目标云原生数据仓库AnalyticDB MySQL具备充足的存储空间。
 -   如果同步的目标为云原生数据仓库AnalyticDB MySQL（2.0），那么源RDS MySQL待同步的对象不能包含云原生数据仓库AnalyticDB MySQL（2.0）[保留的库名和列名](https://help.aliyun.com/document_detail/98800.html)，否则将造成数据同步失败或DDL操作同步失败。
 
@@ -119,7 +116,7 @@
     |多表归并|    -   选择为**是**：DTS将在每个表中增加`__dts_data_source`列来存储数据来源，且不再支持DDL同步。
     -   选择为**否**：默认选项，支持DDL同步。
 **说明：** 多表归并功能基于任务级别，即不支持基于表级别执行多表归并。如果需要让部分表执行多表归并，另一部分不执行多表归并，您可以创建两个数据同步作业。 |
-    |同步操作类型|根据业务选中需要同步的操作类型，默认情况下都处于选中状态。 **说明：** 目前仅支持INSERT、UPDATE、DELETE、ADD COLUMN。 |
+    |同步操作类型|根据业务选中需要同步的操作类型，支持的同步操作详情请参见[支持同步的SQL操作](#section_s1c_w58_ncx)，默认情况下都处于选中状态。|
     |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 同步对象的选择粒度为库、表。

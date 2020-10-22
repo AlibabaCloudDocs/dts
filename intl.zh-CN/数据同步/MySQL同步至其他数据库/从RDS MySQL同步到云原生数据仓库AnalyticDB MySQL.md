@@ -15,7 +15,7 @@
 
 ## 支持同步的SQL操作
 
--   DDL操作：CREATE TABLE、DROP TABLE、RENAME TABLE、TRUNCATE TABLE、ADD COLUMN、DROP COLUMN
+-   DDL操作：CREATE TABLE、DROP TABLE、RENAME TABLE、TRUNCATE TABLE、ADD COLUMN、DROP COLUMN、MODIFY COLUMN
 -   DML操作：INSERT、UPDATE、DELETE
 
 **说明：** 如果在数据同步的过程中变更了源表的字段类型，同步作业将报错并中断。您可以[提交工单](https://workorder-intl.console.aliyun.com/console.htm#/ticket/createIndex)处理或参照文末的方法来手动修复，详情请参见[修复因变更字段类型导致的同步失败](#section_o6l_gcd_cqe)。
@@ -89,7 +89,7 @@
     |多表归并|    -   选择为**是**：DTS将在每个表中增加`__dts_data_source`列来存储数据来源，且不再支持DDL同步。
     -   选择为**否**：默认选项，支持DDL同步。
 **说明：** 多表归并功能基于任务级别，即不支持基于表级别执行多表归并。如果需要让部分表执行多表归并，另一部分不执行多表归并，您可以创建两个数据同步作业。 |
-    |同步操作类型|根据业务选中需要同步的操作类型，默认情况下都处于选中状态。 **说明：** 目前仅支持INSERT、UPDATE、DELETE、ADD COLUMN。 |
+    |同步操作类型|根据业务选中需要同步的操作类型，支持的同步操作详情请参见[支持同步的SQL操作](#section_s1c_w58_ncx)，默认情况下都处于选中状态。|
     |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 同步对象的选择粒度为库、表。

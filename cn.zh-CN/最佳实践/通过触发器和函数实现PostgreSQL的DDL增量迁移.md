@@ -2,7 +2,8 @@
 
 在使用DTS执行PostgreSQL数据库间的数据迁移前，可通过本文介绍的方法在源库创建触发器和函数获取源库的DDL信息，然后再由DTS执行数据迁移，在增量数据迁移阶段即可实现DDL操作的增量迁移。
 
-源库需为9.4及以上版本的自建PostgreSQL数据库。
+-   源库需为9.4及以上版本的自建PostgreSQL数据库。
+-   数据迁移任务需在2020年10月1日之后创建。
 
 通过DTS执行PostgreSQL数据库间的数据迁移时，在增量数据迁移阶段，DTS仅支持DML操作（INSERT、DELETE、UPDATE）的同步，不支持DDL操作的同步。
 
@@ -112,4 +113,12 @@
 
 -   [从自建PostgreSQL（9.4-10.0版本）增量迁移至RDS PostgreSQL](/cn.zh-CN/数据迁移/从自建数据库迁移至阿里云/源库为PostgreSQL/从自建PostgreSQL（9.4-10.0版本）增量迁移至RDS PostgreSQL.md)
 -   [从自建PostgreSQL（10.1-12版本）增量迁移至RDS PostgreSQL](/cn.zh-CN/数据迁移/从自建数据库迁移至阿里云/源库为PostgreSQL/从自建PostgreSQL（10.1-12版本）增量迁移至RDS PostgreSQL.md)
+
+**说明：** 数据迁移任务释放后，您需要登录源PostgreSQL数据库，执行下述命令删除触发器和函数。
+
+```
+DROP TRIGGER dts_intercept_ddl;
+drop function public.dts_capture_ddl;
+drop table public.dts_ddl_command;
+```
 

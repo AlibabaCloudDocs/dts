@@ -53,14 +53,16 @@
         VOLATILE NOT LEAKPROOF SECURITY DEFINER
     AS $BODY$
       declare ddl_text text;
-      declare max_rows int := 100000;
+      declare max_rows int := 10000;
       declare current_rows int;
       declare pg_version_95 int := 90500;
+      declare pg_version_10 int := 100000;
       declare current_version int;
       declare object_id varchar;
       declare alter_table varchar;
       declare record_object record;
       declare message text;
+      declare pub RECORD;
     begin
     
       select current_query() into ddl_text;
@@ -68,18 +70,29 @@
       if TG_TAG = 'CREATE TABLE' then -- ALTER TABLE schema.TABLE REPLICA IDENTITY FULL;
         show server_version_num into current_version;
         if current_version >= pg_version_95 then
-          select * into record_object from pg_event_trigger_ddl_commands();
-          object_id := record_object.object_identity;
+          for record_object in (select * from pg_event_trigger_ddl_commands()) loop
+            if record_object.command_tag = 'CREATE TABLE' then
+              object_id := record_object.object_identity;
+            end if;
+          end loop;
         else
           select btrim(substring(ddl_text from '[ \t\r\n\v\f]*[c|C][r|R][e|E][a|A][t|T][e|E][ \t\r\n\v\f]*.*[ \t\r\n\v\f]*[t|T][a|A][b|B][l|L][e|E][ \t\r\n\v\f]+(.*)\(.*'),' \t\r\n\v\f') into object_id;
         end if;
-        object_id := btrim(object_id,' \t\r\n\v\f');
         if object_id = '' or object_id is null then
           message := 'CREATE TABLE, but ddl_text=' || ddl_text || ', current_query=' || current_query();
         else
           alter_table := 'ALTER TABLE ' || object_id || ' REPLICA IDENTITY FULL';
           message := 'alter_sql=' || alter_table;
           execute alter_table;
+        end if;
+        if current_version >= pg_version_10 then
+          for pub in (select * from pg_publication where pubname like 'dts_sync_%') loop
+            raise notice 'pubname=%',pub.pubname;
+            BEGIN
+              execute 'alter publication ' || pub.pubname || ' add table ' || object_id;
+            EXCEPTION WHEN OTHERS THEN
+            END;
+          end loop;
         end if;
       end if;
     

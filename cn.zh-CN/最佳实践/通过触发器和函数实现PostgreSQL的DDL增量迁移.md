@@ -107,7 +107,7 @@
     $BODY$;
     ```
 
-5.  将刚创建的函数的所有者修改为postgres。
+5.  将刚创建的函数的所有者修改为DTS连接源库的账号，以postgresql为例。
 
     ```
     ALTER FUNCTION public.dts_capture_ddl()
@@ -130,8 +130,8 @@
 **说明：** 数据迁移任务释放后，您需要登录源PostgreSQL数据库，执行下述命令删除触发器和函数。
 
 ```
-DROP TRIGGER dts_intercept_ddl;
-drop function public.dts_capture_ddl;
+drop EVENT trigger dts_intercept_ddl;
+drop function public.dts_capture_ddl();
 drop table public.dts_ddl_command;
 ```
 

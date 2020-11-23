@@ -13,7 +13,9 @@
 
 现有两个Redis实例分别属于不同的阿里云账号，由于业务需求，需要将云账号A下的Redis实例中的业务数据信息迁移至云账号B下的Redis实例中，详细架构如下图所示。
 
-![Redis跨账号迁移架构图](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8149459951/p132220.png)
+![Redis跨账号迁移架构图](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8149459951/p132220.png)
+
+**说明：** 跨云账号同步Redis实例仅支持集群架构或标准架构，暂不支持读写分离架构。
 
 数据迁移方案介绍：
 
@@ -78,7 +80,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
 3.  根据源Redis实例所属的地域选择DTS服务器的IP地址段，然后将这些IP地址段加入至Redis实例的白名单中，操作方法请参见[设置IP白名单](/intl.zh-CN/快速入门/步骤2：设置白名单.md)。
 
-    **说明：** 关于各地域下DTS服务器的IP地址段信息，请参见[迁移、同步或订阅本地数据库时需添加的IP白名单](/intl.zh-CN/准备工作/迁移、同步或订阅本地数据库时需添加的IP白名单.md)。
+    **说明：** 关于各地域下DTS服务器的IP地址段信息，请参见[迁移、同步或订阅本地数据库时需添加的IP白名单]()。
 
 4.  为源Redis实例创建用于数据同步的账号。
 
@@ -91,7 +93,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
 ## 操作步骤
 
-1.  使用目标Redis实例所属的阿里云账号登录[阿里云控制台](https://homenew.console.aliyun.com/)，然后购买数据同步作业，详情请参见[购买流程](/intl.zh-CN/快速入门/购买流程.md)。
+1.  使用目标Redis实例所属的阿里云账号登录[阿里云控制台](https://homenew.console.aliyun.com/)，然后购买数据同步作业，详情请参见[购买流程]()。
 
     **说明：** 购买时，关键参数限制如下：
 
@@ -103,7 +105,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
@@ -115,11 +117,11 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
         **说明：** 由于DTS暂不直接支持跨云账号读取源Redis实例的信息，在配置数据同步作业时，您需要将源实例作为其他阿里云账号下通过专线接入的自建数据库来完成配置。
 
-        ![选择为其他云账号下的专有网络](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8149459951/p132244.gif)
+        ![选择为其他云账号下的专有网络](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8149459951/p132244.gif)
 
     3.  配置源实例信息。
 
-        ![配置源实例信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8149459951/p132253.png)
+        ![配置源实例信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8149459951/p132253.png)
 
         |配置|说明|
         |:-|:-|
@@ -127,7 +129,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
         |实例地区|购买数据同步实例时选择的源实例地域信息，不可变更。|
         |所属阿里云账号ID|填入源Redis实例所属的阿里云账号ID。 **说明：** 您可以使用源Redis实例所属的阿里云账号登录[账号管理](https://account.console.aliyun.com/#/secure)页面来获取云账号ID。
 
-![获取云账号ID](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8149459951/p44838.png) |
+![获取云账号ID](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8149459951/p44838.png) |
         |角色名称|填入[准备工作](#section_b4m_p6z_fi6)的步骤1中创建的RAM角色名称。|
         |已和源端数据库联通的VPC|选择源Redis实例所属的专有网络。|
         |数据库类型|选择**Redis**。|
@@ -138,7 +140,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
     4.  配置目标实例信息。
 
-        ![配置目标实例信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8149459951/p132254.png)
+        ![配置目标实例信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8149459951/p132254.png)
 
         |配置|说明|
         |:-|:-|
@@ -153,7 +155,7 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
 
 8.  配置目标已存在表的处理模式和同步对象。
 
-    ![配置同步信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p71478.png)
+    ![配置同步信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p71478.png)
 
     |配置|说明|
     |:-|:-|
@@ -161,14 +163,14 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
     -   **忽略报错并继续执行**：跳过目标库是否为空的检查项。
 
 **警告：** 选择为**忽略报错并继续执行**后，如果在同步过程中遇到目标库中的Key与源库中的Key相同，会将源库的数据覆盖写入目标库中，请谨慎选择。 |
-    |同步对象|    -   在源库对象框中单击待同步的数据库，然后单击![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动到已选择对象框。
+    |同步对象|    -   在源库对象框中单击待同步的数据库，然后单击![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动到已选择对象框。
     -   同步对象的选择粒度为库，暂不支持Key粒度的选择。 |
 
 9.  上述配置完成后，单击页面右下角的**下一步**。
 
 10. 配置同步初始化的选项。
 
-    ![Redis同步初始化](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50606.png)
+    ![Redis同步初始化](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50606.png)
 
     **说明：** 当前固定为**包含全量数据+增量数据**，即DTS会将源实例中的存量数据同步至目标Redis数据库中，并同步增量数据。
 
@@ -177,12 +179,12 @@ DTS的数据迁移功能暂不支持迁移Redis实例（集群版），本方案
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 12. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 13. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
-    ![数据同步状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![数据同步状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
     **说明：** 您可以在**数据同步**页面，查看数据同步作业的状态。
 

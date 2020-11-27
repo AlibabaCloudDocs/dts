@@ -3,15 +3,15 @@
 This topic describes how to migrate incremental data from a user-created PostgreSQL database to an ApsaraDB RDS for PostgreSQL instance by using Data Transmission Service \(DTS\). DTS supports schema migration, full data migration, and incremental data migration. When you migrate data from a user-created PostgreSQL database to Alibaba Cloud, you can select all of the supported migration types to ensure service continuity.
 
 -   A PostgreSQL database of version 10.1 to 12 is created.
--   An ApsaraDB RDS for PostgreSQL instance is created. For more information, see [Create an RDS for PostgreSQL instance](~~53730~~).
+-   An ApsaraDB RDS for PostgreSQL instance is created. For more information, see [Create an ApsaraDB RDS for PostgreSQL instance](~~53730~~).
 
-    **Note:** Ensure that the database version of the ApsaraDB RDS for PostgreSQL instance is the same as the version of the user-created PostgreSQL database.
+    **Note:** Make sure that the database version of the ApsaraDB RDS for PostgreSQL instance is the same as the version of the user-created PostgreSQL database.
 
 -   The available storage space of the ApsaraDB RDS for PostgreSQL instance is larger than the total size of the data in the user-created PostgreSQL database.
 
 ## Precautions
 
--   DTS uses read and write resources of the source and destination databases during full data migration. This may increase the load of the database server. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you migrate data, evaluate the impact of data migration on the performance of the source and destination databases. We recommend that you migrate data during off-peak hours. For example, you can migrate data when the CPU utilization of the source and destination databases is less than 30%.
+-   DTS uses read and write resources of the source and destination databases during full data migration. This may increase the loads of the database servers. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you migrate data, evaluate the impact of data migration on the performance of the source and destination databases. We recommend that you migrate data during off-peak hours. For example, you can migrate data when the CPU utilization of the source and destination databases is less than 30%.
 -   The tables to be migrated in the source database must have PRIMARY KEY or UNIQUE constraints and all fields must be unique. Otherwise, the destination database may contain duplicate data records.
 -   If you select a schema as the object to be migrated and create a table in the schema or run the RENAME command to rename the table, you must run the `ALTER TABLE schema.table REPLICA IDENTITY FULL;` command before you write data to the table.
 
@@ -22,7 +22,7 @@ This topic describes how to migrate incremental data from a user-created Postgre
 
     **Note:** If a migration task is released or fails, DTS automatically clears the replication slot. After a switchover between primary and secondary ApsaraDB RDS for PostgreSQL databases, you must log on to the secondary database to manually clear the replication slot.
 
-    ![Replication slot information](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/5997539951/p66313.png)
+    ![Replication slot information](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5997539951/p66313.png)
 
 -   If a data migration task fails, DTS automatically resumes the task. Before you switch your workloads to the destination instance, stop or release the data migration task. Otherwise, the data in the source database will overwrite the data in the destination instance after the task is resumed.
 
@@ -37,7 +37,7 @@ This topic describes how to migrate incremental data from a user-created Postgre
 
 -   During incremental data migration, DTS migrates only data manipulation language \(DML\) operations. DML operations include INSERT, DELETE, and UPDATE.
 
-    **Note:** To migrate data definition language \(DDL\) operations, you can create a trigger and function in the source database to obtain the DDL information. For more information, see [Use triggers and functions to implement incremental DDL migration for PostgreSQL databases](/intl.en-US/Best Practices/Use triggers and functions to implement incremental DDL migration for PostgreSQL databases.md).
+    **Note:** Only data migration tasks that are created after October 1, 2020 can migrate data definition language \(DDL\) operations. To do this, you must create a trigger and function in the source database to obtain the DDL information before you configure the task. For more information, see [Use triggers and functions to implement incremental DDL migration for PostgreSQL databases](/intl.en-US/Best Practices/Use triggers and functions to implement incremental DDL migration for PostgreSQL databases.md).
 
 -   After your workloads are switched to the destination database, newly written sequences do not increment from the maximum value of the sequences in the source database. Therefore, you must query the maximum value of the sequences in the source database before you switch your workloads to the destination database. Then, you must specify the queried maximum value as the starting value of the sequences in the destination database.
 -   DTS does not check the validity of metadata such as sequences. You must manually check the validity of metadata.
@@ -80,7 +80,7 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
 
 2.  Set the value of the wal\_level parameter in the `postgresql.conf` configuration file to `logical`.
 
-    ![Set the wal_level parameter](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/5824948951/p73217.png)
+    ![Set the wal_level parameter](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5824948951/p73217.png)
 
     **Note:** Skip this step if you do not need to perform incremental data migration.
 
@@ -88,7 +88,7 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
 
     **Note:** For more information, see [The pg\_hba.conf File](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html). Skip this step if you have set the IP address in the pg\_hba.conf file to `0.0.0.0/0`.
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/5824948951/p73782.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5824948951/p73782.png)
 
 4.  Create a trigger and function in the source database to obtain the DDL information. For more information, see [Use triggers and functions to implement incremental DDL migration for PostgreSQL databases](/intl.en-US/Best Practices/Use triggers and functions to implement incremental DDL migration for PostgreSQL databases.md).
 
@@ -103,13 +103,13 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
 
 3.  At the top of the Migration Tasks page, select the region where the destination cluster resides.
 
-    ![Select a region](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/9840359951/p50439.png)
+    ![Select a region](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9840359951/p50439.png)
 
 4.  In the upper-right corner of the page, click **Create Migration Task**.
 
 5.  Configure the source and destination databases.
 
-    ![Configure the source and destination databases](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/1924948951/p47957.png)
+    ![Configure the source and destination databases](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1924948951/p47957.png)
 
     |Section|Parameter|Description|
     |:------|:--------|:----------|
@@ -125,24 +125,24 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
     |Destination Database|Instance Type|Select **RDS Instance**.|
     |Instance Region|Select the region where the destination RDS instance resides.|
     |RDS Instance ID|Select the ID of the destination RDS instance.|
-    |Database Name|Enter the name of the destination database in the RDS instance. The name can be different from the name of the source PostgreSQL database. **Note:** Before you configure the data migration task, create a database in the ApsaraDB RDS for PostgreSQL instance. For more information, see [Create a database](~~96758~~). |
+    |Database Name|Enter the name of the destination database in the RDS instance. The name can be different from the name of the source database. **Note:** Before you configure the data migration task, create a database in the ApsaraDB RDS for PostgreSQL instance. For more information, see [Create a database](~~96758~~). |
     |Database Account|Enter the database account of the destination RDS instance. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_zpw_l1z_ylk).|
     |Database Password|Enter the password of the destination database account. **Note:** After you specify the destination database parameters, click **Test Connectivity** next to **Database Password** to verify whether the parameters are valid. If the specified parameters are valid, the **Passed** message appears. If the **Failed** message appears, click **Check** next to **Failed**. Modify the destination database parameters based on the check results. |
 
 6.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
-    **Note:** In this step, DTS adds the CIDR blocks of DTS servers to the whitelist of the destination ApsaraDB RDS for PostgreSQL instance. This ensures that the DTS servers can connect to the destination ApsaraDB RDS for PostgreSQL instance.
+    **Note:** In this step, DTS adds the CIDR blocks of DTS servers to the whitelist of the ApsaraDB RDS for PostgreSQL instance. This ensures that the DTS servers can connect to the ApsaraDB RDS for PostgreSQL instance.
 
 7.  Select the migration types and the objects to be migrated.
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/5824948951/p73234.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/5824948951/p73234.png)
 
     |Setting|Description|
     |:------|:----------|
     |Select the migration types|    -   To perform only full data migration, select **Schema Migration** and **Full Data Migration**.
     -   To ensure service continuity during data migration, select **Schema Migration**, **Full Data Migration**, and **Incremental Data Migration**. In this example, select all of the three migration types.
 **Note:** If **Incremental Data Migration** is not selected, do not write data to the source database during full data migration. This ensures data consistency between the source and destination databases. |
-    |Select the objects to be migrated|Select objects from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the objects to the Selected section.
+    |Select the objects to be migrated|Select objects from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the objects to the Selected section.
 
 **Note:**
 
@@ -155,7 +155,7 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
     **Note:**
 
     -   Before you can start the data migration task, a precheck is performed. A data migration task can be started only if it passes the precheck.
-    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and perform a precheck again.
+    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and perform a precheck again.
 9.  After the task passes the precheck, click **Next**.
 
 10. In the Confirm Settings dialog box, specify the **Channel Specification** parameter and select **Data Transmission Service \(Pay-As-You-Go\) Service Terms**.
@@ -178,6 +178,6 @@ To avoid data migration failures caused by dependencies between objects, DTS mig
     1.  Wait until the task progress bar shows **Incremental Data Migration** and **The migration task is not delayed**. Then, stop writing data to the source database for a few minutes. In some cases, the progress bar shows the delay time of **incremental data migration**.
     2.  After the status of **incremental data migration** changes to **The migration task is not delayed**, manually stop the migration task.
 
-        ![Stop a task during incremental migration](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/2940359951/p47604.png)
+        ![Stop a task during incremental migration](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/2940359951/p47604.png)
 
 

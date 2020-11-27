@@ -1,16 +1,19 @@
 # Synchronize data from a DRDS instance to an AnalyticDB for MySQL cluster
 
-AnalyticDB for MySQL is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from a DRDS instance to an AnalyticDB for MySQL cluster by using Data Transmission Service \(DTS\). AnalyticDB for MySQL allows you to build internal business intelligence \(BI\) systems, interactive query systems, and real-time report systems.
+is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from a DRDS instance to an cluster by using Data Transmission Service \(DTS\). After you synchronize data, you can use AnalyticDB for MySQL to build internal business intelligence \(BI\) systems, interactive query systems, and real-time report systems.
 
 -   A database is created in the DRDS instance based on one or more ApsaraDB RDS for MySQL instances.
 -   An cluster is created. For more information, see [Create an cluster](https://www.alibabacloud.com/help/zh/doc-detail/122234.htm).
--   The destination AnalyticDB for MySQL cluster has sufficient storage space.
+-   The destination cluster has sufficient storage space.
 
 ## Precautions
 
 -   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the database load. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before synchronizing data, you must evaluate the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU usage of the source and destination databases is less than 30%.
 -   We recommend that you do not scale up or down the DRDS instance, migrate frequently-accessed tables, change shard keys, or perform DDL operations on objects during data synchronization. Otherwise, data synchronization may fail.
 -   If you need to change the network type of a DRDS instance during data synchronization, you must [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to modify the network connection information.
+-   We recommend that you do not use gh-ost or pt-online-schema-change to perform data definition language \(DDL\) operations on the required objects during data synchronization. Otherwise, data may fail to be synchronized.
+-   Due to the limits of , if the disk space usage of the nodes in an cluster reaches 80%, the cluster is locked. We recommend that you estimate the required disk space based on the objects that you want to synchronize. You must ensure that the destination cluster has sufficient storage space.
+-   Prefix indexes cannot be synchronized. If the source database contains prefix indexes, data may fail to be synchronized.
 
 ## SQL operations that can be synchronized
 
@@ -21,7 +24,7 @@ INSERT, UPDATE, and DELETE
 |Database|Required permissions|
 |--------|--------------------|
 |DRDS|The SELECT permission on the objects to be synchronized, the REPLICATION CLIENT permission, and the REPLICATION SLAVE permission. These permissions are automatically granted by DTS.|
-|AnalyticDB for MySQL|The read and write permissions on the objects to be synchronized.|
+| |The read and write permissions on the objects to be synchronized.|
 
 ## Data type mappings
 
@@ -31,7 +34,7 @@ For more information, see [Data type mappings for initial schema synchronization
 
 1.  Purchase a data synchronization instance. For more information, see [Purchase procedure]().
 
-    **Note:** On the buy page, set Source Instance to **DRDS**, set Target Instance to **AnalyticDB for MySQL**, and set Synchronization Topology to **One-Way Synchronization**.
+    **Note:** On the buy page, set Source Instance to **DRDS**, set Target Instance to **AnalyticDB MySQL**, and set Synchronization Topology to **One-Way Synchronization**.
 
 2.  Log on to the [DTS console](https://dts-intl.console.aliyun.com/).
 
@@ -53,20 +56,20 @@ For more information, see [Data type mappings for initial schema synchronization
     |Source Instance Details|Instance Type|The value of this parameter is set to **DRDS** and cannot be changed.|
     |Instance Region|The region of the source instance. The region is the same as the source region that you selected on the buy page. You cannot change the value of this parameter.|
     |DRDS Instance ID|Select the ID of the source DRDS instance.|
-    |Destination Instance Details|Instance Type|This parameter is set to **AnalyticDB** and cannot be changed.|
-    |Instance Region|The region of the destination instance. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
+    |Destination Instance Details|Instance Type|The value of this parameter is set to **AnalyticDB** and cannot be changed.|
+    |Instance Region|The region of the destination cluster. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |Version|Select **3.0**.|
-    |Database|Select the ID of the destination AnalyticDB for MySQL cluster.|
-    |Database Account|Enter the database account of the AnalyticDB for MySQL cluster.For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_51b_evg_td3).|
+    |Database|Select the ID of the cluster.|
+    |Database Account|Enter the database account of the cluster.For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_51b_evg_td3).|
     |Database Password|Enter the password of the destination database account.|
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
-    **Note:** DTS adds the CIDR blocks of DTS servers to the whitelists of the source DRDS instance and the destination AnalyticDB for MySQL cluster. This ensures that DTS servers can connect to the source instance and the destination cluster.
+    **Note:** DTS adds the CIDR blocks of DTS servers to the whitelists of the source DRDS instance and the destination cluster. This ensures that DTS servers can connect to the source instance and the destination cluster.
 
-8.  Configure the synchronization policy and objects.
+8.  Select the synchronization policy and the objects to be synchronized.
 
-    ![Configure the synchronization policy and objects](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1879903061/p111936.png)
+    ![Select the synchronization policy and the objects to be synchronized](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1879903061/p111936.png)
 
     |Parameter|Description|
     |:--------|:----------|
@@ -87,7 +90,7 @@ For more information, see [Data type mappings for initial schema synchronization
     |Synchronization Type|Select the types of operations that you want to synchronize based on your business requirements. All operation types are selected by default.     -   **Insert**
     -   **Update**
     -   **Delete** |
-    |Objects|Select tables from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the Selected section.
+    |Select the objects to be synchronized|Select tables from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the Selected section.
 
 **Note:**
 

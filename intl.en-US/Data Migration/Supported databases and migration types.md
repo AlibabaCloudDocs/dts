@@ -1,6 +1,6 @@
 # Supported databases and migration types
 
-You can use Data Transmission Service \(DTS\) to migrate data between homogeneous and heterogeneous data sources. Typical scenarios include data migration to Alibaba Cloud, data migration between instances within Alibaba Cloud, and database splitting and scale-out. This section describes the database types, database versions, and migration types that are supported by the data migration feature.
+You can use Data Transmission Service \(DTS\) to migrate data between homogeneous and heterogeneous data sources. Typical scenarios include data migration to Alibaba Cloud, data migration between instances within Alibaba Cloud, and database splitting and scale-out. This topic describes the database types, database versions, and migration types that are supported by the data migration feature.
 
 For more information about data migration in various scenarios, see [Overview of data migration scenarios](/intl.en-US/Data Migration/Overview of data migration scenarios.md).
 
@@ -14,7 +14,7 @@ For more information about data migration in various scenarios, see [Overview of
 
 For schema migration between heterogeneous databases, DTS converts the schema syntax based on the syntax of the source and destination databases. For example, it converts the NUMBER data type in Oracle databases into the DECIMAL data type in MySQL databases. |
 |Full data migration|DTS migrates historical data of the required objects from the source database to the destination database. If you select only schema migration and full data migration, DTS does not migrate incremental data that was generated in the source database. **Note:** To ensure data consistency, do not write data to the source database during full data migration. To ensure service continuity, you must select **Schema Migration**, **Full Data Migration**, and **Incremental Data Migration** when you configure a data migration task. |
-|Incremental data migration|DTS retrieves static snapshots that are used for full data migration from the source database and migrates the snapshot data to the destination database. Then, DTS synchronizes incremental data that was generated in the source database to the destination database. **Note:** During incremental data migration, data is synchronized between the source and destination databases in real time. The migration task does not automatically stop. You must manually stop the migration task. |
+|Incremental data migration|DTS retrieves static snapshots that are used for full data migration from the source database, and migrates the snapshot data to the destination database. Then, DTS synchronizes incremental data that was generated in the source database to the destination database. **Note:** During incremental data migration, data is synchronized between the source and destination databases in real time. The migration task does not automatically stop. You must manually stop the migration task. |
 
 ## Supported databases and migration types
 
@@ -74,7 +74,7 @@ All versions
 -   Incremental data migration |
 |AnalyticDB for MySQL
 
-Versions 2.0 and 3.0
+Version 2.0 or 3.0
 
 |-   Schema migration
 -   Full data migration
@@ -124,6 +124,15 @@ Versions 5.1, 5.5, 5.6, 5.7, and 8.0
 |-   Schema migration
 -   Full data migration
 -   Incremental data migration |
+|ApsaraDB RDS for PPASAll versions
+
+|PolarDB-O
+
+All versions
+
+|-   Schema migration
+-   Full data migration
+-   Incremental data migration |
 |PolarDB for MySQL
 
 All versions
@@ -151,7 +160,7 @@ All versions
 -   Incremental data migration |
 |AnalyticDB for MySQL
 
-Versions 2.0 and 3.0
+Version 2.0 or 3.0
 
 |-   Schema migration
 -   Full data migration
@@ -180,7 +189,7 @@ Versions 2005, 2008, 2008 R2, 2012, 2014, 2016, and 2017
 
 **Note:**
 
-    -   DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAG\).
+    -   DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAGs\).
     -   If the version of the source database is 2005, incremental data migration is not supported.
 -   ApsaraDB RDS for SQL Server
 
@@ -193,7 +202,7 @@ Versions 2008, 2008 R2, 2012, 2014, 2016, and 2017
 
 Versions 2005, 2008, 2008 R2, 2012, 2014, 2016, and 2017
 
-**Note:** DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAG\).
+**Note:** DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAGs\).
 
 |-   Schema migration
 -   Full data migration
@@ -261,7 +270,7 @@ All versions
 -   Incremental data migration |
 |AnalyticDB for MySQL
 
-Versions 2.0 and 3.0
+Version 2.0 or 3.0
 
 |-   Schema migration
 -   Full data migration

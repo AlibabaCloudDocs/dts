@@ -1,48 +1,84 @@
 # DescribeSubscriptionInstanceAlert
 
-调用DescribeSubscriptionInstanceAlert接口查询订阅通道的监控报警设置详情。
+调用DescribeSubscriptionInstanceAlert接口查询数据订阅实例的监控报警设置详情。
+
+## 调试
+
+[您可以在OpenAPI Explorer中直接运行该接口，免去您计算签名的困扰。运行成功后，OpenAPI Explorer可以自动生成SDK代码示例。](https://api.aliyun.com/#product=Dts&api=DescribeSubscriptionInstanceAlert&type=RPC&version=2020-01-01)
 
 ## 请求参数
 
-|名称|类型|是否必选|实例值|描述|
-|:-|:-|:---|:--|:-|
-|Action|String|是|DescribeSubscriptionInstanceAlert|要执行的操作，取值：DescribeSubscriptionInstanceAlert。|
-|SubscriptionInstanceId|String|是|dtsxxxxxxxx|数据订阅实例ID。|
+|名称|类型|是否必选|示例值|描述|
+|--|--|----|---|--|
+|Action|String|是|DescribeSubscriptionInstanceAlert|系统规定参数，取值：**DescribeSubscriptionInstanceAlert**。 |
+|SubscriptionInstanceId|String|是|dtsl8zl9ek6292\*\*\*\*|数据订阅实例ID，可以通过调用**DescribeSubscriptionInstances**接口查询。 |
+|RegionId|String|否|cn-hangzhou|地域ID，传入本参数来指定实例所在地域，详情请参见[支持的地域列表](~141033~)。 |
+|ClientToken|String|否|ETnLKlblzczshOTUbOCz\*\*\*\*|用于保证请求的幂等性。由客户端生成该参数值，要保证在不同请求间唯一，最大值不超过64个ASCII字符，且该参数值中不能包含非ASCII字符。 |
+|AccountId|String|否|12323344\*\*\*\*|阿里云主账号ID，无需设置，该参数即将下线。 |
 
-## 返回参数
+## 返回数据
 
 |名称|类型|示例值|描述|
-|:-|:-|:--|:-|
-|SubscriptionInstanceName|String|MySQL|数据订阅通道名称。|
-|DelayAlertStatus|String|enable|**订阅延迟**监控项的开关状态，返回值为： -   enable：启用。
--   disable：禁用。 |
-|DelayAlertPhone|String|136xxxxxxxx,137xxxxxxxx|**订阅延迟**监控项的报警联系人手机号码。 **说明：** 如果有多个手机号码，将以英文逗号（,）分隔。 |
-|DelayOverSeconds|String|20|**订阅延迟**监控项的报警阈值，单位为秒。|
-|ErrorAlertStatus|String|enable|**订阅状态**监控项的开关状态，返回值为： -   enable：启用。
--   disable：禁用。 |
-|ErrorAlertPhone|String|138xxxxxxxx,139xxxxxxxx|**订阅状态**监控项的报警联系人手机号码。 **说明：** 如果有多个手机号码，将以英文逗号（,）分隔。 |
-|Success|Boolean|true|接口是否调用成功，返回值为： -   true：成功。
--   flase：失败。 |
+|--|--|---|--|
+|DelayAlertPhone|String|1361234\*\*\*\*,1371234\*\*\*\*|延迟报警的联系人手机号码。 |
+|DelayAlertStatus|String|enable|是否监控延迟状态，返回值：
+
+ -   **enable**：是。
+-   **disable**：否。 |
+|DelayOverSeconds|String|10|触发延迟报警的阈值，单位为秒且需为整数，建议取值为10秒。 |
+|ErrCode|String|InternalError|调用出错时返回的错误码。 |
+|ErrMessage|String|The request processing has failed due to some unknown error.|调用出错时返回的错误信息。 |
+|ErrorAlertPhone|String|1361234\*\*\*\*,1371234\*\*\*\*|异常报警的联系人手机号码。 |
+|ErrorAlertStatus|String|enable|是否监控异常状态，返回值：
+
+ -   **enable**：是。
+-   **disable**：否。 |
+|RequestId|String|210ec2e116055198849072222d\*\*\*\*|请求ID。 |
+|SubscriptionInstanceID|String|dtsl8zl9ek6292\*\*\*\*|数据订阅实例ID。 |
+|SubscriptionInstanceName|String|test|数据订阅实例名称。 |
+|Success|String|true|请求是否成功。 |
 
 ## 示例
 
+请求示例
+
 ```
-public DescribeSubscriptionInstanceAlertResponse describeSubscribeJobAlert(String MigrationJobId) throws Exception 
-  {
-    DescribeSubscriptionInstanceAlertRequest request = new DescribeSubscriptionInstanceAlertRequest();
-        request.setSubscriptionInstanceId(MigrationJobId);
+http(s)://dts.aliyuncs.com/?Action=DescribeSubscriptionInstanceAlert
+&SubscriptionInstanceId=dtsl8zl9ek6292****
+&<公共请求参数>
+```
 
-        DescribeSubscriptionInstanceAlertResponse response = client.getAcsResponse(request);
+正常返回示例
 
-        if (!"true".equals(response.getSuccess()))
-    {
-      throw new Exception(response.getErrMessage() + " requestId=" + response.getRequestId());
-    }
-        return response;
-    }
+`XML` 格式
+
+```
+<DescribeSubscriptionInstanceAlertresponse>
+      <SubscriptionInstanceName>test</SubscriptionInstanceName>
+      <RequestId>210ec2e116055198849072222d****</RequestId>
+      <DelayAlertPhone>1361234****,1371234****</DelayAlertPhone>
+      <ErrorAlertStatus>enable</ErrorAlertStatus>
+      <DelayAlertStatus>enable</DelayAlertStatus>
+      <DelayOverSeconds>10</DelayOverSeconds>
+      <Success>true</Success>
+</DescribeSubscriptionInstanceAlertresponse>
+```
+
+`JSON` 格式
+
+```
+{
+	"SubscriptionInstanceName": "test",
+	"RequestId": "210ec2e116055198849072222d****",
+	"DelayAlertPhone": "1361234****,1371234****",
+	"ErrorAlertStatus": "enable",
+	"DelayAlertStatus": "enable",
+	"DelayOverSeconds": "10",
+	"Success": true
+}
 ```
 
 ## 错误码
 
-访问[错误码中心](https://error-center.aliyun.com/status/product/Dts)查看更多错误码信息。
+访问[错误中心](https://error-center.aliyun.com/status/product/Dts)查看更多错误码。
 

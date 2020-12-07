@@ -1,0 +1,73 @@
+# CreateMigrationJob
+
+调用CreateMigrationJob购买一个数据迁移实例。
+
+**说明：** 购买完成后，还需要调用**ConfigureMigrationJob**接口配置迁移任务。
+
+## 调试
+
+[您可以在OpenAPI Explorer中直接运行该接口，免去您计算签名的困扰。运行成功后，OpenAPI Explorer可以自动生成SDK代码示例。](https://api.aliyun.com/#product=Dts&api=CreateMigrationJob&type=RPC&version=2020-01-01)
+
+## 请求参数
+
+|名称|类型|是否必选|示例值|描述|
+|--|--|----|---|--|
+|Action|String|是|CreateMigrationJob|系统规定参数，取值：**CreateMigrationJob**。 |
+|MigrationJobClass|String|是|2xlarge|数据迁移实例的规格，取值为：**small**、**medium**、**large**、**xlarge**、**2xlarge**。
+
+ **说明：**
+
+-   各个规格的测试性能，请参见[数据迁移规格说明](https://help.aliyun.com/document_detail/26606.html?spm=a2c4g.11186623.2.16.62091a7a3yKEoN)。
+-   实例规格及定价，请参见[产品定价](https://help.aliyun.com/document_detail/117780.html?spm=a2c4g.11174283.6.564.5f836ad15N9bDB)。 |
+|Region|String|是|cn-hangzhou|数据迁移实例所属的地域，即迁移的目标数据库实例所属地域，详情请参见支持的[地域列表](https://help.aliyun.com/document_detail/141033.html?spm=a2c4g.11186623.2.15.62091a7a3yKEoN)。 |
+|RegionId|String|否|cn-hangzhou|数据迁移实例所属的地域，无需设置，该参数即将下线。 |
+|ClientToken|String|否|0c593ea1-3bea-11e9-b96b-88e9fe63\*\*\*\*|保证请求幂等性。从您的客户端生成一个参数值，确保不同请求间该参数值唯一。**ClientToken**参数只支持传入ASCII字符，且不能超过64个字符。 |
+|AccountId|String|否|12323344\*\*\*\*|阿里云主账号ID，无需设置，该参数即将下线。 |
+
+## 返回数据
+
+|名称|类型|示例值|描述|
+|--|--|---|--|
+|ErrCode|String|InternalError|调用出错时返回的错误码。 |
+|ErrMessage|String|The request processing has failed due to some unknown error.|调用错误时返回对应的错误信息。 |
+|MigrationJobId|String|dtsi8911td9233\*\*\*\*|数据迁移实例ID。 |
+|RequestId|String|C166D79D-436B-45F0-B5A5-25E1959F\*\*\*\*|请求ID。 |
+|Success|String|true|请求是否成功。 |
+
+## 示例
+
+请求示例
+
+```
+http(s)://dts.aliyuncs.com/?Action=CreateMigrationJob
+&MigrationJobClass=2xlarge
+&Region=cn-hangzhou
+&<公共请求参数>
+```
+
+正常返回示例
+
+`XML` 格式
+
+```
+<CreateMigrationJobResponse>
+      <RequestId>C166D79D-436B-45F0-B5A5-25E1959F****</RequestId>
+      <Success>true</Success>
+      <MigrationJobId>dtsi8911td9233****</MigrationJobId>
+</CreateMigrationJobResponse>
+```
+
+`JSON` 格式
+
+```
+{
+	"RequestId": "C166D79D-436B-45F0-B5A5-25E1959F****",
+	"Success": true,
+	"MigrationJobId": "dtsi8911td9233****"
+}
+```
+
+## 错误码
+
+访问[错误中心](https://error-center.aliyun.com/status/product/Dts)查看更多错误码。
+

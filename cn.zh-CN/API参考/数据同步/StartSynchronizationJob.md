@@ -1,0 +1,74 @@
+# StartSynchronizationJob
+
+调用StartSynchronizationJob接口启动或重启数据同步任务。
+
+**说明：**
+
+-   请确保在使用该接口前，已充分了解DTS产品的收费方式和[价格](https://www.aliyun.com/price/product#/dts/detail)。
+-   调用本接口时，数据同步作业须处于未启动、同步失败、暂停状态。调用成功后，处于未启动状态的任务需要进行预检查。
+
+## 调试
+
+[您可以在OpenAPI Explorer中直接运行该接口，免去您计算签名的困扰。运行成功后，OpenAPI Explorer可以自动生成SDK代码示例。](https://api.aliyun.com/#product=Dts&api=StartSynchronizationJob&type=RPC&version=2020-01-01)
+
+## 请求参数
+
+|名称|类型|是否必选|示例值|描述|
+|--|--|----|---|--|
+|Action|String|是|StartSynchronizationJob|系统规定参数，取值：**StartSynchronizationJob**。 |
+|SynchronizationJobId|String|是|dtsf19100l2186\*\*\*\*|数据同步实例ID，可以通过调用**DescribeSynchronizationJobs**接口查询。 |
+|RegionId|String|否|cn-hangzhou|地域ID，传入本参数来指定实例所在地域，详情请参见[支持的地域列表](~141033~)。 |
+|SynchronizationDirection|String|否|Forward|同步方向，取值：
+
+ -   **Forward**：正向。
+-   **Reverse**：反向。
+
+ **说明：**
+
+-   默认取值为**Forward**。
+-   只有当数据同步实例的同步拓扑为双向同步时，本参数传入**Reverse**才会生效。 |
+|AccountId|String|否|12323344\*\*\*\*|阿里云主账号ID，无需设置，该参数即将下线。 |
+
+## 返回数据
+
+|名称|类型|示例值|描述|
+|--|--|---|--|
+|ErrCode|String|InternalError|调用出错时返回的错误码。 |
+|ErrMessage|String|The request processing has failed due to some unknown error.|调用错误时返回对应的错误信息。 |
+|RequestId|String|FDC111B1-ACBF-457D-9656-247FDEE9\*\*\*\*|请求ID。 |
+|Success|String|true|请求是否成功。 |
+
+## 示例
+
+请求示例
+
+```
+http(s)://dts.aliyuncs.com/?Action=StartSynchronizationJob
+&SynchronizationJobId=dtsf19100l2186****
+&<公共请求参数>
+```
+
+正常返回示例
+
+`XML` 格式
+
+```
+<StartSynchronizationJobresponse>
+      <RequestId>FDC111B1-ACBF-457D-9656-247FDEE9****</RequestId>
+      <Success>true</Success>
+</StartSynchronizationJobresponse>
+```
+
+`JSON` 格式
+
+```
+{
+	"RequestId": "FDC111B1-ACBF-457D-9656-247FDEE9****",
+	"Success": true
+}
+```
+
+## 错误码
+
+访问[错误中心](https://error-center.aliyun.com/status/product/Dts)查看更多错误码。
+

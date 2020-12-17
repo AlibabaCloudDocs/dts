@@ -80,12 +80,12 @@
 2.  在左侧导航栏，单击**数据迁移**。
 3.  在迁移任务列表页面顶部，选择迁移的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
 
 4.  单击页面右上角的**创建迁移任务**。
 5.  配置迁移任务的源库及目标库信息。
 
-    ![源库和目标库连接配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1497549951/p47746.png)
+    ![源库和目标库连接配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1497549951/p47746.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -110,27 +110,28 @@
 
 7.  选择迁移对象及迁移类型。
 
-    ![选择迁移类型和迁移对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4944979951/p47745.png)
+    ![选择迁移类型和迁移对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4944979951/p47745.png)
 
     |配置|说明|
     |:-|:-|
     |迁移类型|    -   如果只需要进行全量迁移，则同时勾选**结构迁移**和**全量数据迁移**。
     -   如果需要进行不停机迁移，则同时勾选**结构迁移**、**全量数据迁移**和**增量数据迁移**。
 **说明：** 如果没有勾选**增量数据迁移**，为保障数据一致性，数据迁移期间请勿在源库中写入新的数据。 |
-    |迁移对象|在迁移对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
+    |迁移对象|在迁移对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
 
 **说明：**
 
     -   迁移对象选择的粒度为库、表、列。若选择的迁移对象为表或列，其他对象（如视图、触发器、存储过程）不会被迁移至目标库。
     -   默认情况下，迁移对象在目标库中的名称与源库保持一致。如果您需要改变迁移对象在目标库中的名称，需要使用对象名映射功能，详情请参见[库表列映射](/cn.zh-CN/数据迁移/迁移任务管理/库表列映射.md)。
     -   如果使用了对象名映射功能，可能会导致依赖这个对象的其他对象迁移失败。 |
+    |源、目标库无法连接重试时间|默认重试12小时，您也可以自定义重试时间。如果DTS在设置的时间内重新连接上源、目标库，迁移任务将自动恢复。否则，迁移任务将失败。**说明：** 由于连接重试期间，DTS将收取任务运行费用，建议您根据业务需要自定义重试时间，或者在源和目标库实例释放后尽快释放DTS实例。 |
 
 8.  单击页面右下角的**预检查并启动**。
 
     **说明：**
 
     -   在迁移任务正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动迁移任务。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复问题后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复问题后，重新进行预检查。
 9.  预检查通过后，单击**下一步**。
 10. 在购买配置确认页面，选择**链路规格**并选中**数据传输（按量付费）服务条款**。
 11. 单击**购买并启动**，迁移任务正式开始。
@@ -150,7 +151,7 @@
     1.  观察迁移任务的进度变更为**增量迁移**，并显示为**无延迟**状态时，将源库停写几分钟，此时**增量迁移**的状态可能会显示延迟的时间。
     2.  等待迁移任务的**增量迁移**再次进入**无延迟**状态后，手动结束迁移任务。
 
-        ![结束增量迁移任务](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
+        ![结束增量迁移任务](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
 
 
 ## 后续操作

@@ -24,7 +24,7 @@ The IP range varies, depending on the network over which DTS accesses your datab
 
 **Reachable over the Internet:** If DTS accesses your user-created database over the Internet, use the following table to obtain the DTS IP ranges \(CIDR blocks\) for your selected region:
 
-**Note:** Data synchronization only supports user-created databases that are reachable from an internal network. You do not need to whitelist any of the following IP ranges when you configure data synchronization tasks.
+**Note:** Data synchronization does not support user-created databases that are reachable over the Internet.
 
 |Region|IP range|
 |------|--------|
@@ -56,7 +56,7 @@ The IP range varies, depending on the network over which DTS accesses your datab
 |------|--------|
 |China \(Hangzhou\)|100.104.52.0/24,100.104.61.128/26,100.104.244.64/26,100.104.216.192/26|
 |China \(Shanghai\)|100.104.205.0/24,100.104.226.128/26|
-|China \(Qingdao\)|100.104.72.0/24|
+|China \(Qingdao\)|100.104.72.0/24,100.104.35.192/26|
 |China \(Beijing\)|100.104.183.0/24,100.104.236.128/26,100.104.227.192/26|
 |China \(Zhangjiakou\)|100.104.175.0/24|
 |China \(Hohhot\)|100.104.72.0/24|
@@ -71,7 +71,7 @@ The IP range varies, depending on the network over which DTS accesses your datab
 |US \(Silicon Valley\)|100.104.175.0/24|
 |US \(Virginia\)|100.104.233.0/24|
 |Germany \(Frankfurt\)|100.104.5.0/24|
-|UK \(London\)|100.104.133.64/26|
+|UK \(London\)|100.104.133.64/26,100.104.207.128/26|
 |UAE \(Dubai\)|100.104.205.0/24|
 
 ## Whitelist the IP range

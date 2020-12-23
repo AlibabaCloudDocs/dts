@@ -26,7 +26,7 @@
 
 ## 操作步骤
 
-1.  登录[数据传输控制台](https://dts-intl.console.aliyun.com/)。
+1.  使用目标RDS MySQL实例所属的阿里云账号登录[数据传输控制台](https://dts-intl.console.aliyun.com/)。
 2.  在左侧导航栏，单击**数据迁移**。
 3.  在迁移任务列表页面顶部，选择迁移的目标实例所属地域。
 

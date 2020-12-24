@@ -74,12 +74,12 @@
 
     -   当业务程序中断后，传入已消费的数据时间点继续消费数据，防止数据丢失。
     -   在订阅客户端启动时，传入所需的消费位点，调整订阅位点，实现按需消费数据。
-|消费的数据时间点必须在订阅实例的数据范围（如下图所示）之内，并需转化为Unix时间戳。![数据范围](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8435978061/p127325.png)
+|消费的数据时间点必须在订阅实例的数据范围（如图示）之内，并需转化为Unix时间戳。![数据范围](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8435978061/p127325.png)
 
 **说明：**
 
     -   数据范围查看方式，请参见[查看订阅数据](/cn.zh-CN/数据订阅/数据订阅（新版）/查看订阅数据.md)。
-    -   Unix时间戳转换工具可以用搜索引擎获取。 |
+    -   Unix时间戳转换工具可用搜索引擎获取。 |
     |USE\_CONFIG\_CHECKPOINT\_NAME|默认取值为true，即强制使用指定的数据时间点来消费数据，避免丢失已接收到的但未处理的数据。|无|
     |SUBSCRIBE\_MODE\_NAME|一个消费组下支持同时启动两个Kafka客户端实现灾备，如需实现该功能，请部署两个客户端并将该参数的值设置为subscribe。默认值为assign，即不使用该功能，只部署一个客户端。
 

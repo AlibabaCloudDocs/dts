@@ -4,7 +4,20 @@
 
 ## 前提条件
 
-RDS实例的数据库类型必须相同，不支持跨数据库类型迁移。
+迁移场景中RDS实例的数据库类型必须满足如下条件：
+
+|源数据库|目标数据库|
+|----|-----|
+|RDS MySQL
+
+RDS MariaDB
+
+|RDS MySQL
+
+RDS MariaDB |
+|RDS SQL Server|RDS SQL Server|
+|RDS PostgreSQL|RDS PostgreSQL|
+|RDS PPAS|RDS PPAS|
 
 ## 注意事项
 
@@ -12,6 +25,10 @@ RDS实例的数据库类型必须相同，不支持跨数据库类型迁移。
 -   如果源库中待迁移的表没有主键或唯一约束，且所有字段没有唯一性，可能会导致目标数据库中出现重复数据。
 -   当选择的迁移类型为全量数据迁移，那么为保障数据一致性，在迁移期间请勿在源RDS实例中写入新的数据。
 -   对于迁移失败的任务，DTS会触发自动恢复。当您需要将业务切换至目标实例，请务必先结束或释放迁移任务，避免该任务被自动恢复后，使用源端数据覆盖目标实例的数据。
+-   DTS会自动地在阿里云RDS实例中创建数据库，如果待迁移的数据库名称不符合阿里云RDS实例的定义规范，您需要在配置迁移任务之前在阿里云RDS实例中创建数据库。
+
+    **说明：** 关于阿里云RDS的定义规范和创建数据库的操作方法，请参见[创建数据库和账号](/cn.zh-CN/RDS MySQL 数据库/快速入门/创建数据库和账号.md)。
+
 
 ## 费用说明
 
@@ -35,12 +52,60 @@ RDS实例的数据库类型必须相同，不支持跨数据库类型迁移。
     DTS在全量迁移的基础上，将源RDS实例的增量更新数据同步到目标RDS实例中。通过增量数据迁移可以实现在自建应用不停服的情况下，平滑地完成数据迁移。
 
 
+## 增量数据迁移阶段支持同步的SQL操作
+
+|迁移场景|操作类型|SQL操作语句|
+|----|----|-------|
+|-   RDS MySQL间迁移
+-   RDS MariaDB间迁移
+-   RDS MariaDB与RDS MySQL间的迁移
+
+|DML|INSERT、UPDATE、DELETE、REPLACE|
+|DDL|-   ALTER TABLE、ALTER VIEW
+-   CREATE FUNCTION、CREATE INDEX、CREATE PROCEDURE、CREATE TABLE、CREATE VIEW
+-   DROP INDEX、DROP TABLE
+-   RENAME TABLE
+-   TRUNCATE TABLE |
+|RDS SQL Server间迁移|DML|INSERT、UPDATE、DELETE**说明：** 不支持同步只更新大字段的UPDATE语句。 |
+|DDL|-   ALTER TABLE，仅包含ADD COLUMN、DROP COLUMN、RENAME COLUMN
+-   CREATE TABLE、CREATE INDEX
+
+**说明：** CREATE TABLE不支持分区、表定义内部包含函数。
+
+-   DROP TABLE
+-   RENAME TABLE
+-   TRUNCATE TABLE |
+|RDS PostgreSQL间迁移
+
+RDS PPAS间迁移
+
+|DML|INSERT、UPDATE、DELETE|
+|DDL|-   ALTER TABLE、ADD INDEX
+-   CREATE TABLE、CREATE INDEX
+
+**说明：** CREATE TABLE不支持分区表、表内定义包含函数的表。
+
+-   DROP TABLE
+-   RENAME TABLE |
+
 ## 数据库账号的权限要求
 
-|数据库|结构迁移|全量迁移|增量迁移|
-|:--|:---|:---|:---|
-|源RDS实例|读写权限|读写权限|读写权限|
-|目标RDS实例|读写权限|读写权限|读写权限|
+|迁移场景|数据库|结构迁移|全量迁移|增量迁移|
+|----|:--|:---|:---|:---|
+|-   RDS MySQL间迁移
+-   RDS MariaDB间迁移
+-   RDS MariaDB与RDS MySQL间的迁移
+
+|源实例|SELECT权限|SELECT权限|REPLICATION CLIENT、REPLICATION SLAVE、SHOW VIEW和SELECT权限|
+|目标实例|读写权限|读写权限|读写权限|
+|RDS SQL Server间迁移|源实例|select权限|select权限|sysadmin权限|
+|目标实例|读写权限|读写权限|读写权限|
+|RDS PostgreSQL间迁移|源实例|pg\_catalog的usage权限|迁移对象的select权限|superuser|
+|目标实例|迁移对象的create、usage权限|拥有授权数据库（owner）的所有操作权限，包括SELECT、INSERT、UPDATE、DELETE、TRUNCATE、REFERENCES、TRIGGER。**说明：** RDS PostgreSQL的普通账号满足权限要求。
+
+|授权数据库（owner）的所有操作权限，包括SELECT、INSERT、UPDATE、DELETE、TRUNCATE、REFERENCES、TRIGGER。**说明：** RDS PostgreSQL的普通账号满足权限要求。 |
+|RDS PPAS间迁移|源实例|pg\_catalog的usage权限|迁移对象的select权限|superuser|
+|目标实例|迁移对象的create、usage权限|schema的owner权限|schema的owner权限|
 
 ## 操作步骤
 

@@ -21,11 +21,11 @@ INSERT、DELETE、UPDATE
 
 ## 准备工作
 
-[为自建MySQL创建账号并设置binlog](/intl.zh-CN/准备工作/为自建MySQL创建账号并设置binlog.md)
+[为自建MySQL创建账号并设置binlog]()
 
 ## 操作步骤
 
-1.  购买数据同步作业，详情请参见[购买流程](/intl.zh-CN/快速入门/购买流程.md)。
+1.  购买数据同步作业，详情请参见[购买流程]()。
 
     **说明：** 购买时，选择源实例为**MySQL**、目标实例为**Elasticsearch**，并选择同步拓扑为**单向同步**。
 
@@ -35,13 +35,13 @@ INSERT、DELETE、UPDATE
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步通道的源实例及目标实例信息。
 
-    ![配置源和目标实例信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/6620649951/p58414.png)
+    ![配置源和目标实例信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6620649951/p58414.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -65,7 +65,7 @@ INSERT、DELETE、UPDATE
 
 8.  配置索引名称、目标已存在表的处理模式和同步对象。
 
-    ![配置同步对象信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1030649951/p58418.png)
+    ![配置同步对象信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1030649951/p58418.png)
 
     |配置|说明|
     |:-|:-|
@@ -86,13 +86,13 @@ INSERT、DELETE、UPDATE
 
         -   mapping结构一致的情况下，如果在目标库遇到与源库主键的值相同的记录，在初始化阶段会保留目标库中的该条记录；在增量同步阶段则会覆盖目标库的该条记录。
         -   mapping结构不一致的情况下，可能会导致无法初始化数据、只能同步部分列的数据或同步失败。 |
-    |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
+    |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
 
 同步对象的选择粒度为库、表。 |
 
 9.  在已选择对象区域框中，将鼠标指针放置在待同步的表上，并单击表名后出现的**编辑**，设置该表在目标Elasticsearch实例中的索引名称、Type名称等信息。
 
-    ![设置索引名称等信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2030649951/p58425.png)
+    ![设置索引名称等信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9351883061/p58425.png)
 
     |配置|说明|
     |--|--|
@@ -103,6 +103,9 @@ INSERT、DELETE、UPDATE
     |Type名称|
     |过滤条件|您可以设置SQL过滤条件，过滤待同步的数据，只有满足过滤条件的数据才会被同步到目标实例，详情请参见[通过SQL条件过滤待同步数据](/intl.zh-CN/数据同步/同步作业管理/通过SQL条件过滤待同步数据.md)。|
     |是否分区|选择是否设置分区，如果您选择为**是**，您还需要设置**分区列**和**分区数量**。|
+    |设置\_routing|设置\_routing可以将文档路由存储在目标Elasticsearch实例的指定分片上，详情请参见[\_routing](https://www.elastic.co/guide/cn/elasticsearch/guide/current/routing-value.html)。    -   选择为**是**，您可以自定义列进行路由。
+    -   选择为**否**，则用\_id进行路由。
+**说明：** 创建的目标Elasticsearch实例为7.4版本时，您必须选择为**否**。 |
     |\_id取值|    -   **表的主键列**
 
 联合主键合并为一列。
@@ -110,21 +113,21 @@ INSERT、DELETE、UPDATE
     -   **业务主键**
 
 如果选择为**业务主键**，那么您还需要设置对应的**业务主键列**。 |
-    |添加参数|选择所需的**字段参数**和**字段参数值**，字段参数及取值介绍请参见[Elasticsearch官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html)。|
+    |添加参数|选择所需的**字段参数**和**字段参数值**，字段参数及取值介绍请参见[Elasticsearch官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-params.html)。**说明：** DTS目前仅支持可以选中的参数。 |
 
 10. 上述配置完成后，单击页面右下角的**预检查并启动**。
 
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 11. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 12. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 
 ## 查看同步后的索引和数据
@@ -133,5 +136,5 @@ INSERT、DELETE、UPDATE
 
 **说明：** 如果不符合业务预期，您可以删除该索引及对应的数据，然后重新配置数据同步作业。
 
-![查看Elasticsearch数据](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2030649951/p58790.png)
+![查看Elasticsearch数据](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2030649951/p58790.png)
 

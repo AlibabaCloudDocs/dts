@@ -18,6 +18,7 @@
 -   DTS在执行全量数据初始化时将占用源库和目标库一定的读写资源，可能会导致数据库的负载上升，在数据库性能较差、规格较低或业务量较大的情况下（例如源库有大量慢SQL、存在无主键表或目标库存在死锁等），可能会加重数据库压力，甚至导致数据库服务不可用。因此您需要在执行数据同步前评估源库和目标库的性能，同时建议您在业务低峰期执行数据同步（例如源库和目标库的CPU负载在30%以下）。
 -   为保障数据同步的正常运行，请勿对源库频繁执行备份，同时建议日志保留3天以上，避免日志截断后无法获取日志。
 -   为保证数据同步延迟显示的准确性，DTS会在自建SQL Server数据库中新增一张心跳表，表名格式为`待同步表名_dts_mysql_heartbeat`。
+-   不支持同步数据类型为TIMESTAMP、CURSOR、ROWVERSION、HIERACHYID、SQL\_VARIANT、SPATIAL GEOMETRY、SPATIAL GEOGRAPHY、TABLE的数据。
 
 ## 功能限制
 
@@ -123,18 +124,18 @@
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步作业的源实例及目标实例信息。
 
-    ![配置源库和目标库信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/0580190061/p93637.png)
+    ![配置源库和目标库信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0580190061/p93637.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
     |无|同步作业名称|DTS会自动生成一个同步作业名称，建议配置具有业务意义的名称（无唯一性要求），便于后续识别。|
-    |源实例信息|实例类型|根据源库的部署位置进行选择，本文**ESC上的自建数据库**为例介绍配置流程。 **说明：** 当自建数据库为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览](/cn.zh-CN/准备工作/准备工作概览.md)。 |
+    |源实例信息|实例类型|根据源库的部署位置进行选择，本文以**ECS上的自建数据库**为例介绍配置流程。 **说明：** 当自建数据库为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览](/cn.zh-CN/准备工作/准备工作概览.md)。 |
     |实例地区|购买数据同步实例时选择的源实例地域信息，不可变更。|
     |ECS实例ID|选择源库所属的ECS实例ID。|
     |数据库类型|固定为**SQLServer**。|
@@ -155,7 +156,7 @@
 
 8.  配置同步策略和同步对象。
 
-    ![SQL Sever配置同步策略及对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1330649951/p93643.png)
+    ![SQL Sever配置同步策略及对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1330649951/p93643.png)
 
     |配置|说明|
     |:-|:-|
@@ -179,7 +180,7 @@
         -   多表归并功能基于任务级别，即不支持基于表级别执行多表归并。如果需要让部分表执行多表归并，另一部分不执行多表归并，您需要创建两个数据同步作业。
     -   选择为**否**：默认选项。 |
     |同步操作类型|根据业务选中需要同步的操作类型，默认情况下都处于选中状态。|
-    |选择同步对象|在源库对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
+    |选择同步对象|在源库对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 同步对象的选择粒度为库、表。
 
@@ -192,11 +193,12 @@
 
 **说明：** 特殊字符仅支持下划线（\_），井号（\#）和美元符号（$）。
 
-    -   待迁移的Schema、表或列名称是目标库的关键字、保留字或非法字符。 |
+    -   待迁移的Schema、表或列名称是目标库的关键字、保留字或非法字符。
+**说明：** 如果选择添加引号，在数据同步完成后，您需使用带引号的目标对象名进行查询。 |
 
 9.  设置待同步的表在云原生数据仓库AnalyticDB PostgreSQL中表类型、主键列和分布键信息。
 
-    ![设置表类型 主键列 分布列](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1330649951/p93638.png)
+    ![设置表类型 主键列 分布列](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1330649951/p93638.png)
 
     **说明：** 关于主键列和分布键的详细说明，请参见[表的约束定义](https://help.aliyun.com/document_detail/118150.html#title-8zk-q8o-q3l)和[表分布键定义](https://help.aliyun.com/document_detail/120143.html)。
 
@@ -205,13 +207,13 @@
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 11. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 12. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 

@@ -1,16 +1,16 @@
 # Synchronize data from an ApsaraDB RDS for MySQL instance to an AnalyticDB for MySQL cluster
 
-is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from an ApsaraDB RDS for MySQL instance to an AnalyticDB for MySQL cluster by using Data Transmission Service \(DTS\). After you synchronize data, you can use AnalyticDB for MySQL to build internal business intelligence \(BI\) systems, interactive query systems, and real-time report systems.
+AnalyticDB for MySQL is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from an ApsaraDB RDS for MySQL instance to an AnalyticDB for MySQL cluster by using Data Transmission Service \(DTS\). After you synchronize data, you can use AnalyticDB for MySQL to build internal business intelligence \(BI\) systems, interactive query systems, and real-time report systems.
 
 -   The tables that you want to synchronize from the ApsaraDB RDS for MySQL instance contain primary keys.
--   An cluster is created. For more information, see [Create an cluster](https://www.alibabacloud.com/help/zh/doc-detail/122234.htm).
--   The destination cluster has sufficient storage space.
+-   An AnalyticDB for MySQL cluster is created. For more information, see [Create an AnalyticDB for MySQL cluster](https://www.alibabacloud.com/help/zh/doc-detail/122234.htm).
+-   The destination AnalyticDB for MySQL cluster has sufficient storage space.
 
 ## Precautions
 
 -   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the database load. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before synchronizing data, you must evaluate the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU usage of the source and destination databases is less than 30%.
 -   We recommend that you do not use gh-ost or pt-online-schema-change to perform data definition language \(DDL\) operations on the required objects during data synchronization. Otherwise, data may fail to be synchronized.
--   Due to the limits of , if the disk space usage of the nodes in an cluster reaches 80%, the cluster is locked. We recommend that you estimate the required disk space based on the objects that you want to synchronize. You must ensure that the destination cluster has sufficient storage space.
+-   Due to the limits of AnalyticDB for MySQL, if the disk space usage of the nodes in an AnalyticDB for MySQL cluster reaches 80%, the cluster is locked. We recommend that you estimate the required disk space based on the objects that you want to synchronize. You must ensure that the destination cluster has sufficient storage space.
 -   Prefix indexes cannot be synchronized. If the source database contains prefix indexes, data may fail to be synchronized.
 
 ## SQL operations that can be synchronized
@@ -25,11 +25,11 @@ is a real-time online analytical processing \(RT-OLAP\) service that is develope
 |Database|Required permissions|
 |--------|--------------------|
 |ApsaraDB RDS for MySQL|The database account must have the SELECT permission on the objects to be synchronized, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission.|
-| |The read and write permissions on the objects to be synchronized.|
+|AnalyticDB for MySQL|The read and write permissions on the objects to be synchronized.|
 
 ## Data type mappings
 
-The data types of ApsaraDB RDS for MySQL and do not have one-to-one correspondence. During initial schema synchronization, DTS converts the data types of the source database into those of the destination database. For more information, see [Data type mappings for initial schema synchronization](/intl.en-US/Data Synchronization/Data type mappings for initial schema synchronization.md).
+The data types of ApsaraDB RDS for MySQL and AnalyticDB for MySQL do not have one-to-one correspondence. During initial schema synchronization, DTS converts the data types of the source database into those of the destination database. For more information, see [Data type mappings for initial schema synchronization](/intl.en-US/Data Synchronization/Data type mappings for initial schema synchronization.md).
 
 ## Procedure
 
@@ -63,8 +63,8 @@ The data types of ApsaraDB RDS for MySQL and do not have one-to-one corresponden
     |Destination Instance Details|Instance Type|The value of this parameter is set to **AnalyticDB** and cannot be changed.|
     |Instance Region|The region of the destination cluster. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |Version|Select **3.0**.|
-    |Database|Select the ID of the destination cluster.|
-    |Database Account|Enter the database account of the destination cluster.For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_w01_xz7_hp4).|
+    |Database|Select the ID of the destination AnalyticDB for MySQL cluster.|
+    |Database Account|Enter the database account of the destination AnalyticDB for MySQL cluster.For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_w01_xz7_hp4).|
     |Database Password|Enter the password of the destination database account.|
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
@@ -106,7 +106,7 @@ You can select tables or databases as the objects to be synchronized.
 
     ![Specify a table type](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4130359951/p55270.png)
 
-    **Note:** After you select **Initial Schema Synchronization**, you must specify the **type**, **primary key column**, and **partition key column** for the tables that you want to synchronize to . For more information, see [CREATE TABLE](https://www.alibabacloud.com/help/zh/doc-detail/123333.htm).
+    **Note:** After you select **Initial Schema Synchronization**, you must specify the **type**, **primary key column**, and **partition key column** for the tables that you want to synchronize to AnalyticDB for MySQL. For more information, see [CREATE TABLE](https://www.alibabacloud.com/help/zh/doc-detail/123333.htm).
 
 11. In the lower-right corner of the page, click **Precheck**.
 
@@ -125,9 +125,9 @@ You can select tables or databases as the objects to be synchronized.
 
 ## Troubleshoot the synchronization failure that occurs due to field type changes
 
-In this example, the data of a table named customer fails to be synchronized to the cluster.
+In this example, the data of a table named customer fails to be synchronized to the AnalyticDB for MySQL cluster.
 
-1.  In the cluster, create a table named customer\_new. The customer\_new table has the same schema as the customer table.
+1.  In the AnalyticDB for MySQL cluster, create a table named customer\_new. The customer\_new table has the same schema as the customer table.
 
 2.  Run the INSERT INTO SELECT command to copy the data of the customer table and insert the data into the customer\_new table. This ensures that the data of the two tables is consistent.
 

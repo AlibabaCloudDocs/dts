@@ -1,16 +1,16 @@
 # Synchronize data from a PolarDB for MySQL cluster to an AnalyticDB for MySQL cluster
 
-is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from a PolarDB for MySQL cluster to an cluster by using Data Transmission Service \(DTS\). After you synchronize data, you can use AnalyticDB for MySQL to build internal business intelligence \(BI\) systems, interactive query systems, and real-time reporting systems.
+AnalyticDB for MySQL is a real-time online analytical processing \(RT-OLAP\) service that is developed by Alibaba Cloud for online data analysis with high concurrency. AnalyticDB for MySQL can analyze petabytes of data from multiple dimensions at millisecond-level timing to provide you with data-driven insights into your business. This topic describes how to synchronize data from a PolarDB for MySQL cluster to an AnalyticDB for MySQL cluster by using Data Transmission Service \(DTS\). After you synchronize data, you can use AnalyticDB for MySQL to build internal business intelligence \(BI\) systems, interactive query systems, and real-time reporting systems.
 
--   An cluster is created. For more information, see [Create an cluster](https://www.alibabacloud.com/help/zh/doc-detail/122234.htm).
--   The destination cluster has sufficient storage space.
+-   An AnalyticDB for MySQL cluster is created. For more information, see [Create an AnalyticDB for MySQL cluster](https://www.alibabacloud.com/help/zh/doc-detail/122234.htm).
+-   The destination AnalyticDB for MySQL cluster has sufficient storage space.
 -   The binary logging feature is enabled for the PolarDB for MySQL cluster. For more information, see [Enable binary logging](https://www.alibabacloud.com/help/zh/doc-detail/113546.htm)
 
 ## Precautions
 
 -   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the database load. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before synchronizing data, you must evaluate the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU usage of the source and destination databases is less than 30%.
 -   We recommend that you do not use gh-ost or pt-online-schema-change to perform data definition language \(DDL\) operations on the required objects during data synchronization. Otherwise, data may fail to be synchronized.
--   Due to the limits of , if the disk space usage of the nodes in an cluster reaches 80%, the cluster is locked. We recommend that you estimate the required disk space based on the objects that you want to synchronize. You must ensure that the destination cluster has sufficient storage space.
+-   Due to the limits of AnalyticDB for MySQL, if the disk space usage of the nodes in an AnalyticDB for MySQL cluster reaches 80%, the cluster is locked. We recommend that you estimate the required disk space based on the objects that you want to synchronize. You must ensure that the destination cluster has sufficient storage space.
 -   Prefix indexes cannot be synchronized. If the source database contains prefix indexes, data may fail to be synchronized.
 
 ## SQL operations that can be synchronized
@@ -26,9 +26,9 @@ is a real-time online analytical processing \(RT-OLAP\) service that is develope
 |Database|Required permission|
 |--------|-------------------|
 |PolarDB for MySQL|The read permission on the objects to be synchronized|
-| |The read and write permissions on the objects to be synchronized|
+|AnalyticDB for MySQL|The read and write permissions on the objects to be synchronized|
 
-For more information about how to create and authorize a database account, see [Create a database account](https://www.alibabacloud.com/help/zh/doc-detail/68508.htm) for a PolarDB for MySQL cluster and [Create a database account](https://www.alibabacloud.com/help/zh/doc-detail/122280.htm) cluster.
+For more information about how to create and authorize a database account, see [Create a database account](https://www.alibabacloud.com/help/zh/doc-detail/68508.htm) for a PolarDB for MySQL cluster and [Create a database accountAnalyticDB for MySQL](https://www.alibabacloud.com/help/zh/doc-detail/122280.htm) cluster.
 
 ## Data type mappings
 
@@ -65,13 +65,13 @@ For more information, see [Data type mappings for initial schema synchronization
     |Destination Instance Details|Instance Type|The value of this parameter is set to **AnalyticDB** and cannot be changed.|
     |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |Version|Select **3.0**.|
-    |Database|Select the ID of the destination cluster.|
-    |Database Account|Enter the database account of the destination cluster. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_77r_dbi_ez7).|
+    |Database|Select the ID of the destination AnalyticDB for MySQL cluster.|
+    |Database Account|Enter the database account of the destination AnalyticDB for MySQL cluster. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_77r_dbi_ez7).|
     |Database Password|Enter the password of the destination database account.|
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
-    **Note:** DTS adds the CIDR blocks of DTS servers to the whitelists of the PolarDB for MySQL cluster and the cluster. This ensures that DTS servers can connect to the source and destination clusters.
+    **Note:** DTS adds the CIDR blocks of DTS servers to the whitelists of the PolarDB for MySQL cluster and the AnalyticDB for MySQL cluster. This ensures that DTS servers can connect to the source and destination clusters.
 
 8.  Select the synchronization policy and the objects to be synchronized.
 
@@ -110,7 +110,7 @@ You can select tables or databases as the objects to be synchronized.
 
     ![Specify a table type](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4130359951/p55270.png)
 
-    **Note:** After you select **Initial Schema Synchronization**, you must specify the **type**, **primary key column**, and **partition key column** for the tables that you want to synchronize to . For more information, see [CREATE TABLE](https://www.alibabacloud.com/help/zh/doc-detail/123333.htm).
+    **Note:** After you select **Initial Schema Synchronization**, you must specify the **type**, **primary key column**, and **partition key column** for the tables that you want to synchronize to AnalyticDB for MySQL. For more information, see [CREATE TABLE](https://www.alibabacloud.com/help/zh/doc-detail/123333.htm).
 
 11. In the lower-right corner of the page, click **Precheck**.
 

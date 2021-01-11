@@ -28,6 +28,8 @@ DTS provisions high-performance servers to support data replication workloads. I
 
 The data synchronization mode can replicate ongoing updates with ultra-low latency. The replication works at transaction level so that even updates to the same table can be broken down to transactions and processed in parallel. This technique significantly improves the concurrency of replication workloads and helps DTS deliver a peak rate of 30,000 records per second \(RPS\).
 
+DTS supports multiple concurrency and compressed data transmission to reduce bandwidth usage.
+
 **Note:** The performance measurements listed here are only benchmarking references. The actual data replication performance depends on multiple factors, such as the performance of the source and target databases, network conditions, and your provisioned instance size.
 
 ## High availability

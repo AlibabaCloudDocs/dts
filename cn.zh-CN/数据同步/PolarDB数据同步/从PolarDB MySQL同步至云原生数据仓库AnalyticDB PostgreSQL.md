@@ -21,7 +21,7 @@
 ## 支持同步的SQL操作
 
 -   DML操作：INSERT、UPDATE、DELETE。
--   DDL操作：ADD COLUMN、RENAME COLUMN。
+-   DDL操作：ADD COLUMN。
 
     **说明：** 不支持CREATE TABLE操作，如果您需要将新增的表作为同步对象，则需要执行[新增同步对象](/cn.zh-CN/数据同步/同步作业管理/新增同步对象.md)操作。
 
@@ -51,13 +51,13 @@
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步通道的源实例及目标实例信息。
 
-    ![配置源和目标实例信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1130649951/p103968.png)
+    ![配置源和目标实例信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1130649951/p103968.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -80,7 +80,7 @@
 
 8.  配置同步策略及同步对象。
 
-    ![mysql同步至ADB4PG](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1130649951/p96654.png)
+    ![mysql同步至ADB4PG](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1130649951/p96654.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -98,7 +98,7 @@
     -   **Update**
     -   **Delete**
     -   **AlterTable** |
-    |选择同步对象|无|在源库对象框中单击待同步的表，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
+    |选择同步对象|无|在源库对象框中单击待同步的表，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 **说明：**
 
@@ -107,7 +107,7 @@
 
 9.  设置待同步的表在云原生数据仓库AnalyticDB PostgreSQL中的主键列和分布列信息。
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4330649951/p65402.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4330649951/p65402.png)
 
     **说明：** 当您在上一步中选择了**结构初始化**才会出现该页面。关于主键列和分布列的详细说明，请参见[表的约束定义](https://help.aliyun.com/document_detail/118150.html#title-8zk-q8o-q3l)和[表分布键定义](https://help.aliyun.com/document_detail/120143.html)。
 
@@ -116,13 +116,13 @@
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 11. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 12. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 

@@ -8,7 +8,6 @@ The following sections list the limits relating to the data migration mode of DT
 
 |Limits|Negative effect of failing to follow the limits|
 |:-----|:----------------------------------------------|
-|A single data migration task can migrate incremental data from only one database. To migrate incremental data from multiple databases, you must create a data migration task for each database.|You cannot create a single task in the DTS console to migrate incremental data from multiple databases.|
 |The following data types are not supported: sql\_variant, hierarchyid, geometry, cursor, and rowversion.|-   Changes to values of the image, text, ntext, and xml data types are not written into the log. DTS can only ensure the values of these data types are consistent between the source and target databases.
 -   If unsupported data types are used in the source database, this part of the data is not migrated. |
 |Heap tables are not supported.|These tables cannot be migrated..|
@@ -81,7 +80,7 @@ The following sections list the limits relating to the data migration mode of DT
 
 |Limits|Negative effect of failing to follow the limits|
 |:-----|:----------------------------------------------|
-|During initial full data migration, the destination Redis database \(such as Redis Community Edition and ApsaraDB for Redis Community Edition\) cannot contain data.|The collection class or data in the source and destination databases is inconsistent.|
+|During full data migration, the destination Redis database \(such as Redis Community Edition and ApsaraDB for Redis Community Edition\) cannot contain data.|The collection class or data in the source and destination databases is inconsistent.|
 
 |Limits|Negative effect of failing to follow the limits|
 |:-----|:----------------------------------------------|

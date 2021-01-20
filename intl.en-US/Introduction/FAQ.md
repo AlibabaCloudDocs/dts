@@ -30,7 +30,7 @@ This topic provides answers to frequently asked questions \(FAQ\) about Data Tra
 
 DTS supports data transmission between various data sources, such as relational database management systems \(RDBMS\), NoSQL databases, and online analytical processing \(OLAP\) databases. For more information, see [Supported sources and targets](/intl.en-US/Introduction/Supported sources and targets.md).
 
-**Note:** DTS also supports data migration and synchronization between databases that are provided by third-party cloud vendors. For more information, see [Data migration procedure list](/intl.en-US/Data Migration/Data migration procedure list.md).
+**Note:** DTS also supports data migration and synchronization between databases that are provided by third-party cloud vendors. For more information, see [Overview of data migration scenarios](/intl.en-US/Data Migration/Overview of data migration scenarios.md).
 
 ## What are the differences between incremental data migration and data synchronization?
 
@@ -46,13 +46,13 @@ The synchronization delay is the difference between the timestamp of the latest 
 
 ## How do I consume tracked data by using a task in change tracking mode?
 
-You can use a Kafka client to consume tracked data. For more information, see [Use a Kafka client to consume tracked data]()
+You can use a Kafka client to consume tracked data. For more information, see [Use a Kafka client to consume tracked data](/intl.en-US/Change Tracking/Change tracking (new)/Use a Kafka client to consume tracked data.md)
 
 ## How is DTS billed?
 
 DTS provides two billing methods: subscription and pay-as-you-go. Change tracking and data synchronization instances support both billing methods. Data migration mode instances only support pay-as-you-go.
 
-The subscription billing method allows you to pay for your subscription when creating an instance. Subscription lengths are monthly, and you can renew the subscription either manually or automatically. We recommend that you select subscription billing if you plan to use DTS for a period of a month or longer.
+The subscription billing method allows you to pay for your subscription when creating an instance. Subscription lengths are monthly or yearly, and you can renew the subscription either manually or automatically. We recommend that you select subscription billing if you plan to use DTS for a period lasting a month or longer.
 
 The pay-as-you-go billing method allows you to pay for your DTS instance based on the time your tasks are running. A pay-as-you-go instance is billed on an hourly basis, and you can release a pay-as-you-go instance at any time. We recommend that you select this billing method for short term use.
 
@@ -74,12 +74,13 @@ You can upgrade the instance size of instances in data migration or data synchro
 
 ## Can I migrate or synchronize data between Alibaba Cloud accounts?
 
--   Data migration mode: You can migrate data across Alibaba Cloud accounts between ApsaraDB RDS for MySQL instances. For more information, see [Migrate data between RDS instances across Alibaba Cloud accounts](). You can also migrate data across Alibaba Cloud accounts between other database instances, such as Apsara PolarDB for MySQL, DRDS, Redis, and MongoDB. To do this, you can specify the database as a User-created Database with a Public IP Address when you configure the data migration task.
--   Data synchronization mode: You can synchronize data across Alibaba Cloud accounts only between ApsaraDB RDS for MySQL instances. For more information, see [Synchronize data between ApsaraDB RDS for MySQL instances that belong to different Alibaba Cloud accounts](/intl.en-US/Data Synchronization/Synchronize data between MySQL databases/Synchronize data between ApsaraDB RDS for MySQL instances that belong to different Alibaba Cloud accounts.md).
+-   Data migration mode: You can migrate data across Alibaba Cloud accounts between ApsaraDB RDS for MySQL instances. For more information, see [Migrate data between RDS instances across Alibaba Cloud accounts](/intl.en-US/Data Migration/Migrate data across Alibaba Cloud accounts/Migrate data between RDS instances across Alibaba Cloud accounts.md). You can also migrate data across Alibaba Cloud accounts between other database instances, such as Apsara PolarDB for MySQL, DRDS, Redis, and MongoDB. To do this, you can specify the database as a User-created Database with a Public IP Address when you configure the data migration task.
+-   Data synchronization mode: You can synchronize data across Alibaba Cloud accounts only between ApsaraDB RDS for MySQL instances. For more information, see [Synchronize data between ApsaraDB RDS for MySQL instances that belong to different Alibaba Cloud accounts](/intl.en-US/Data Synchronization/Synchronize data between MySQL databases/Synchronize data between ApsaraDB RDS for MySQL instances that belong to different
+         Alibaba Cloud accounts.md).
 
 ## Can I migrate data within a single instance?
 
-Yes, you can migrate data within a single instance. For more information, see [Migrate data between databases with different names]().
+Yes, you can migrate data within a single instance. For more information, see [Migrate data between databases with different names](/intl.en-US/Best Practices/Migrate data between databases that have different names.md).
 
 ## Can I migrate or synchronize DML and DDL operations?
 
@@ -97,11 +98,11 @@ Yes, you can migrate or synchronize data across time zones and character sets.
 
 ## Can I change the name of objects that are migrated or synchronized to the target database?
 
-Yes, you can change the name of columns, tables, and databases by using the object name mapping feature. For more information, see [Object name mapping](/intl.en-US/Data Migration/ETL features/Object name mapping.md).
+Yes, you can change the name of columns, tables, and databases by using the object name mapping feature. For more information, see [Object name mapping](/intl.en-US/Data Migration/Migration task management/Object name mapping.md).
 
 ## Can I filter columns and rows?
 
-Yes, you can filter columns and rows in a table. For more information, see [Data filtering](/intl.en-US/Data Migration/ETL features/Data filtering.md).
+Yes, you can filter columns and rows in a table. For more information, see [Use conditions to filter data](/intl.en-US/Data Migration/Migration task management/Use conditions to filter data.md).
 
 ## Can I add or remove objects to be synchronized?
 
@@ -109,5 +110,5 @@ Yes, you can add or remove objects to be synchronized. For more information, see
 
 ## How do I view the performance metrics of data migration and synchronization tasks?
 
-You can view performance metrics of data migration and data synchronization tasks in the DTS console. For information about how to view the metrics, see [View performance metrics of incremental data migration](/intl.en-US/Data Migration/Migration task management/View performance metrics of incremental data migration.md) and [Check the synchronization performance](/intl.en-US/Data Synchronization/Synchronization task management/Check the synchronization performance.md).
+You can view performance metrics of data migration and data synchronization tasks in the DTS console. For information about how to view the metrics, see [View the connection status and performance of incremental data migration](/intl.en-US/Data Migration/Migration task management/View the connection status and performance of incremental data migration.md) and [View the connection status and performance of data synchronization](/intl.en-US/Data Synchronization/Synchronization task management/View the connection status and performance of data synchronization.md).
 

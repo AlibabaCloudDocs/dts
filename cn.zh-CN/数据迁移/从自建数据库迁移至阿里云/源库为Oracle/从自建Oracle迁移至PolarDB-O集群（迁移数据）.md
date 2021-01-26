@@ -36,13 +36,13 @@ DTS在执行全量数据迁移时将占用源库和目标库一定的读写资�
 
 2.  在迁移任务列表页面顶部，选择迁移的目标集群所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
 
 3.  单击页面右上角的**创建迁移任务**。
 
 4.  配置迁移任务的源库和目标库连接信息。
 
-    ![配置源库和目标库连接信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8887549951/p68785.png)
+    ![配置源库和目标库连接信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9337214061/p68785.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -69,7 +69,7 @@ DTS在执行全量数据迁移时将占用源库和目标库一定的读写资�
 
 6.  选择迁移类型和迁移对象。
 
-    ![选择迁移类型和对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7887549951/p73981.png)
+    ![选择迁移类型和对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7887549951/p73981.png)
 
     |配置|说明|
     |:-|:-|
@@ -79,7 +79,7 @@ DTS在执行全量数据迁移时将占用源库和目标库一定的读写资�
 
     -   如果未勾选**增量数据迁移**，为保障数据一致性，数据迁移期间请勿在自建Oracle数据库中写入新的数据。
     -   增量数据迁移阶段支持同步的SQL操作为：INSERT、UPDATE、DELETE。 |
-    |迁移对象|在迁移对象框中选择待迁移的对象（对象的结构须已通过ADAM迁移至PolarDB集群），然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。 **警告：** 由于已使用ADAM完成了结构迁移，请勿执行对象名映射操作，否则将导致迁移失败。 |
+    |迁移对象|在迁移对象框中选择待迁移的对象（对象的结构须已通过ADAM迁移至PolarDB集群），然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。 **警告：** 由于已使用ADAM完成了结构迁移，请勿执行对象名映射操作，否则将导致迁移失败。 |
 
 7.  完成预检查并启动迁移任务。
 
@@ -88,7 +88,7 @@ DTS在执行全量数据迁移时将占用源库和目标库一定的读写资�
         **说明：**
 
         -   在迁移任务正式启动之前，会先进行预检查。只有通过预检查，DTS才能迁移数据。
-        -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+        -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
     2.  预检查通过后，单击**下一步**。
 
     3.  在弹出的购买配置确认对话框，选择**链路规格**并勾选**数据传输（按量付费）服务条款**。
@@ -110,6 +110,6 @@ DTS在执行全量数据迁移时将占用源库和目标库一定的读写资�
         1.  观察迁移任务的进度变更为**增量迁移**，并显示为**无延迟**状态时，将源库停写几分钟，此时**增量迁移**的状态可能会显示延迟的时间。
         2.  等待迁移任务的**增量迁移**再次进入**无延迟**状态后，手动结束迁移任务。
 
-            ![结束增量迁移任务](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
+            ![结束增量迁移任务](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
 
 

@@ -2,9 +2,9 @@
 
 调用DescribeDTSIP查询DTS服务的IP地址。
 
-如果源或目标实例是本地自建数据库，您需要调用该接口查询DTS服务的IP地址，然后将查询所得的IP地址添加至源或目标实例的安全设置（通常为您自建数据库的防火墙）中。更多信息，请参见[迁移、同步或订阅本地数据库时需添加的IP白名单](https://help.aliyun.com/document_detail/84900.htm)。
+如果**源或目标实例**是**本地自建数据库**，您需要调用该接口查询DTS服务的IP地址，然后将查询所得的IP地址添加至源或目标实例的安全设置（通常为您自建数据库的防火墙）中。具体添加方式及更多信息，请参见[迁移、同步或订阅本地数据库时需添加的IP白名单](https://help.aliyun.com/document_detail/84900.htm)。
 
-**说明：** 如果源或目标数据库是阿里云数据库实例（例如RDS、MongoDB等）或ECS上的自建数据库，在配置源或目标实例信息时，如您点击**授权白名单并进入下一步**，DTS会自动添加对应的IP地址，您无需手动添加。
+**说明：** 如果**源或目标数据库**是**阿里云数据库实例**（例如RDS、MongoDB等）或**ECS上的自建数据库**，在配置源或目标实例信息时，如您点击**授权白名单并进入下一步**，DTS会自动添加对应的IP地址，您无需手动添加。
 
 ## 调试
 
@@ -15,9 +15,13 @@
 |名称|类型|是否必选|示例值|描述|
 |--|--|----|---|--|
 |Action|String|是|DescribeDTSIP|系统规定参数，取值：**DescribeDTSIP**。 |
-|SourceEndpointRegion|String|是|cn-hangzhou|源实例所属地域ID，详情请参见[支持的地域列表](~~141033~~)。 |
-|RegionId|String|否|cn-hangzhou|地域ID，传入本参数来指定DTS任务实例所在地域，详情请参见[支持的地域列表](~~141033~~)。 |
-|DestinationEndpointRegion|String|否|cn-hangzhou|目标实例所属地域ID，详情请参见[支持的地域列表](~141033~)。 |
+|SourceEndpointRegion|String|是|cn-hangzhou|源实例所属地域ID，详情请参见[支持的地域列表](~~141033~~)。
+
+ **说明：** 如果源实例为有公网IP的自建数据库，则可以传入**cn-hangzhou**或者离自建数据库物理距离最近的区域ID。 |
+|RegionId|String|否|cn-hangzhou|DTS任务实例所在地域，详情请参见[支持的地域列表](~~141033~~)。 |
+|DestinationEndpointRegion|String|否|cn-hangzhou|目标实例所属地域ID，详情请参见[支持的地域列表](~141033~)。
+
+ **说明：** 如果目标实例为有公网IP的自建数据库，则可以传入**cn-hangzhou**或者离自建数据库物理距离最近的区域ID。 |
 
 ## 返回数据
 

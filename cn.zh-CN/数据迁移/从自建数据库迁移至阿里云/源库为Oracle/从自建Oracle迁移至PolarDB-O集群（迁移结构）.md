@@ -7,6 +7,7 @@
 -   自建Oracle数据库已开启ARCHIVELOG（归档模式），设置合理的归档日志保持周期且归档日志能够被访问，详情请参见[ARCHIVELOG](https://docs.oracle.com/database/121/ADMIN/archredo.htm#ADMIN008)。
 -   自建Oracle数据库已开启Supplemental Logging，且已开启supplemental\_log\_data\_pk，supplemental\_log\_data\_ui，详情请参见[Supplemental Logging](https://docs.oracle.com/database/121/SUTIL/GUID-D857AF96-AC24-4CA1-B620-8EA3DF30D72E.htm#SUTIL1582)。
 -   自建Oracle数据库中的待迁移表需具备主键或非空唯一索引。
+-   如果您的自建Oracle版本为12c及以上，待迁移表的名称长度需不超过30个字节。
 -   PolarDB-O集群（简称PolarDB集群）的`polar_comp_redwood_raw_names`参数已设置为off，详情请参见[t217468.md\#]()。
 
 ## 费用说明

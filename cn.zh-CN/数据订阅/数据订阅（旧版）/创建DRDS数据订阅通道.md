@@ -2,8 +2,9 @@
 
 通过数据订阅功能，您可以实时订阅源库的增量数据，轻松帮助业务实现轻量级缓存更新、业务异步解耦、含ETL逻辑的数据实时同步等场景。本文将介绍如何创建DRDS数据订阅通道。
 
--   DRDS实例的**MySQL版本**为**MySQL 5**。
--   DRDS中的数据库须基于已有的RDS MySQL创建，DTS暂不支持基于PolarDB MySQL创建的数据库。
+PolarDB-X中的数据库须基于RDS MySQL创建，且RDS MySQL版本需为5.5或5.6。
+
+**说明：** DTS暂不支持订阅基于PolarDB MySQL创建的PolarDB-X数据库。
 
 ## 注意事项
 

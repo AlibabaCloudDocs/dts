@@ -15,7 +15,7 @@ This topic describes how to migrate data from a user-created MySQL database to a
 -   DTS uses the `ROUND(COLUMN,PRECISION)` function to retrieve values from columns of the FLOAT or DOUBLE data type. If you do not specify a precision, DTS sets the precision for the FLOAT data type to 38 digits and the precision for the DOUBLE data type to 308 digits. You must check whether the precision settings meet your business requirements.
 -   DTS automatically creates a destination database in the ApsaraDB RDS for MySQL instance. However, if the name of the source database is invalid, you must manually create a database in the ApsaraDB RDS for MySQL instance before you configure the data migration task.
 
-    **Note:** For more information about how to create a database and the database naming conventions, see [Create a database on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96105.htm).
+    **Note:** For more information about the naming conventions of ApsaraDB RDS for MySQL databases and how to create a database, see [Create a database on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96105.htm).
 
 -   If a data migration task fails, DTS automatically resumes the task. Before you switch your workloads to the destination instance, stop or release the data migration task. Otherwise, the data in the source database will overwrite the data in the destination instance after the task is resumed.
 
@@ -102,7 +102,7 @@ For information about how to create and authorize a database account, see the fo
     |RDS Instance ID|Select the ID of the destination RDS instance.|
     |Database Account|Enter the database account of the destination RDS instance. For more information about the permissions that are required for the account, see [\#section\_bjn\_5zq\_5hb](#section_bjn_5zq_5hb).|
     |Database Password|Enter the password of the destination database account. **Note:** After you specify the destination database parameters, click **Test Connectivity** next to **Database Password** to verify whether the parameters are valid. If the specified parameters are valid, the **Passed** message appears. If the **Failed** message appears, click **Check** next to **Failed**. Modify the destination database parameters based on the check results. |
-    |Encryption|Select **Non-encrypted** or **SSL-encrypted**. If you select **SSL-encrypted**, you must enable SSL encryption for the RDS instance before you configure the data migration task. For more information, see [Configure SSL encryption on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96120.htm). **Note:** The **Encryption** parameter is available only for regions in mainland China and the China \(Hong Kong\) region. |
+    |Encryption|Select **Non-encrypted** or **SSL-encrypted**. If you want to select **SSL-encrypted**, you must enable SSL encryption for the RDS instance before you configure the data migration task. For more information, see [Configure SSL encryption on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96120.htm). **Note:** The **Encryption** parameter is available only for regions in mainland China and the China \(Hong Kong\) region. |
 
 6.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
@@ -124,6 +124,7 @@ For information about how to create and authorize a database account, see the fo
     -   You can select columns, tables, or databases as the objects to be migrated. If you select tables or columns as the objects to be migrated, DTS does not migrate other objects such as views, triggers, and stored procedures to the destination database.
     -   After an object is migrated to the destination database, the name of the object remains unchanged. You can use the object name mapping feature to change the names of the objects that are migrated to the destination database. For more information, see [t17120.md\#](/intl.en-US/Data Migration/Migration task management/Object name mapping.md).
     -   If you use the object name mapping feature on an object, other objects that are dependent on the object may fail to be migrated. |
+    |Specify the retry time for failed connection to the source or destination database|By default, if DTS fails to connect to the source or destination database, DTS retries within the next 12 hours. You can specify the retry time based on your needs. If DTS reconnects to the source and destination databases within the specified time, DTS resumes the data migration task. Otherwise, the data migration task fails.**Note:** When DTS retries a connection, you are charged for the DTS instance. We recommend that you specify the retry time based on your business needs. You can also release the DTS instance at your earliest opportunity after the source and destination instances are released. |
 
 8.  In the lower-right corner of the page, click **Precheck**.
 
@@ -161,7 +162,7 @@ The database accounts that are used for data migration have the read and write p
 
 -   Q: What can I do if a migration task fails to pass the precheck?
 
-    A: For more information, see [t17094.md\#](/intl.en-US/Data Migration/Precheck and troubleshooting/How does the DTS task perform a connectivity check on the source database during the PreCheck?.md).
+    A: For more information, see [t17094.md\#](/intl.en-US/Data Migration/Precheck and troubleshooting/Checks the connectivity of the source database during DTS PreCheck.md).
 
 -   Q: How can I troubleshoot a failed migration task?
 

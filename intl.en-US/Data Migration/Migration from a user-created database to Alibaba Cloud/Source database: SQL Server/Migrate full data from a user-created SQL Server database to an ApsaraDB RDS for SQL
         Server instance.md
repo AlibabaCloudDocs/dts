@@ -11,7 +11,7 @@ This topic describes how to migrate full data from a user-created SQL Server dat
 
     **Note:**
 
-    -   DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAGs\).
+    -   If a primary/secondary switchover is performed in a SQL Server cluster or Always On availability group \(AOAG\), the log serial numbers of the primary database and the secondary database become inconsistent. In this case, DTS considers that the source database does not support resumable transmission, and the migration task fails. Therefore, you cannot use a SQL Server cluster or a SQL Server AOAG as the source database.
     -   If you migrate data between different versions of databases, make sure that the database versions are compatible.
 -   The available storage space of the ApsaraDB RDS for SQL Server instance is larger than the total size of the data in the user-created SQL Server database.
 
@@ -24,7 +24,6 @@ This topic describes how to migrate full data from a user-created SQL Server dat
     **Note:** For more information about how to create a database and the database naming conventions, see [Create a database on an ApsaraDB RDS for SQL Server instance](https://www.alibabacloud.com/help/zh/doc-detail/95698.htm).
 
 -   If a data migration task fails, DTS automatically resumes the task. Before you switch your workloads to the destination instance, stop or release the data migration task. Otherwise, the data in the source database will overwrite the data in the destination instance after the task is resumed.
--   During data migration, if you perform a primary/secondary switchover on the source database, the migration task will fail.
 
 ## Limits
 
@@ -62,7 +61,7 @@ For information about how to create and authorize a database account, see the fo
 
 ## Full data migration
 
-To avoid data migration failures caused by dependencies between objects, DTS migrates the schemas and data of the source SQL Server database in the following order:
+To prevent data migration failures caused by dependencies among objects, DTS migrates the schemas and data of the source SQL Server database in the following order:
 
 1.  Migrate the schemas of tables, views, synonyms, user-defined types, rules, defaults, and plan guides.
 2.  Perform full data migration.
@@ -130,7 +129,7 @@ In this example, select **Schema Migration** and **Full Data Migration**.
 10. In the Confirm Settings dialog box, specify the **Channel Specification** and select **Data Transmission Service \(Pay-As-You-Go\) Service Terms**.
 11. Click **Buy and Start** to start the data migration task.
 
-    **Note:** Do not manually stop a task during full data migration. Otherwise, data migrated to the destination database will be incomplete. Wait until the data migration task automatically stops.
+    **Note:** We recommend that you do not manually stop a data migration task. Otherwise, data migrated to the destination instance will be incomplete. You can wait until the data migration task automatically stops.
 
 12. Switch your workloads to the destination RDS instance.
 

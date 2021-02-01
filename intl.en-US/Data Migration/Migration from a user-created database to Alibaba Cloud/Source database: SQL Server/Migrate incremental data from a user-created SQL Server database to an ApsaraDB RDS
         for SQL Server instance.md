@@ -2,7 +2,8 @@
 
 This topic describes how to migrate incremental data from a user-created SQL Server database to an ApsaraDB RDS for SQL Server instance by using Data Transmission Service \(DTS\). DTS supports schema migration, full data migration, and incremental data migration. When you migrate data from a user-created SQL Server database, you can select all of the supported migration types to ensure service continuity.
 
-**Note:** For information about how to perform only full data migration, see [Migrate full data from a user-created SQL Server database to ApsaraDB RDS for SQL Server](/intl.en-US/Data Migration/Migration from a user-created database to Alibaba Cloud/Source database: SQL Server/Migrate full data from a user-created SQL Server database to ApsaraDB RDS for SQL Server.md).
+**Note:** For information about how to perform only full data migration, see [Migrate full data from a user-created SQL Server database to an ApsaraDB RDS for SQL Server instance](/intl.en-US/Data Migration/Migration from a user-created database to Alibaba Cloud/Source database: SQL Server/Migrate full data from a user-created SQL Server database to an ApsaraDB RDS for SQL
+         Server instance.md).
 
 ## Prerequisites
 
@@ -10,7 +11,7 @@ This topic describes how to migrate incremental data from a user-created SQL Ser
 
     **Note:**
 
-    -   DTS does not support SQL Server clusters or SQL Server Always On availability groups \(AOAGs\).
+    -   If a primary/secondary switchover is performed in a SQL Server cluster or Always On availability group \(AOAG\), the log serial numbers of the primary database and the secondary database become inconsistent. In this case, DTS considers that the logs of the source database are discontinuous, and the migration task fails. Therefore, you cannot use a SQL Server cluster or a SQL Server AOAG as the source database.
     -   If you migrate data between different versions of databases, make sure that the database versions are compatible.
 -   The tables to be migrated from the user-created SQL Server database have primary keys or UNIQUE NOT NULL indexes.
 -   The available storage space of the ApsaraDB RDS for SQL Server instance is larger than the total size of the data in the user-created SQL Server database.
@@ -25,12 +26,11 @@ This topic describes how to migrate incremental data from a user-created SQL Ser
     **Note:** For more information about how to create a database and the database naming conventions, see [Create a database on an ApsaraDB RDS for SQL Server instance](https://www.alibabacloud.com/help/zh/doc-detail/95698.htm).
 
 -   If a data migration task fails, DTS automatically resumes the task. Before you switch your workloads to the destination instance, stop or release the data migration task. Otherwise, the data in the source database will overwrite the data in the destination instance after the task is resumed.
--   During data migration, if you perform a primary/secondary switchover on the source database, the migration task will fail.
 
 ## Limits
 
 -   DTS does not migrate the schemas of assemblies, service brokers, full-text indexes, full-text catalogs, distributed schemas, distributed functions, CLR stored procedures, CLR scalar-valued functions, CLR table-valued functions, internal tables, systems, or aggregate functions.
--   DTS does not migrate data of the sql\_variant type.
+-   DTS cannot migrate data of the sql\_variant type.
 -   DTS does not migrate tables that contain computed columns.
 -   A single data migration task can migrate incremental data from only one database. To migrate incremental data from multiple databases, you must create a data migration task for each database.
 
@@ -84,7 +84,7 @@ For information about how to create and authorize a database account, see the fo
 
 ## Incremental data migration
 
-To avoid data migration failures caused by dependencies between objects, DTS migrates the schemas and data of the source SQL Server database in the following order:
+To prevent data migration failures caused by dependencies among objects, DTS migrates the schemas and data of the source SQL Server database in the following order:
 
 1.  Migrate the schemas of tables, views, synonyms, user-defined types, rules, defaults, and plan guides.
 2.  Perform full data migration.

@@ -8,7 +8,7 @@ Kafka is a distributed message queue service that features high throughput and h
 
 ## Precautions
 
--   In this scenario, DTS supports only<dfn class="aliterm" aliterm-def="DTS synchronizes incremental data that is generated in the source database to the destination database." \>incremental data synchronization</dfn\>. DTS does not support and
+-   In this scenario, DTS supports only DTS does not support and
 -   A single data synchronization task can synchronize data from only one database. To synchronize data from multiple databases, you must create a data synchronization task for each database.
 -   To ensure that the delay time of data synchronization is accurate, DTS adds a heartbeat table named `dts_postgres_heartbeat` to the source database. The following figure shows the schema of the heartbeat table.
 

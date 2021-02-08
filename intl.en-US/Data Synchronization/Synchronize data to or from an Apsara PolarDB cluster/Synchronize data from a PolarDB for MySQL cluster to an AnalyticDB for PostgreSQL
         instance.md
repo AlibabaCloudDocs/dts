@@ -8,7 +8,7 @@ AnalyticDB for PostgreSQL \(previously known as HybridDB for PostgreSQL\) is a f
 
 ## Precautions
 
--   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the load of the database server. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
+-   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the loads of the database servers. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
 -   During initial full data synchronization, concurrent INSERT operations cause fragmentation in the tables of the destination instance. After initial full data synchronization is complete, the tablespace of the destination instance is larger than that of the source cluster.
 
 ## Limits
@@ -41,7 +41,7 @@ AnalyticDB for PostgreSQL \(previously known as HybridDB for PostgreSQL\) is a f
 
 ## Procedure
 
-1.  Purchase a data synchronization instance. For more information, see [Purchase procedure]().
+1.  Purchase a data synchronization instance. For more information, see [Purchase a DTS instance]().
 
     **Note:** On the buy page, set Source Instance to **PolarDB**, set Target Instance to **AnalyticDB for PostgreSQL**, and set Synchronization Topology to **One-Way Synchronization**.
 
@@ -64,14 +64,14 @@ AnalyticDB for PostgreSQL \(previously known as HybridDB for PostgreSQL\) is a f
     |N/A|Synchronization Task Name|DTS automatically generates a task name. We recommend that you specify an informative name for easy identification. You do not need to use a unique task name.|
     |Source Instance Details|Instance Type|The value of this parameter is set to **PolarDB Instance** and cannot be changed.|
     |Instance Region|The region of the PolarDB for MySQL cluster. The region is the same as the source region that you selected on the buy page. You cannot change the value of this parameter.|
-    |PolarDB Instance ID|Select the ID of the PolarDB for MySQL cluster.|
+    |POLARDB Instance ID|Select the ID of the PolarDB for MySQL cluster.|
     |Database Account|Enter the database account of the PolarDB for MySQL cluster. **Note:** The database account must have the read permission on the objects that you want to synchronize. |
     |Database Password|Enter the password of the source database account.|
     |Destination Instance Details|Instance Type|The value of this parameter is set to **AnalyticDB for PostgreSQL** and cannot be changed.|
-    |Instance Region|The region of the destination instance. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
+    |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |Instance ID|Select the ID of the AnalyticDB for PostgreSQL instance.|
     |Database Name|Enter the name of the destination database in the AnalyticDB for PostgreSQL instance.|
-    |Database Account|Enter the AnalyticDB for PostgreSQL of the **** instance. For more information, see [t16843.md\#](/intl.en-US/Quick Start/Configure an account.md). **Note:** You can also enter an account that has the RDS\_SUPERUSER permission. For more information, see [Manage users and permissions](/intl.en-US/Beginner Developer Guide/Manage users and permissions.md). |
+    |Database Account|Enter the **initial account** of the AnalyticDB for PostgreSQL instance. For more information, see [t16843.md\#](/intl.en-US/Quick Start/Configure an account.md). **Note:** You can also enter an account that has the RDS\_SUPERUSER permission. For more information, see [Manage users and permissions](/intl.en-US/Beginner Developer Guide/Manage users and permissions.md). |
     |Database Password|Enter the password of the destination database account.|
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.

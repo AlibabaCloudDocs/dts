@@ -26,7 +26,7 @@ RDS MariaDB |
 -   如果源库中待迁移的表没有主键或唯一约束，且所有字段没有唯一性，可能会导致目标数据库中出现重复数据。
 -   当选择的迁移类型为全量数据迁移，那么为保障数据一致性，在迁移期间请勿在源RDS实例中写入新的数据。
 -   对于迁移失败的任务，DTS会触发自动恢复。当您需要将业务切换至目标实例，请务必先结束或释放迁移任务，避免该任务被自动恢复后，使用源端数据覆盖目标实例的数据。
--   DTS会自动地在阿里云RDS实例中创建数据库，如果待迁移的数据库名称不符合阿里云RDS实例的定义规范，您需要在配置迁移任务之前在阿里云RDS实例中创建数据库。
+-   DTS会自动地在目标阿里云RDS实例中创建数据库，如果待迁移的数据库名称不符合阿里云RDS实例的定义规范，您需要在配置迁移任务之前在目标阿里云RDS实例中创建数据库。
 
     **说明：** 关于阿里云RDS的定义规范和创建数据库的操作方法，请参见[创建数据库和账号](/cn.zh-CN/RDS MySQL 数据库/快速入门/创建数据库和账号.md)。
 
@@ -101,7 +101,7 @@ RDS PPAS间迁移
 |目标实例|读写权限|读写权限|读写权限|
 |RDS SQL Server间迁移|源实例|select权限|select权限|sysadmin权限|
 |目标实例|读写权限|读写权限|读写权限|
-|RDS PostgreSQL间迁移|源实例|pg\_catalog的usage权限|迁移对象的select权限|superuser|
+|RDS PostgreSQL间迁移|源实例|pg\_catalog的usage权限|迁移对象的select权限|superuser**说明：** 如果RDS PostgreSQL实例没有superuser权限 |
 |目标实例|迁移对象的create、usage权限|拥有授权数据库（owner）的操作权限，包括INSERT、UPDATE、DELETE。**说明：** RDS PostgreSQL的普通账号满足权限要求。
 
 |拥有授权数据库（owner）的操作权限，包括INSERT、UPDATE、DELETE。**说明：** RDS PostgreSQL的普通账号满足权限要求。 |

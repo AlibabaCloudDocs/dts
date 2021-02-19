@@ -2,10 +2,13 @@
 
 Before you use Data Transmission Service \(DTS\) to migrate data between PostgreSQL databases, you can create a function and a trigger in the source database. The function and trigger obtain the data definition language \(DDL\) information of the source database. During incremental data migration, DTS migrates DDL operations to the destination database.
 
--   The source database is a user-created PostgreSQL database of version 9.4 or later.
+-   The source database is a user-created PostgreSQL database V9.4 or later, or an ApsaraDB RDS for PostgreSQL instance V12, V11, or V10. If the source database is an ApsaraDB RDS for PostgreSQL instance V10, the storage type of the instance must be Enhanced SSD or Standard SSD.
+
+    **Note:** The source database cannot be an ApsaraDB RDS for PostgreSQL instance V10 or V9.4 whose storage type is Local SSD.
+
 -   A data migration task was created after October 1, 2020.
 
-When you use DTS to migrate data between PostgreSQL databases, DTS synchronizes only data manipulation language \(DML\) operations such as INSERT, DELETE, and UPDATE during incremental data migration. DTS does not synchronize DDL operations during incremental data migration.
+When you use DTS to migrate data between PostgreSQL databases, DTS synchronizes only data manipulation language \(DML\) operations during incremental data migration. DML operations include INSERT, DELETE, and UPDATE. DTS does not synchronize DDL operations during incremental data migration.
 
 To synchronize DDL operations, you can create a trigger and a function to obtain the DDL information of the source database. During incremental data migration, DTS migrates DDL operations to the destination database.
 

@@ -2,33 +2,33 @@
 
 This topic describes how to synchronize data from a user-created MySQL database connected over Express Connect, VPN Gateway, or Smart Access Gateway to an AnalyticDB for PostgreSQL instance by using Data Transmission Service \(DTS\). The data synchronization feature allows you to transfer and analyze data with ease.
 
--   A MySQL database of version 5.1, 5.5, 5.6, 5.7, or 8.0 is created.
+-   The version of the user-created MySQL database is 5.1, 5.5, 5.6, 5.7, or 8.0.
 -   The tables to be synchronized from the source database contain primary keys.
 -   The binary logging feature is enabled for the source database. A database account is created for the data synchronization task. For more information, see [t961261.md\#]().
 
-    **Note:** The database account must have the SELECT permission on the required objects, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission.
+    **Note:** The database account must have the SELECT permission on the objects to be synchronized, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission.
 
 -   The on-premises network to which the user-created MySQL database belongs is connected to Alibaba Cloud VPC over Express Connect, VPN Gateway, or Smart Access Gateway. DTS is allowed to access the network to which Express Connect, VPN Gateway, or Smart Access Gateway belongs. For more information, see [t190285.md\#]().
 
     **Note:** For more information about how to connect an on-premises network to a VPC, see [t1853322.md\#]().
 
--   An AnalyticDB for PostgreSQL instance is created. For more information, see [Create an instance](https://www.alibabacloud.com/help/zh/doc-detail/50200.htm).
+-   The destination AnalyticDB for PostgreSQL instance is created. For more information, see [Create an AnalyticDB for PostgreSQL instance](https://www.alibabacloud.com/help/zh/doc-detail/50200.htm).
 
 ## Precautions
 
-DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the load of the database server. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
+DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the loads of the database servers. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
 
 ## Limits
 
 -   You can select only tables as the objects to be synchronized.
--   You cannot synchronize the following types of data: BIT, VARBIT, GEOMETRY, ARRAY, UUID, TSQUERY, TSVECTOR, and TXID\_SNAPSHOT.
+-   DTS does not synchronize the following types of data: BIT, VARBIT, GEOMETRY, ARRAY, UUID, TSQUERY, TSVECTOR, and TXID\_SNAPSHOT.
 -   Prefix indexes cannot be synchronized. If the source database contains prefix indexes, data may fail to be synchronized.
 -   We recommend that you do not use gh-ost or pt-online-schema-change to perform data definition language \(DDL\) operations on objects during data synchronization. Otherwise, data synchronization may fail.
 
 ## SQL operations that can be synchronized
 
 -   Data manipulation language \(DML\) operations: INSERT, UPDATE, and DELETE
--   DDL operations: ADD COLUMN and RENAME COLUMN
+-   DDL operation: ADD COLUMN
 
     **Note:** The CREATE TABLE operation is not supported. To synchronize data from a new table, you must add the table to the selected objects. For more information, see [t17133.md\#](/intl.en-US/Data Synchronization/Synchronization task management/Add an object to a data synchronization task.md).
 
@@ -75,13 +75,13 @@ DTS uses read and write resources of the source and destination databases during
     |Database Type|The value of this parameter is set to **MySQL** and cannot be changed.|
     |IP Address|Enter the server IP address of the user-created MySQL database.|
     |Port Number|Enter the service port number of the user-created MySQL database. The default port number is **3306**.|
-    |Database Account|Enter the account of the user-created MySQL database. **Note:** The database account must have the SELECT permission on the required objects, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission. |
-    |Database Password|Enter the password of the source database account.|
+    |Database Account|Enter the account of the user-created MySQL database. **Note:** The account must have the SELECT permission on the objects to be synchronized, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission. |
+    |Database Password|Enter the password for the source database account.|
     |Destination Instance Details|Instance Type|The value of this parameter is set to **AnalyticDB for PostgreSQL** and cannot be changed.|
-    |Instance Region|The region of the destination instance. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
-    |Instance ID|Select the ID of the AnalyticDB for PostgreSQL instance.|
+    |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
+    |Instance ID|Select the ID of the destination AnalyticDB for PostgreSQL instance.|
     |Database Name|Enter the name of the destination database.|
-    |Database Account|Enter the AnalyticDB for PostgreSQL of the **** instance. For more information, see [t16843.md\#](/intl.en-US/Quick Start/Configure an account.md). **Note:** You can also enter an account that has the RDS\_SUPERUSER permission. For more information, see [t16853.md\#](/intl.en-US/Beginner Developer Guide/Manage users and permissions.md). |
+    |Database Account|Enter the **initial account** of the AnalyticDB for PostgreSQL instance. For more information, see [t16843.md\#](/intl.en-US/Quick Start/Configure an account.md). **Note:** You can also enter an account that has the RDS\_SUPERUSER permission. For more information, see [t16853.md\#](/intl.en-US/Beginner Developer Guide/Manage users and permissions.md). |
     |Database Password|Enter the password of the destination database account.|
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
@@ -108,7 +108,7 @@ Skips the **Schema Name Conflict** item during the precheck. Adds data to the ex
     -   **Update**
     -   **Delete**
     -   **AlterTable** |
-    |Select the objects to be synchronized|N/A|Select tables from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the Selected section.
+    |Select the objects to be synchronized|N/A|Select one or more tables from the Available section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the Selected section.
 
 **Note:**
 
@@ -125,8 +125,8 @@ Skips the **Schema Name Conflict** item during the precheck. Adds data to the ex
 
     **Note:**
 
-    -   Before you can start the data synchronization task, a precheck is performed. You can start the data synchronization task only after the task passes the precheck.
-    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and run a precheck again.
+    -   Before you can start the data synchronization task, DTS performs a precheck. You can start the data synchronization task only after the task passes the precheck.
+    -   If the task fails to pass the precheck, you can click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. You can troubleshoot the issues based on the causes and run a precheck again.
 11. Close the Precheck dialog box after the following message is displayed: **The precheck is passed.** Then, the data synchronization task starts.
 
 12. Wait until the initial synchronization is complete and the data synchronization task is in the **Synchronizing** state.

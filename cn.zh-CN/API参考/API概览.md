@@ -7,7 +7,7 @@
 |API|描述|
 |:--|:-|
 |[CreateMigrationJob](https://help.aliyun.com/document_detail/49426.html)|购买数据迁移实例|
-|[配置迁移任务](/cn.zh-CN/API参考/数据迁移/配置迁移任务.md)|配置数据迁移任务|
+|[ConfigureMigrationJob](/cn.zh-CN/API参考/数据迁移/配置迁移任务.md)|配置数据迁移任务|
 |[StartMigrationJob](https://help.aliyun.com/document_detail/49429.html)|启动或重启数据迁移任务|
 |[SuspendMigrationJob](https://help.aliyun.com/document_detail/49430.html)|暂停数据迁移任务|
 |[StopMigrationJob](https://help.aliyun.com/document_detail/49431.html)|结束数据迁移任务|

@@ -35,7 +35,7 @@
 
 ## 操作步骤
 
-1.  [购买数据同步作业](/intl.zh-CN/快速入门/购买流程.md)。
+1.  [购买数据同步作业]()。
 
     **说明：** 购买时，选择源实例为**PolarDB**、目标实例为**AnalyticDB MySQL**，并选择同步拓扑为**单向同步**。
 
@@ -45,13 +45,13 @@
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步通道的源实例及目标实例信息。
 
-    ![配置源和目标实例信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7030649951/p58269.png)
+    ![配置源和目标实例信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7030649951/p58269.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -74,7 +74,7 @@
 
 8.  配置同步策略及对象信息。
 
-    ![配置同步策略和对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7030649951/p55267.png)
+    ![配置同步策略和对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7030649951/p55267.png)
 
     |配置|说明|
     |:-|:-|
@@ -91,13 +91,13 @@
         -   表结构不一致的情况下，可能会导致无法初始化数据、只能同步部分列的数据或同步失败。 |
     |多表归并|    -   选择为**是**：DTS将在每个表中增加`__dts_data_source`列来存储数据来源，且不再支持DDL同步。
     -   选择为**否**：默认选项，支持DDL同步。
-**说明：** 多表归并功能基于任务级别，即不支持基于表级别执行多表归并。如果需要让部分表执行多表归并，另一部分不执行多表归并，您可以创建两个数据同步作业。 |
-    |同步操作类型|根据业务选中需要同步的操作类型，支持的同步操作详情请参见[\#d23e49](#d23e49)，默认情况下都处于选中状态。|
-    |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
+ **说明：** 多表归并功能基于任务级别，即不支持基于表级别执行多表归并。如果需要让部分表执行多表归并，另一部分不执行多表归并，您可以创建两个数据同步作业。 |
+    |同步操作类型|根据业务选中需要同步的操作类型，支持的同步操作详情请参见[支持同步的SQL操作](#section_wkl_212_vcr)，默认情况下都处于选中状态。|
+    |选择同步对象|在源库对象框中单击待同步的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
-同步对象的选择粒度为库、表。
+ 同步对象的选择粒度为库、表。
 
-**说明：**
+ **说明：**
 
     -   如果选择整个库作为同步对象，那么该库中所有对象的结构变更操作会同步至目标库。
     -   如果选择某个表作为同步对象，那么只有这个表的ADD COLUMN操作会同步至目标库。
@@ -107,7 +107,7 @@
 
 10. 设置待同步的表在目标库中类型。
 
-    ![设置表类型](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/6230649951/p55270.png)
+    ![设置表类型](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6230649951/p55270.png)
 
     **说明：** 选择了**结构初始化**后，您需要定义待同步的表在云原生数据仓库AnalyticDB MySQL中的**类型**、主**键列**、**分区列**等信息，详情请参见[CREATE TABLE操作手册](https://www.alibabacloud.com/help/zh/doc-detail/123333.htm)。
 
@@ -116,13 +116,13 @@
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 12. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 13. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 

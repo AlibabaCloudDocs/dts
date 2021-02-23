@@ -8,8 +8,8 @@
 
 ## 相关接口
 
--   [ConfigureMigrationJob](https://help.aliyun.com/document_detail/162271.html)
--   [t17259.md\#](/cn.zh-CN/API参考/数据同步/配置同步作业.md)
+-   [配置迁移任务](/cn.zh-CN/API参考/数据迁移/配置迁移任务.md)
+-   [配置同步实例](/cn.zh-CN/API参考/数据同步/配置同步实例.md)
 
 ## MigrationReserved定义说明
 
@@ -17,19 +17,19 @@ MigrationReserved（DTS预留参数）的取值类型为String，传入数据的
 
 |参数|适用的接口|说明|
 |--|-----|--|
-|autoStartModulesAfterConfig|-   [ConfigureMigrationJob](https://help.aliyun.com/document_detail/162271.html)
--   [t17259.md\#](/cn.zh-CN/API参考/数据同步/配置同步作业.md)
+|autoStartModulesAfterConfig|-   [配置迁移任务](/cn.zh-CN/API参考/数据迁移/配置迁移任务.md)
+-   [配置同步实例](/cn.zh-CN/API参考/数据同步/配置同步实例.md)
 
 |启动控制参数，取值： -   all：完成DTS任务的配置后，自动启动预检查模块及其后续所有模块。
 -   none：完成DTS任务的配置后，不启动预检查等模块，即需要手动启动任务。
 
 默认值为all。 |
-|targetTableMode|-   [ConfigureMigrationJob](https://help.aliyun.com/document_detail/162271.html)
--   [t17259.md\#](/cn.zh-CN/API参考/数据同步/配置同步作业.md)
+|targetTableMode|-   [配置迁移任务](/cn.zh-CN/API参考/数据迁移/配置迁移任务.md)
+-   [配置同步实例](/cn.zh-CN/API参考/数据同步/配置同步实例.md)
 
 |同名对象存在性检查，取值： -   0：报错并拦截。
 -   2：忽略报错并继续执行。 |
-|srcRedisType|[t17259.md\#](/cn.zh-CN/API参考/数据同步/配置同步作业.md)|取值固定为enterprise：阿里云Redis企业版实例。 **说明：** 本参数仅在Redis企业版实例间的数据同步场景下适用。 |
+|srcRedisType|[配置同步实例](/cn.zh-CN/API参考/数据同步/配置同步实例.md)|取值固定为enterprise：阿里云Redis企业版实例。 **说明：** 本参数仅在Redis企业版实例间的数据同步场景下适用。 |
 |destRedisType|
 
 ## 请求示例

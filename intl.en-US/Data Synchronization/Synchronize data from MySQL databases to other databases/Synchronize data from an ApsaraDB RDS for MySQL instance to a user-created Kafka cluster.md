@@ -7,7 +7,7 @@ Kafka is a distributed message queue service that features high throughput and h
 
 ## Precautions
 
--   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the database load. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before synchronizing data, you must evaluate the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU usage of the source and destination databases is less than 30%.
+-   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the loads of the database servers. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
 -   The source database must have PRIMARY KEY or UNIQUE constraints and all fields must be unique. Otherwise, the destination database may contain duplicate data records.
 
 ## Limits
@@ -30,7 +30,7 @@ The data that is synchronized to the Kafka cluster is stored in the Avro format.
 
 ## Procedure
 
-1.  Purchase a data synchronization instance. For more information, see [Purchase procedure]().
+1.  Purchase a data synchronization instance. For more information, see [Purchase a DTS instance]().
 
     **Note:** On the buy page, set Source Instance to **MySQL**, set Target Instance to **Kafka**, and set Synchronization Topology to **One-Way Synchronization**.
 
@@ -46,7 +46,7 @@ The data that is synchronized to the Kafka cluster is stored in the Avro format.
     |Instance ID|Select the ID of the source RDS instance.|
     |Database Account|Enter the account that is used to connect to the source database. The account must have the SELECT permission on the required objects, the REPLICATION CLIENT permission, the REPLICATION SLAVE permission, and the SHOW VIEW permission.|
     |Database Password|Enter the password of the source database account.|
-    |Encryption|Select **Non-encrypted** or **SSL-encrypted**. If you want to select **SSL-encrypted**, you must enable SSL encryption for the RDS instance before you configure the data synchronization task. For more information, see [Configure SSL encryption on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96120.htm). **Note:** The **Encryption** parameter is available only for regions in mainland China and the Hong Kong \(China\) region. |
+    |Encryption|Select **Non-encrypted** or **SSL-encrypted**. If you want to select **SSL-encrypted**, you must enable SSL encryption for the RDS instance before you configure the data synchronization task. For more information, see [Configure SSL encryption on an ApsaraDB RDS for MySQL instance](https://www.alibabacloud.com/help/zh/doc-detail/96120.htm). **Note:** The **Encryption** parameter is available only for regions in mainland China and the China \(Hong Kong\) region. |
     |Destination Instance Details|Instance Type|Select an instance type based on the deployment of the Kafka cluster. In this example, select **User-Created Database in ECS Instance**.**Note:** If you select other instance types, you must prepare the environment that is required for the Kafka cluster. For more information, see [Preparation overview](). |
     |Instance Region|The region of the destination cluster. The region is the same as the destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |ECS Instance ID|Select the ID of the ECS instance on which the Kafka cluster is deployed.|
@@ -66,7 +66,7 @@ The data that is synchronized to the Kafka cluster is stored in the Avro format.
 
     |Setting|Description|
     |-------|-----------|
-    |Select the objects to be synchronized|Select tables from the **Available** section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the **Selected** section.**Note:** DTS maps the table names to the topic name that you select in [Step 6](#step_2ys_eus_xmy). If you want to change the topic, you can use the object name mapping feature. For more information, see [Specify the name of an object in the destination instance](/intl.en-US/Data Synchronization/Synchronization task management/Specify the name of an object in the destination instance.md). |
+    |Select the objects to be synchronized|Select tables from the **Available** section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the tables to the **Selected** section.**Note:** DTS maps the table names to the topic name that you select in Step 6. If you want to change the topic, you can use the object name mapping feature. For more information, see [Specify the name of an object in the destination instance](/intl.en-US/Data Synchronization/Synchronization task management/Specify the name of an object in the destination instance.md). |
 
 5.  In the lower-right corner of the page, click **Next**.
 

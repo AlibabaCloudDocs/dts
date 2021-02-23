@@ -40,13 +40,13 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步作业的源实例及目标实例信息。
 
-    ![同步通道的源和目标实例配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7720649951/p39867.png)
+    ![同步通道的源和目标实例配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7720649951/p39867.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -72,16 +72,16 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 8.  配置同步策略和同步对象信息。
 
-    ![配置同步对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p133327.png)
+    ![配置同步对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p133327.png)
 
     |配置|说明|
     |--|--|
     |**同步到Kafka Partition策略**|根据业务需求选择同步的策略，详细介绍请参见[Kafka Partition同步策略说明](/cn.zh-CN/数据同步/同步作业管理/Kafka Partition同步策略说明.md)。|
-    |同步对象|在**源库对象**区域框中，选择需要同步的对象（选择的粒度为表），然后单击![向右箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动到**已选对象**区域框中。**说明：** DTS会自动将表名映射为[步骤6](#step_2ys_eus_xmy)选择的Topic名称。如果需要更换同步的目标Topic，请参见步骤9 。 |
+    |同步对象|在**源库对象**区域框中，选择需要同步的对象（选择的粒度为表），然后单击![向右箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动到**已选对象**区域框中。**说明：** DTS会自动将表名映射为步骤6选择的Topic名称。如果需要更换同步的目标Topic，请参见步骤9 。 |
 
 9.  在**已选择对象**区域框中，将鼠标指针放置在目标Topic名上，然后单击Topic名后出现的**编辑**，在弹出的对话框中设置源表在目标Kafka集群中的Topic名称、Topic的Partition数量、Partition Key等信息。
 
-    ![设置topic](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p133332.png)
+    ![设置topic](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p133332.png)
 
     |配置|说明|
     |--|--|
@@ -95,7 +95,7 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 11. 配置同步初始化的高级配置信息。
 
-    ![Kafka同步初始化高级配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p87942.png)
+    ![Kafka同步初始化高级配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p87942.png)
 
     |配置|说明|
     |--|--|
@@ -107,11 +107,11 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 13. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，数据同步作业正式开始。
 
     您可以在数据同步页面，查看数据同步状态。
 
-    ![查看数据同步状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p39871.png)
+    ![查看数据同步状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p39871.png)
 
 

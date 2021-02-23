@@ -30,7 +30,7 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 ## 操作步骤
 
-1.  购买数据同步作业，详情请参见[购买流程](/intl.zh-CN/快速入门/购买流程.md)。
+1.  购买数据同步作业，详情请参见[购买流程]()。
 
     **说明：** 购买时，选择源实例为**MySQL**、目标实例为**Kafka**，并选择同步拓扑为**单向同步**。
 
@@ -40,13 +40,13 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步作业的源实例及目标实例信息。
 
-    ![同步通道的源和目标实例配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7720649951/p39867.png)
+    ![同步通道的源和目标实例配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7720649951/p39867.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -57,7 +57,7 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
     |数据库账号|填入连接源RDS实例数据库的账号，需要具备REPLICATION CLIENT、REPLICATION SLAVE、SHOW VIEW和所有同步对象的SELECT权限。|
     |数据库密码|填入连接源RDS实例数据库账号的密码。|
     |连接方式|根据需求选择**非加密连接**或**SSL安全连接**。如果设置为**SSL安全连接**，您需要提前开启RDS实例的SSL加密功能，详情请参见[设置SSL加密](https://www.alibabacloud.com/help/zh/doc-detail/96120.htm)。 **说明：** 目前仅中国内地及中国香港地域支持设置**连接方式**。 |
-    |目标实例信息|实例类型|根据Kafka集群的部署位置选择，本文以**ECS上的自建数据库**为例介绍配置流程。**说明：** 当选择为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览](/intl.zh-CN/准备工作/准备工作概览.md)。 |
+    |目标实例信息|实例类型|根据Kafka集群的部署位置选择，本文以**ECS上的自建数据库**为例介绍配置流程。**说明：** 当选择为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览]()。 |
     |实例地区|购买数据同步实例时选择的目标实例地域，不可变更。|
     |ECS实例ID|选择部署了Kafka集群的ECS实例ID。|
     |数据库类型|固定为**Kafka**。|
@@ -72,17 +72,17 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
 
 8.  配置同步对象信息。
 
-    ![配置同步对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p39868.png)
+    ![配置同步对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p39868.png)
 
     |配置|说明|
     |--|--|
-    |同步对象|在**源库对象**区域框中，选择需要同步的对象（选择的粒度为表），然后单击![向右箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动到**已选对象**区域框中。**说明：** DTS会自动将表名映射为[步骤6](#step_2ys_eus_xmy)选择的Topic名称。如果需要更换同步的目标Topic，您需要使用库表列名映射功能，详情请参见[设置同步对象在目标实例中的名称](/intl.zh-CN/数据同步/同步作业管理/设置同步对象在目标实例中的名称.md) 。 |
+    |同步对象|在**源库对象**区域框中，选择需要同步的对象（选择的粒度为表），然后单击![向右箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动到**已选对象**区域框中。**说明：** DTS会自动将表名映射为步骤6选择的Topic名称。如果需要更换同步的目标Topic，您需要使用库表列名映射功能，详情请参见[设置同步对象在目标实例中的名称](/intl.zh-CN/数据同步/同步作业管理/设置同步对象在目标实例中的名称.md) 。 |
 
 9.  上述配置完成后单击页面右下角的**下一步**。
 
 10. 配置同步初始化的高级配置信息。
 
-    ![Kafka同步初始化高级配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p87942.png)
+    ![Kafka同步初始化高级配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p87942.png)
 
     |配置|说明|
     |--|--|
@@ -94,11 +94,11 @@ Kafka是应用较为广泛的分布式、高吞吐量、高可扩展性消息队
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 12. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，数据同步作业正式开始。
 
     您可以在数据同步页面，查看数据同步状态。
 
-    ![查看数据同步状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4030649951/p39871.png)
+    ![查看数据同步状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4030649951/p39871.png)
 
 

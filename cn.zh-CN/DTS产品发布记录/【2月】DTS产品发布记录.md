@@ -6,8 +6,8 @@
 
 |重点内容|具体内容|
 |----|----|
-|优化目标实例为Datahub的同步链路。|优化自建MySQL、PolarDB MySQL、PolarDB-X同步至Datahub的链路。|
-|优化全量迁移和全量初始化功能。|在涉及自建MySQL、自建Oracle、PolarDB-X、自建SQL Server、MaxCompute的迁移或同步链路中，优化全量迁移、全量初始化功能。|
+|优化目标实例为Datahub的同步链路。|优化自建MySQL、RDS MySQL、PolarDB MySQL、PolarDB-X同步至Datahub的链路。|
+|优化全量迁移和全量初始化功能。|在涉及自建MySQL、RDS MySQL、自建Oracle、PolarDB-X、自建SQL Server、RDS SQL Server、MaxCompute的迁移或同步链路中，优化全量迁移、全量初始化功能。|
 |优化数据订阅内核。|优化数据订阅内核。|
 |优化包年包月实例的释放方式。|在**同步作业列表**或**数据订阅列表**页释放包年包月实例时，单击**释放同步**或**释放订阅**，您可以根据退款提示，跳转至**退订管理**页面，来释放包年包月实例。更多信息，请参见[释放包年包月实例](/cn.zh-CN/实例管理/释放实例.md)。|
 

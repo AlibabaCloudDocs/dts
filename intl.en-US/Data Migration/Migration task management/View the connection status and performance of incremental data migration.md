@@ -18,7 +18,7 @@ This topic describes how to view the connection status and performance of increm
 
 6.  On the page that appears, view the topology of the migration task. You can also select a time range to view the trend charts of performance metrics.
 
-    ![Performance of incremental data migration](../images/p171522.png)
+    ![增量迁移性能](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/8443324161/p171525.png)
 
     |Section|Description|
     |-------|-----------|

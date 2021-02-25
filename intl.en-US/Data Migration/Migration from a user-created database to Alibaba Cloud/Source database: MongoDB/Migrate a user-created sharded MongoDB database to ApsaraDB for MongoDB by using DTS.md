@@ -18,7 +18,7 @@ DTS migrates a user-created MongoDB database by migrating each shard in the inst
 
 **Note:** The distribution of migrated data in the destination instance depends on the shard key that you specify. For more information, see [Configure sharding to maximize the performance of shards](/intl.en-US/Best Practices/Performance/Configure sharding to maximize the performance of shards.md).
 
-![How it works](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/1435298951/p50227.png)
+![How it works](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1435298951/p50227.png)
 
 ## Usage notes
 
@@ -30,7 +30,7 @@ DTS migrates a user-created MongoDB database by migrating each shard in the inst
 |Migration type|Instance fee|Internet traffic fee|
 |--------------|------------|--------------------|
 |Full data migration|Free of charge|Charged only when data is migrated from Alibaba Cloud over the Internet. For more information, see [Data Transmission Service Pricing](https://www.alibabacloud.com/zh/product/data-transmission-service/pricing).|
-|Incremental data migration|Charged. For more information, see[Data Transmission Service Pricing](https://www.alibabacloud.com/zh/product/data-transmission-service/pricing).|
+|Incremental data migration|Charged. For more information, see [Data Transmission Service Pricing](https://www.alibabacloud.com/zh/product/data-transmission-service/pricing).|
 
 ## Migration types
 
@@ -55,7 +55,7 @@ DTS migrates a user-created MongoDB database by migrating each shard in the inst
 How to create and authorize a database account:
 
 -   For a user-created MongoDB database, see [db.createUser\(\)](https://docs.mongodb.com/manual/reference/method/db.createUser/).
--   For an ApsaraDB for MongoDB instance, see [Manage MongoDB users through DMS]().
+-   For an ApsaraDB for MongoDB instance, see [Manage MongoDB users through DMS](/intl.en-US/User Guide/Account management/Manage user permissions on MongoDB databases.md).
 
 ## Prerequisites
 
@@ -77,11 +77,11 @@ How to create and authorize a database account:
 
         **Note:** If you want to delete orphaned documents from multiple databases, repeat Steps ii and iii.
 
-        ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/0034948951/p53814.png)
+        ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0034948951/p53814.png)
 
     3.  Run the following command on a shard to delete the orphaned documents from all collections in the specified database:
 
-        **Note:** You must repeat this step on each shard.
+        **Note:** You must repeat this step on each shard. To obtain shard IDs and service ports, see [View the created instance](/intl.en-US/Quick Start/Create an instance/Create a sharded cluster instance.md).
 
         ```
         mongo --host <Shardhost> --port <Primaryport>  --authenticationDatabase <database> -u <username> -p <passowrd> cleanupOrphaned.js
@@ -94,7 +94,7 @@ How to create and authorize a database account:
         -   <database\>: the database corresponding to the username and password if authentication is enabled.
         -   <username\>: the account used to log on to the user-created MongoDB database.
         -   <password\>: the password used to log on to the user-created MongoDB database.
-        The following figure shows an example.
+        Example:
 
         In this example, a user-created MongoDB database has three shards, and you must delete the orphaned documents on each of the shards.
 
@@ -121,17 +121,17 @@ How to create and authorize a database account:
 2.  In the left-side navigation pane, click **Data Migration**.
 3.  In the Migration Tasks section, select the region in which the ApsaraDB for MongoDB instance is deployed.
 
-    ![Select a region](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/6535298951/p50190.png)
+    ![Select a region](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/6535298951/p50190.png)
 
 4.  In the upper-right corner, click **Create Migration Task**.
 5.  Click Create Migration Task. In the Configure Source and Destination step, configure the source and destination databases for the migration task.
 
-    ![Configure the source and destination databases](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/0034948951/p34129.png)
+    ![Configure the source and destination databases](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0034948951/p34129.png)
 
     |Section|Parameter|Description|
     |:------|:--------|:----------|
     |N/A|Task Name|DTS automatically generates a task name. We recommend that you specify an informative name for easy identification. You do not need to use a unique task name.|
-    |Source Database|Instance Type|Select an instance type based on the location where the database is deployed. In this topic, a **User-Created Database with Public IP Address** is used as an example. **Note:** If you select other instance types, you must prepare the environment that is required for the source database. For more information, see [Preparation overview](). |
+    |Source Database|Instance Type|Select an instance type based on the location where the database is deployed. In this topic, a **User-Created Database with Public IP Address** is used as an example. **Note:** If you select other instance types or other network types, you must prepare the environment that is required for the source database. For more information, see [Preparation overview](). |
     |Instance Region|If Instance Type is set to **User-Created Database with Public IP Address**, you do not need to specify the **Instance Region**. **Note:** If you have configured a whitelist for the user-created MongoDB database, you must add the CIDR blocks of DTS servers to the whitelist. You can click **Get IP Address Segment of DTS** next to **Instance Region** to obtain the CIDR blocks of DTS servers. |
     |Database Type|Select **MongoDB**.|
     |Hostname or IP Address|Enter the endpoint of a shard for the source database. In this example, enter the public IP address of the shard. **Note:** DTS migrates each shard of the source database in turn. In this example, enter the endpoint of the first shard. Then enter the endpoint of the second shard in the second migration task. Repeat this until all shards are migrated. |
@@ -149,18 +149,32 @@ How to create and authorize a database account:
 
 6.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
-    **Note:** The CIDR blocks of DTS servers are automatically added to the whitelist of the destination ApsaraDB for MongoDB instance. This ensures that DTS servers can connect to the destination ApsaraDB for MongoDB instance. After the migration is completed, you can remove these CIDR blocks from the whitelist. For more information, see [Configure a whitelist or an ECS security group for an ApsaraDB for MongoDB instance](/intl.en-US/User Guide/Data security/Configure a whitelist for an ApsaraDB for MongoDB instance.md).
+    **Note:** The CIDR blocks of DTS servers are automatically added to the whitelist of the destination ApsaraDB for MongoDB instance. This ensures that DTS servers can connect to the destination ApsaraDB for MongoDB instance. After the migration is completed, you can remove these CIDR blocks from the whitelist. For more information, see [Configure a whitelist or an ECS security group for an ApsaraDB for MongoDB instance](/intl.en-US/User Guide/Data security/Configure a whitelist or an ECS security group for an ApsaraDB for MongoDB instance.md).
 
 7.  Select the migration types and objects to be migrated.
 
-    ![Select the migration types and objects to be migrated](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/0034948951/p34699.png)
+    ![Select the migration types and objects to be migrated](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/0034948951/p34699.png)
+
+    |Parameter|Description|
+    |:--------|:----------|
+    |Migration Types|    -   To perform only full data migration, select **Full Data Migration**.
+    -   To migrate data with minimal downtime, select both **Full Data Migration** and **Incremental Data Migration**.
+ **Note:** If the **Incremental Data Migration** option is not selected, do not write new data to the user-created MongoDB database when full data migration is in progress. Otherwise, data inconsistency may occur. |
+    |Migration objects|    -   Select objects from the **Available** section and click the ![Right arrow](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7535298951/p37966.png) icon to move the objects to the **Selected** section.
+
+**Note:**
+
+        -   Data in the admin and local databases cannot be migrated.
+        -   The config database is an internal database. We recommend that you do not migrate data in the config database.
+    -   A migration object can be a database, collection, or function.
+    -   By default, the name of an object remains unchanged after migration. You can change the names of the objects in the destination RDS instance by using the object name mapping feature. For more information, see [Object name mapping](https://www.alibabacloud.com/help/doc-detail/26628.htm). |
 
 8.  In the lower-right corner of the page, click **Precheck**.
 
     **Note:**
 
     -   A precheck is performed before the migration task starts. You can start the data migration task only after the task passes the precheck.
-    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/7535298951/p50068.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and run the precheck again.
+    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/7535298951/p50068.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and run the precheck again.
 9.  After the task passes the precheck, click **Next**.
 10. In the **Confirm Settings** dialog box, specify the **Channel Specification** and select **Data Transmission Service \(Pay-As-You-Go\) Service Terms**.
 11. Click **Buy and Start** to start the migration task.
@@ -179,7 +193,7 @@ How to create and authorize a database account:
         1.  Wait until **Incremental Data Migration** and **The migration task is not delayed** appear in the progress bar of the migration task. Then, stop writing data to the source database for a few minutes. The delay time of **incremental data migration** may be displayed in the progress bar.
         2.  After the status of **Incremental Data Migration** changes to **The migration task is not delayed**, stop the migration task.
 
-            ![Stop a migration task](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/en-US/1435298951/p34689.png)
+            ![Stop a migration task](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/1435298951/p34689.png)
 
 14. Switch over your business to the destination ApsaraDB for MongoDB instance.
 

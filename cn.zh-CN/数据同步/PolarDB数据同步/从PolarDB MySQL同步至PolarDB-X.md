@@ -68,13 +68,13 @@ INSERT、UPDATE、DELETE。
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步作业的源集群及目标实例信息。
 
-    ![配置源和目标实例](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/3515502061/p171519.png)
+    ![配置源和目标实例](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3515502061/p171519.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -94,11 +94,11 @@ INSERT、UPDATE、DELETE。
 
 8.  配置同步策略及对象信息。
 
-    ![配置同步对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/3697791061/p171518.png)
+    ![配置同步对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3697791061/p171518.png)
 
     |配置项目|配置说明|
     |:---|:---|
-    |选择同步对象|在源库对象框中单击待同步的表，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
+    |选择同步对象|在源库对象框中单击待同步的表，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 **说明：**
 
@@ -109,7 +109,7 @@ INSERT、UPDATE、DELETE。
 
 10. 选择是否要执行全量数据初始化。
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4697791061/p60676.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4697791061/p60676.png)
 
     **说明：** **全量数据初始化**：DTS将源库中待同步表的存量数据同步至目标库中，如果不选择则不同步存量数据。
 
@@ -118,13 +118,13 @@ INSERT、UPDATE、DELETE。
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复问题后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复问题后，重新进行预检查。
 12. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 13. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 

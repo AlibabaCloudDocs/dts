@@ -28,7 +28,7 @@
 |[ModifyConsumerGroupPassword](/cn.zh-CN/API参考/数据订阅/管理消费组/修改消费组密码.md)|修改消费组密码。|
 |[DeleteConsumerGroup](/cn.zh-CN/API参考/数据订阅/管理消费组/删除消费组.md)|删除消费组。|
 |[ModifyConsumptionTimestamp](/cn.zh-CN/API参考/数据订阅/修改消费时间点.md)|修改消费时间点。|
-|[DescribeSubscriptionInstances](/cn.zh-CN/API参考/数据订阅/查看订阅实例列表.md)|查询数据订阅实例列表。|
+|[DescribeSubscriptionInstances](/cn.zh-CN/API参考/数据订阅/DescribeSubscriptionInstances.md)|查询数据订阅实例列表。|
 |[DescribeSubscriptionInstanceStatus](https://help.aliyun.com/document_detail/49441.html)|查询数据订阅实例状态。|
 |[DeleteSubscriptionInstance](/cn.zh-CN/API参考/数据订阅/释放订阅实例.md)|释放数据订阅实例。|
 
@@ -43,7 +43,7 @@
 |[ResetSynchronizationJob](/cn.zh-CN/API参考/数据同步/清空同步实例配置.md)|清空数据同步实例配置。|
 |[ModifySynchronizationObject](/cn.zh-CN/API参考/数据同步/修改同步对象.md)|修改同步对象。|
 |[DescribeSynchronizationObjectModifyStatus](https://help.aliyun.com/document_detail/49452.html)|查询同步对象变更状态。|
-|[SwitchSynchronizationEndpoint]()|更改数据库连接信息。|
+|[SwitchSynchronizationEndpoint](/cn.zh-CN/API参考/数据同步/修改数据库连接信息.md)|更改数据库连接信息。|
 |[DescribeEndpointSwitchStatus](/cn.zh-CN/API参考/数据同步/查询更改数据库连接信息的任务执行状态.md)|查询更改数据库连接信息的任务执行状态。|
 |[ConfigureSynchronizationJobReplicatorCompare](/cn.zh-CN/API参考/数据同步/配置全镜像匹配开关.md)|配置一个同步实例的全镜像匹配开关。|
 |[DescribeSynchronizationJobReplicatorCompare](/cn.zh-CN/API参考/数据同步/查询全镜像匹配开关状态.md)|查询一个同步实例的全镜像匹配开关状态。|

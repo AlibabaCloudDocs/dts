@@ -8,7 +8,7 @@ AnalyticDB for MySQL is a real-time online analytical processing \(RT-OLAP\) ser
 
 ## Precautions
 
--   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the database load. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before synchronizing data, you must evaluate the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU usage of the source and destination databases is less than 30%.
+-   DTS uses read and write resources of the source and destination databases during initial full data synchronization. This may increase the loads of the database servers. If the database performance is unfavorable, the specification is low, or the data volume is large, database services may become unavailable. For example, DTS occupies a large amount of read and write resources in the following cases: a large number of slow SQL queries are performed on the source database, the tables have no primary keys, or a deadlock occurs in the destination database. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours. For example, you can synchronize data when the CPU utilization of the source and destination databases is less than 30%.
 -   We recommend that you do not scale up or down the DRDS instance, migrate frequently-accessed tables, change shard keys, or perform DDL operations on objects during data synchronization. Otherwise, data synchronization may fail.
 -   If you need to change the network type of a DRDS instance during data synchronization, you must [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex) to modify the network connection information.
 -   We recommend that you do not use gh-ost or pt-online-schema-change to perform data definition language \(DDL\) operations on the required objects during data synchronization. Otherwise, data may fail to be synchronized.
@@ -32,7 +32,7 @@ For more information, see [Data type mappings for initial schema synchronization
 
 ## Procedure
 
-1.  Purchase a data synchronization instance. For more information, see [Purchase procedure]().
+1.  Purchase a data synchronization instance. For more information, see [Purchase a DTS instance]().
 
     **Note:** On the buy page, set Source Instance to **DRDS**, set Target Instance to **AnalyticDB MySQL**, and set Synchronization Topology to **One-Way Synchronization**.
 

@@ -12,11 +12,15 @@ The source and destination instances are [ApsaraDB for Redis Enterprise Edition]
 
 -   During two-way data synchronization, the data synchronization task in one direction performs and The data synchronization task in the opposite direction performs only incremental data synchronization.
 
-    **Warning:** To ensure data consistency, do not modify or write data to the same key in the source and destination databases while the two-way data synchronization task is running.
+    **Warning:** To ensure data consistency, do not modify or write data to the same key in the source and destination databases when the two-way data synchronization tasks are running.
 
 -   DTS uses the resources of the source and destination instances during initial full data synchronization. This may increase the loads of the database servers. If you synchronize a large volume of data or the server specifications cannot meet your requirements, the database services may become unavailable. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours.
 -   We recommend that you do not run the `FLUSHDB` or `FLUSHALL` command in the source instance during data synchronization. Otherwise, data may become inconsistent between the source and destination instances.
--   If the data eviction policy \(`maxmemory-policy`\) of the destination instance is not set to `noeviction`, data may become inconsistent between the source and destination instances. For more information about the data eviction policy, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/How does ApsaraDB for Redis evict data by default?.md)
+-   If the data eviction policy \(`maxmemory-policy`\) of the destination database is not set to `noeviction`, data may become inconsistent between the source and destination databases. For more information about data eviction policies, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/Expiration policy/How does ApsaraDB for Redis evict data by default?.md)
+-   If an expiration policy is enabled for some keys in the source database, some keys may not be deleted in a timely manner after they expired. Therefore, the number of keys in the destination database may be less than that in the source database. You can run the info command to view the number of keys in the destination database.
+
+    **Note:** The number of keys that do not have an expiration policy or have not expired is the same in the source and destination databases.
+
 -   If direct connection is disabled for the destination ApsaraDB for Redis instance, DTS uses the proxy forwarding mode to write data to the destination instance.
 
     **Note:** For more information, see [Enable a direct connection](/intl.en-US/User Guide/Manage instances/Network connection management/Enable a direct connection.md).
@@ -50,12 +54,12 @@ The source and destination instances are [ApsaraDB for Redis Enterprise Edition]
 
 |Database|Permission and authorization method|
 |--------|-----------------------------------|
-|Source ApsaraDB for Redis instance|The database account must have the read and write permissions. For more information about how to authorize the account, see [Manage database accounts](/intl.en-US/User Guide/Security management/Manage database accounts.md).|
+|Source ApsaraDB for Redis instance|The database account must have the read and write permissions. For more information about how to authorize the account, see [Create and manage database accounts](/intl.en-US/User Guide/Security management/Create and manage database accounts.md).|
 |Destination ApsaraDB for Redis instance|
 
 ## Procedure
 
-1.  Purchase a data synchronization instance. For more information, see [Purchase procedure]().
+1.  Purchase a data synchronization instance. For more information, see [Purchase a DTS instance]().
 
     **Note:** On the buy page, set Source Instance to **Redis**, set Target Instance to **Redis**, and set Synchronization Topology to **Two-Way Synchronization**.
 
@@ -85,11 +89,11 @@ The source and destination instances are [ApsaraDB for Redis Enterprise Edition]
         |Source Instance Details|Instance Type|Select **Redis Instance**.|
         |Instance Region|The source region that you selected on the buy page. You cannot change the value of this parameter.|
         |Instance ID|Select the ID of the source ApsaraDB for Redis instance. **Note:** When you configure the data synchronization task in the opposite direction, select the ID of the destination ApsaraDB for Redis instance. |
-        |Database Password|Enter the database password of the ApsaraDB for Redis instance. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_rvb_h4w_l8r). **Note:** The format of the database password is <user\>:<password\>. For example, if the username of the custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
+        |Database Password|Enter the database password of the source ApsaraDB for Redis instance. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_rvb_h4w_l8r). **Note:** The format of the database password is <user\>:<password\>. For example, if the username of a custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
         |Destination Instance Details|Instance Type|Select **Redis Instance**.|
         |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
         |Instance ID|Select the ID of the destination ApsaraDB for Redis instance. **Note:** When you configure the data synchronization task in the opposite direction, select the ID of the source ApsaraDB for Redis instance. |
-        |Database Password|Enter the database password of the ApsaraDB for Redis instance. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_rvb_h4w_l8r). **Note:** The format of the database password is <user\>:<password\>. For example, if the username of the custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
+        |Database Password|Enter the database password of the destination ApsaraDB for Redis instance. For more information about the permissions that are required for the account, see [Permissions required for database accounts](#section_rvb_h4w_l8r). **Note:** The format of the database password is <user\>:<password\>. For example, if the username of a custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
 
     3.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 

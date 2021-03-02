@@ -1,6 +1,6 @@
 # Synchronize data from a user-created Redis cluster to an ApsaraDB for Redis cluster instance
 
-Data Transmission Service \(DTS\) supports one-way data synchronization between two Redis clusters. This feature is applicable to scenarios such as data migration, active geo-redundancy, and geo-disaster recovery. This topic describes how to configure one-way data synchronization from a user-created Redis cluster to an ApsaraDB for Redis cluster instance.
+Data Transmission Service \(DTS\) supports one-way data synchronization between Redis clusters. This feature is applicable to scenarios such as data migration, active geo-redundancy, and geo-disaster recovery. This topic describes how to configure one-way data synchronization from a user-created Redis cluster to an ApsaraDB for Redis cluster instance.
 
 You can also follow the procedure to configure data synchronization from an ApsaraDB for Redis cluster instance to a user-created Redis cluster. However, you must configure parameters for the source and destination instances based on the actual scenarios.
 
@@ -8,20 +8,24 @@ You can also follow the procedure to configure data synchronization from an Apsa
 
 ## Prerequisites
 
--   The database version of the user-created Redis cluster is 2.8, 3.0, 3.2, 4.0, or 5.0.
+-   The version of the user-created Redis database is 2.8, 3.0, 3.2, 4.0, or 5.0.
 
-    **Note:** The database version of the destination ApsaraDB for Redis cluster instance can be 2.8, 4.0, or 5.0. The version of the destination database must be the same as or later than the version of the source database. If you want to synchronize data between different versions of Redis databases, make sure that the versions of the source and destination databases are compatible. You can create a pay-as-you-go ApsaraDB for Redis cluster instance to verify database compatibility. After verification, you can release the instance or change the billing method to subscription.
+    **Note:** The database version of the destination ApsaraDB for Redis cluster instance can be 2.8, 4.0, or 5.0. The version of the destination database must be the same as or later than the version of the source database. If you synchronize data between different versions of Redis databases, make sure that the versions of the source and destination databases are compatible. You can create a pay-as-you-go ApsaraDB for Redis cluster instance to verify database compatibility. After verification, you can release the instance or change the billing method to subscription.
 
 -   The available storage space of the destination ApsaraDB for Redis cluster instance is larger than the total size of the data in the source Redis database.
 -   All nodes of the source Redis cluster support the `PSYNC` command and share the same password.
 
 ## Precautions
 
--   DTS uses the resources of the source and destination instances during initial full data synchronization. This may increase the loads of the database servers. If you synchronize a large volume of data or the server specifications cannot meet your requirements, database services may become unavailable. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours.
+-   DTS uses the resources of the source and destination databases during initial full data synchronization. This may increase the loads of the database servers. If you synchronize a large volume of data or the server specifications cannot meet your requirements, database services may become unavailable. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination databases. We recommend that you synchronize data during off-peak hours.
 -   We recommend that you increase the value of the repl-backlog-size parameter in the `redis.conf` file. This ensures the stability of data synchronization.
 -   To ensure the synchronization quality, DTS adds the following key to the source Redis database: DTS\_REDIS\_TIMESTAMP\_HEARTBEAT. This key is used to record the time when data is synchronized to ApsaraDB for Redis.
--   We recommend that you do not run the `FLUSHDB` or `FLUSHALL` command in the source Redis cluster. Otherwise, data in the source and destination databases may become inconsistent.
--   If the data eviction policy \(`maxmemory-policy`\) of the destination instance is not set to `noeviction`, data may become inconsistent between the source and destination instances. For more information about the data eviction policy, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/Expiration policy/How does ApsaraDB for Redis evict data by default?.md)
+-   We recommend that you do not run the `FLUSHDB` or `FLUSHALL` command in the source Redis cluster. Otherwise, data may become inconsistent between the source and destination databases.
+-   If the data eviction policy \(`maxmemory-policy`\) of the destination database is not set to `noeviction`, data may become inconsistent between the source and destination databases. For more information about data eviction policies, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/Expiration policy/How does ApsaraDB for Redis evict data by default?.md)
+-   If an expiration policy is enabled for some keys in the source database, some keys may not be deleted in a timely manner after they expired. Therefore, the number of keys in the destination database may be less than that in the source database. You can run the info command to view the number of keys in the destination database.
+
+    **Note:** The number of keys that do not have an expiration policy or have not expired is the same in the source and destination databases.
+
 
 ## Supported synchronization topologies
 
@@ -83,7 +87,7 @@ For more information about synchronization topologies, see [Synchronization topo
     |Destination Instance Details|Instance Type|Select **Redis Instance**.|
     |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
     |Instance ID|Select the ID of the destination ApsaraDB for Redis cluster instance.|
-    |Database Password|Enter the database password of the destination ApsaraDB for Redis cluster instance. **Note:** The format of the database password is <user\>:<password\>. For example, if the username of the custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
+    |Database Password|Enter the database password of the destination ApsaraDB for Redis cluster instance. **Note:** The format of the database password is <user\>:<password\>. For example, if the username of a custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
@@ -96,7 +100,7 @@ For more information about synchronization topologies, see [Synchronization topo
     |Setting|Description|
     |:------|:----------|
     |Select the processing mode of conflicting tables|    -   **Pre-check and Intercept**: checks whether the destination database is empty. If the destination database is empty, the precheck is passed. If the database is not empty, an error is returned during the precheck and the data synchronization task cannot be started.
-    -   **Ignore**: skips the check for empty destination databases.
+    -   **Ignore**: skips the check for empty destination database.
 
 **Warning:** If you select **Ignore**, the data records in the source database overwrite the data records that have the same keys in the destination database. |
     |Select the objects to be synchronized|    -   Select one or more databases from the Available section and click the ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the databases to the Selected section.
@@ -110,13 +114,13 @@ For more information about synchronization topologies, see [Synchronization topo
     **Note:**
 
     -   DTS synchronizes historical data from the source ApsaraDB for Redis instance to the destination ApsaraDB for Redis instance. Then, DTS synchronizes incremental data.
-    -   If a version-related error message appears, upgrade the source ApsaraDB for Redis instance to a specified version. For more information, see [Upgrade the major version](/intl.en-US/User Guide/Manage instances/Lifecycle management/Upgrade the major version.md) and [Upgrade the minor version](/intl.en-US/User Guide/Manage instances/Lifecycle management/Upgrade the minor version.md).
+    -   If a version-related error message appears, you can upgrade the source ApsaraDB for Redis instance to a specified version. For more information, see [Upgrade the major version](/intl.en-US/User Guide/Manage instances/Lifecycle management/Upgrade the major version.md) and [Upgrade the minor version](/intl.en-US/User Guide/Manage instances/Lifecycle management/Upgrade the minor version.md).
 11. In the lower-right corner of the page, click **Precheck**.
 
     **Note:**
 
     -   Before you can start the data synchronization task, DTS performs a precheck. You can start the data synchronization task only after the task passes the precheck.
-    -   If the task fails to pass the precheck, click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. Troubleshoot the issues based on the causes and run a precheck again.
+    -   If the task fails to pass the precheck, you can click the ![Info icon](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p47468.png) icon next to each failed item to view details. You can troubleshoot the issues based on the causes and run a precheck again.
 12. Close the Precheck dialog box after the following message appears: **The precheck is passed.** Then, the data synchronization task starts.
 13. Wait until the initial synchronization is complete and the data synchronization task is in the **Synchronizing** state.
 

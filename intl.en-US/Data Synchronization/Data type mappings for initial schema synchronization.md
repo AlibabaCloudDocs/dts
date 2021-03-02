@@ -51,36 +51,36 @@ The data types of different databases do not have one-to-one correspondence. Dur
 
 |MySQL data type|Elasticsearch data type|Description|
 |:--------------|:----------------------|:----------|
-|BIGINT|LONG|None.|
-|BINARY|BINARY|None.|
+|BIGINT|LONG|None|
+|BINARY|BINARY|None|
 |BIT|LONG|If the data is only one byte long, we recommend that you use the BOOLEAN type in Elasticsearch.|
-|BLOB|BINARY|None.|
-|BOOL/BOOLEAN|BOOLEAN|None.|
-|CHAR|TEXT|None.|
+|BLOB|BINARY|None|
+|BOOL/BOOLEAN|BOOLEAN|None|
+|CHAR|TEXT|None|
 |DATE|DATE|The DATE format is yyyy-MM-dd, in UTC. For more information, see [Date format mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html).|
 |DATETIME|DATE|The DATE format is yyyy-MM-dd'T'HH:mm:ss, in UTC. If DATE is accurate to microseconds, its format is yyyy-MM-dd'T'HH:mm:ss.S. For more information, see [Date format mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html).|
 |DECIMAL/DEC|DOUBLE|If the DECIMAL value contains a decimal point, we recommend that you use the TEXT type in Elasticsearch to ensure data consistency.|
-|DOUBLE|DOUBLE|None.|
-|FLOAT|FLOAT|None.|
-|GEOMETRY|GEO\_SHAPE|None.|
-|GEOMETRYCOLLECTION|GEO\_SHAPE|None.|
+|DOUBLE|DOUBLE|None|
+|FLOAT|FLOAT|None|
+|GEOMETRY|GEO\_SHAPE|None|
+|GEOMETRYCOLLECTION|GEO\_SHAPE|None|
 |INT|INTEGER|If the data type of the source database is UNSIGNED INT, we recommend that you use the LONG type in Elasticsearch.|
 |JSON|OBJECT|If the data is only one byte long, we recommend that you use the BOOLEAN type in Elasticsearch.|
-|LINESTRING|GEO\_SHAPE|None.|
-|LONGTEXT|TEXT|None.|
-|MEDIUMINT|INTEGER|None.|
-|MEDIUMTEXT|TEXT|None.|
-|MULTILINESTRING|GEO\_SHAPE|None.|
+|LINESTRING|GEO\_SHAPE|None|
+|LONGTEXT|TEXT|None|
+|MEDIUMINT|INTEGER|None|
+|MEDIUMTEXT|TEXT|None|
+|MULTILINESTRING|GEO\_SHAPE|None|
 |MULTIPOINT|GEO\_SHAPE|If the data is only one byte long, we recommend that you use the BOOLEAN type in Elasticsearch.|
-|MULTIPOLYGON|GEO\_SHAPE|None.|
-|POINT|GEO\_POINT|None.|
-|POLYGON|GEO\_SHAPE|None.|
-|REAL|DOUBLE|None.|
+|MULTIPOLYGON|GEO\_SHAPE|None|
+|POINT|GEO\_POINT|None|
+|POLYGON|GEO\_SHAPE|None|
+|REAL|DOUBLE|None|
 |SMALLINT|SHORT|If the data type of the source database is UNSIGNED SMALLINT, we recommend that you use the INTEGER type in Elasticsearch.|
 |TIME|DATE|The DATE format is HH:mm:ss, in UTC. If DATE is accurate to microseconds, its format is HH:mm:ss.S. For more information, see [Date format mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html).|
 |TIMESTAMP|DATE|The DATE format is yyyy-MM-dd'T'HH:mm:ss, in UTC. If DATE is accurate to microseconds, its format is yyyy-MM-dd'T'HH:mm:ss.S. For more information, see [Date format mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html).|
 |TINYINT|SHORT|If the data type of the source database is UNSIGNED TINYINT, we recommend that you use the INTEGER type in Elasticsearch.|
-|TINYTEXT|TEXT|None.|
-|VARCHAR|TEXT|None.|
+|TINYTEXT|TEXT|None|
+|VARCHAR|TEXT|None|
 |YEAR|DATE|The DATE format is yyyy, in UTC. For more information, see [Date format mappings](https://www.elastic.co/guide/en/elasticsearch/reference/current/mapping-date-format.html).|
 

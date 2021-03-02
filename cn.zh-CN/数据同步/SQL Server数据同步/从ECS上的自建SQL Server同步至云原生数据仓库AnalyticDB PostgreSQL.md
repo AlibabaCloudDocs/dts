@@ -6,10 +6,8 @@
 
 -   自建SQL Server数据库版本为2008、2008 R2、2012、2014、2016或2017版本。
 
-    **说明：**
+    **说明：** 如果是SQL Server AlwaysOn High Availability Group，需要使用强同步模式。
 
-    -   如果是SQL Server AlwaysOn High Availability Group，需要使用强同步模式。
-    -   如需跨版本同步，请提前确认兼容性。
 -   自建SQL Server数据库中待同步的表需具备主键或者唯一性非空索引以确保同步过程中的幂等性。
 -   云原生数据仓库AnalyticDB PostgreSQL实例的存储空间须大于自建SQL Server数据库占用的存储空间。
 

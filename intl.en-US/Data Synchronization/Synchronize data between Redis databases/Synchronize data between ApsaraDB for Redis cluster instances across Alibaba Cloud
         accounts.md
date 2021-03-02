@@ -23,15 +23,19 @@ DTS cannot migrate data of an ApsaraDB for Redis cluster instance. In this solut
 
 |Step|Description|
 |----|-----------|
-|1. Use Account A to log on to the Alibaba Cloud Management Console and grant the required permission to a RAM role. For more information, see Step 1 in [Before you begin](#section_b4m_p6z_fi6).|When you configure the RAM role, set Account B as the trusted account, and authorize the RAM role to access the resources of Account A.|
-|2. Use Account A to log on to the Alibaba Cloud Management Console and prepare the environment that is required for the source Redis instance. For more information, see Steps 2 to 4 in [Before you begin](#section_b4m_p6z_fi6).|Add the CIDR blocks of DTS servers to the whitelist of the source Redis instance. Apply for a private endpoint for the source Redis instance, and create a database account that is authorized to **replicate** the data of the source Redis instance.**Note:** You are not allowed to create a database account that is authorized to **replicate** the data of ApsaraDB for Redis cluster instances. To enable this feature, [submit a ticket](https://workorder-intl.console.aliyun.com/?#/ticket/add/?productId=1226). |
+|1. Use Account A to log on to the Alibaba Cloud Management Console and grant the required permission to a RAM role. For more information, see Step 1 in [Preparations](#section_b4m_p6z_fi6).|When you configure the RAM role, set Account B as the trusted account, and authorize the RAM role to access the resources of Account A.|
+|2. Use Account A to log on to the Alibaba Cloud Management Console and prepare the environment that is required for the source Redis instance. For more information, see Steps 2 to 4 in [Preparations](#section_b4m_p6z_fi6).|Add the CIDR blocks of DTS servers to the whitelist of the source Redis instance. Apply for a private endpoint for the source Redis instance, and create a database account that is authorized to **replicate** the data of the source Redis instance.**Note:** You are not allowed to create a database account that is authorized to **replicate** the data of ApsaraDB for Redis cluster instances. To enable this feature, [submit a ticket](https://workorder-intl.console.aliyun.com/?#/ticket/add/?productId=1226). |
 |3. Use Account B to log on to the Alibaba Cloud Management Console and configure the data synchronization task. For more information, see [Procedure](#section_hck_cyj_2o4).|DTS cannot read the information of source Redis instance across Alibaba Cloud accounts. When you configure the data synchronization task, you must specify the source instance as a user-created database that is connected to DTS over Express Connect.|
 
 ## Precautions
 
 -   DTS uses the resources of the source and destination instances during initial full data synchronization. This may increase the loads of the database servers. If you synchronize a large volume of data or the server specifications cannot meet your requirements, the database services may become unavailable. Before you synchronize data, evaluate the impact of data synchronization on the performance of the source and destination instances. We recommend that you synchronize data during off-peak hours.
 -   We recommend that you do not run the `FLUSHDB` or `FLUSHALL` command on the source instance during data synchronization. If you run one of the two commands, data may become inconsistent between the source and destination instances.
--   If the data eviction policy \(`maxmemory-policy`\) of the destination instance is not set to `noeviction`, data may become inconsistent between the source and destination instances. For more information about the data eviction policy, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/How does ApsaraDB for Redis evict data by default?.md)
+-   If the data eviction policy \(`maxmemory-policy`\) of the destination database is not set to `noeviction`, data may become inconsistent between the source and destination databases. For more information about data eviction policies, see [How does ApsaraDB for Redis evict data by default?](/intl.en-US/User Guide/FAQ/Expiration policy/How does ApsaraDB for Redis evict data by default?.md)
+-   If an expiration policy is enabled for some keys in the source database, some keys may not be deleted in a timely manner after they expired. Therefore, the number of keys in the destination database may be less than that in the source database. You can run the info command to view the number of keys in the destination database.
+
+    **Note:** The number of keys that do not have an expiration policy or have not expired is the same in the source and destination databases.
+
 
 ## Operations that can be synchronized
 
@@ -70,11 +74,12 @@ DTS cannot migrate data of an ApsaraDB for Redis cluster instance. In this solut
 -   If you run the EVAL or EVALSHA command to call Lua scripts, DTS cannot identify whether these Lua scripts are executed on the destination database. During incremental data synchronization, the destination database does not explicitly return the execution results of Lua scripts.
 -   When DTS calls the SYNC or PSYNC command to transfer data of the LIST type, DTS does not clear the existing data. In this case, the destination database may contain duplicate data records.
 
-## Before you begin
+## Preparations
 
 Use the Alibaba Cloud account that owns the source Redis instance to log on to the [Alibaba Cloud Management Console](https://homenew.console.aliyun.com/). Then, perform the following steps:
 
-1.  Create a RAM role and authorize the RAM role to access the resources of the Alibaba Cloud account. For more information, see [Configure RAM authorization for data migration or synchronization from a user-created database in a VPC across different Alibaba Cloud accounts](/intl.en-US/RAM-based Access Control/Configure RAM authorization for data migration from a user-created database in a VPC across different Alibaba Cloud accounts.md).
+1.  Create a RAM role and authorize the RAM role to access the resources of the Alibaba Cloud account. For more information, see [Configure RAM authorization for data migration or synchronization from a user-created database in a VPC across different Alibaba Cloud accounts](/intl.en-US/RAM-based Access Control/Configure RAM authorization for data migration or synchronization from a user-created
+         database in a VPC across different Alibaba Cloud accounts.md).
 
 2.  Apply for a private endpoint for the source Redis instance. For more information, see [Enable a direct connection](/intl.en-US/User Guide/Manage instances/Network connection management/Enable a direct connection.md).
 
@@ -88,12 +93,12 @@ Use the Alibaba Cloud account that owns the source Redis instance to log on to t
 
         **Note:** By default, you are not allowed to create a database account that is authorized to **replicate** the data of ApsaraDB for Redis cluster instances. To enable this feature, [submit a ticket](https://workorder-intl.console.aliyun.com/?#/ticket/add/?productId=1226).
 
-    2.  Create a database account that is authorized to **replicate** data of the source instance. For more information, see [Manage database accounts](/intl.en-US/User Guide/Security management/Manage database accounts.md).
+    2.  Create a database account that is authorized to **replicate** data of the source instance. For more information, see [Create and manage database accounts](/intl.en-US/User Guide/Security management/Create and manage database accounts.md).
 
 
 ## Procedure
 
-1.  Use the Alibaba Cloud account that owns the destination Redis instance to log on to the [Alibaba Cloud Management Console](https://homenew.console.aliyun.com/). Then, purchase a data synchronization instance. For more information, see [Purchase procedure]().
+1.  Use the Alibaba Cloud account that owns the destination Redis instance to log on to the [Alibaba Cloud Management Console](https://homenew.console.aliyun.com/). Then, purchase a data synchronization instance. For more information, see [Purchase a DTS instance]().
 
     **Note:** On the buy page, set the following parameters:
 
@@ -130,13 +135,13 @@ Use the Alibaba Cloud account that owns the source Redis instance to log on to t
         |Alibaba Cloud Account ID|Enter the ID of the Alibaba Cloud account that owns the source Redis instance. **Note:** To obtain the ID of the Alibaba Cloud account that owns the source Redis instance, you must log on to the [Account Management](https://account.console.aliyun.com/#/secure) console by using this account. The account ID is displayed on the Security Settings page.
 
 ![Obtain an Alibaba Cloud account ID](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/4634948951/p44838.png) |
-        |Role Name|Enter the name of the RAM role that you created in Step 1 of [Before you begin](#section_b4m_p6z_fi6).|
+        |Role Name|Enter the name of the RAM role that you created in Step 1 of [Preparations](#section_b4m_p6z_fi6).|
         |Peer VPC|Select the VPC where the source Redis instance is deployed.|
         |Database Type|Select **Redis**.|
         |Instance Mode|Select **Cluster**.|
-        |IP Address|Enter the IP address that corresponds to the private endpoint that you obtained for the source Redis instance in Step 2 of [Before you begin](#section_b4m_p6z_fi6). In this example, enter 192.168.0.153. **Note:** To obtain the IP address that corresponds to the private endpoint of your source Redis instance, run the ping command, for example, `ping r-********.redis.rds.aliyuncs.com`. |
+        |IP Address|Enter the IP address that corresponds to the private endpoint that you obtained for the source Redis instance in Step 2 of [Preparations](#section_b4m_p6z_fi6). In this example, enter 192.168.0.153. **Note:** To obtain the IP address that corresponds to the private endpoint of your source Redis instance, run the ping command, for example, `ping r-********.redis.rds.aliyuncs.com`. |
         |Port Number|Enter the service port number of the source Redis instance.|
-        |Database Password|Enter the password of the account that you created in Step 4 of [Before you begin](#section_b4m_p6z_fi6). This account is authorized to **replicate** the data of the source Redis instance.**Note:** The format of the database password is <user\>:<password\>. For example, if the username of the custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
+        |Database Password|Enter the password of the account that you created in Step 4 of [Preparations](#section_b4m_p6z_fi6). This account is authorized to **replicate** the data of the source Redis instance.**Note:** The format of the database password is <user\>:<password\>. For example, if the username of a custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
 
     4.  Configure the destination instance.
 
@@ -146,8 +151,8 @@ Use the Alibaba Cloud account that owns the source Redis instance to log on to t
         |:--------|:----------|
         |Instance Type|Select **Redis Instance**.|
         |Instance Region|The destination region that you selected on the buy page. You cannot change the value of this parameter.|
-        |Instance ID|Select the ID of the destination Redis instance.|
-        |Database Password|Enter the database password of the destination Redis instance. The account must have the **read and write** permissions on the destination database.**Note:** The format of the database password is <user\>:<password\>. For example, if the username of the custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
+        |Instance ID|Select the ID of the destination ApsaraDB for Redis instance.|
+        |Database Password|Enter the database password of the destination Redis instance. The account must have the **read and write** permissions on the destination database.**Note:** The format of the database password is <user\>:<password\>. For example, if the username of a custom account is admin and the password is Rp829dlwa, the database password is admin:Rp829dlwa. |
 
 7.  In the lower-right corner of the page, click **Set Whitelist and Next**.
 
@@ -160,7 +165,7 @@ Use the Alibaba Cloud account that owns the source Redis instance to log on to t
     |Setting|Description|
     |:------|:----------|
     |Select the processing mode of conflicting tables|    -   **Pre-check and Intercept**: checks whether the destination database is empty. If the destination database is empty, the precheck is passed. If the database is not empty, an error is returned during the precheck and the data synchronization task cannot be started.
-    -   **Ignore**: skips the check for empty destination databases.
+    -   **Ignore**: skips the check for empty destination database.
 
 **Warning:** If you select **Ignore**, the data records in the source database overwrite the data records that have the same keys in the destination database. |
     |Select the objects to be synchronized|    -   Select one or more databases from the Available section and click the ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/3457359951/p40698.png) icon to move the databases to the Selected section.

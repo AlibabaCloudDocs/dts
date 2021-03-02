@@ -16,12 +16,11 @@
 -   DTS在执行全量数据初始化时将占用源库和目标库一定的读写资源，可能会导致数据库的负载上升，在数据库性能较差、规格较低或业务量较大的情况下（例如源库有大量慢SQL、存在无主键表或目标库存在死锁等），可能会加重数据库压力，甚至导致数据库服务不可用。因此您需要在执行数据同步前评估源库和目标库的性能，同时建议您在业务低峰期执行数据同步（例如源库和目标库的CPU负载在30%以下）。
 -   为保障数据同步的正常运行，请勿对源库频繁执行备份，同时建议日志保留3天以上，避免日志截断后无法获取日志。
 -   为保证数据同步延迟显示的准确性，DTS会在自建SQL Server数据库中新增一张心跳表，表名格式为`待同步表名_dts_mysql_heartbeat`。
--   不支持同步数据类型为TIMESTAMP、CURSOR、ROWVERSION、HIERACHYID、SQL\_VARIANT、SPATIAL GEOMETRY、SPATIAL GEOGRAPHY、TABLE的数据。
 
 ## 功能限制
 
 -   不支持assemblies、service broker、全文索引、全文目录、分布式schema、分布式函数、CLR存储过程、CLR标量函数、CLR表值函数、内部表、系统、聚合函数的结构同步。
--   不支持同步数据类型为sql\_variant的数据。
+-   不支持同步数据类型为TIMESTAMP、CURSOR、ROWVERSION、HIERACHYID、SQL\_VARIANT、SPATIAL GEOMETRY、SPATIAL GEOGRAPHY、TABLE的数据。
 -   不支持同步含有计算列的表。
 
 ## 支持同步的SQL操作

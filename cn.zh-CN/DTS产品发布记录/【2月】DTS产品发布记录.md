@@ -29,5 +29,5 @@
 同步链路：目标库为Elasticsearch或Datahub的链路。 |
 |修复延时不准确的缺陷|修复了Redis企业版单向或双向同步任务在增量数据同步的初始阶段，延时信息不准确的缺陷。|
 
-本次发布预计为2月4日22点至24点。期间，如果您的DTS实例出现异常，请[提交工单](https://selfservice.console.aliyun.com/ticket/category/redis/today)咨询。
+本次发布预计为2月4日22点至24点。期间，如果您的DTS实例出现异常，请[提交工单](https://selfservice.console.aliyun.com/ticket/category/dts/today)咨询。
 

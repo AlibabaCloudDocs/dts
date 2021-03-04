@@ -11,5 +11,5 @@
 |正在升级数据订阅任务的查看订阅数据功能。|为缩短订阅数据查询的时间，DTS正在升级数据订阅任务的查看订阅数据功能。升级期间，功能入口暂时关闭。|
 |优化OpenAPI的系统参数RegionId。|调用OpenAPI时，支持根据系统参数RegionId过滤DTS实例。|
 
-本次发布预计为3月4日22点至24点。期间，如果您的DTS实例出现异常，请[提交工单](https://selfservice.console.aliyun.com/ticket/category/redis/today)咨询。
+本次发布预计为3月4日22点至24点。期间，如果您的DTS实例出现异常，请[提交工单](https://selfservice.console.aliyun.com/ticket/category/dts/today)咨询。
 

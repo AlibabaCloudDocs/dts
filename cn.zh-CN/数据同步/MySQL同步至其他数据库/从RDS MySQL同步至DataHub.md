@@ -3,7 +3,7 @@
 阿里云流式数据服务DataHub是流式数据（Streaming Data）的处理平台，提供对流式数据的发布、订阅和分发功能，让您可以轻松构建基于流式数据的分析和应用。通过数据传输服务DTS（Data Transmission Service），您可以将RDS MySQL同步至DataHub，帮助您快速实现使用流计算等大数据产品对数据实时分析。
 
 -   DataHub实例的地域为华东1、华东2、华北2或华南1。
--   DataHub实例中，已创建用作接收同步数据的项目（Project），详情请参见[创建项目](https://help.aliyun.com/document_detail/158785.html)。
+-   DataHub实例中，已创建用作接收同步数据的项目（Project），详情请参见[创建项目](~~206546~~)。
 -   RDS MySQL中待同步的表需具备主键或唯一约束。
 
 ## 功能限制
@@ -29,13 +29,13 @@ INSERT、UPDATE、DELETE。
 
 4.  在同步作业列表页面顶部，选择同步的目标实例所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/7349459951/p50604.png)
 
 5.  定位至已购买的数据同步实例，单击**配置同步链路**。
 
 6.  配置同步作业的源实例及目标实例信息。
 
-    ![DataHub同步源目信息配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/3620649951/p49690.png)
+    ![DataHub同步源目信息配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3620649951/p49690.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
@@ -56,12 +56,12 @@ INSERT、UPDATE、DELETE。
 
 8.  配置同步策略和同步对象。
 
-    ![配置同步对象](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/3230649951/p49691.png)
+    ![配置同步对象](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3230649951/p49691.png)
 
     |配置|说明|
     |:-|:-|
     |同步初始化|勾选**结构初始化**。 **说明：** 勾选**结构初始化**后，在数据同步作业的初始化阶段，DTS会将同步对象的结构信息（例如表结构）同步至目标DataHub实例。 |
-    |选择同步对象|在源库对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
+    |选择同步对象|在源库对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)将其移动至已选择对象框。
 
 **说明：**
 
@@ -71,21 +71,21 @@ INSERT、UPDATE、DELETE。
 
 9.  将鼠标指针放置在**已选择对象**框中待同步的Topic名上，单击对象后出现的**编辑**，然后在弹出的对话框中设置Shardkey（即用于分区的key）。
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/3230649951/p69998.gif)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/3230649951/p69998.gif)
 
 10. 上述配置完成后，单击页面右下角的**预检查并启动**。
 
     **说明：**
 
     -   在数据同步作业正式启动之前，会先进行预检查。只有预检查通过后，才能成功启动数据同步作业。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 11. 在预检查对话框中显示**预检查通过**后，关闭预检查对话框，同步作业将正式开始。
 
 12. 等待同步作业的链路初始化完成，直至处于**同步中**状态。
 
     您可以在数据同步页面，查看数据同步作业的状态。
 
-    ![查看同步作业状态](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
+    ![查看同步作业状态](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/1349459951/p41059.png)
 
 
 ## Topic结构定义说明
@@ -94,20 +94,20 @@ DTS在将数据变更同步至DataHub实例的Topic时，目标Topic中除了存
 
 **说明：** 本案例中的业务字段为`id`、`name`、`address`，由于在配置数据同步时选用的是旧版附加列规则，DTS会为业务字段添加`dts_`的前缀。
 
-![Topic定义](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4230649951/p69959.png)
+![Topic定义](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4230649951/p69959.png)
 
 结构定义说明：
 
 |旧版附加列名称|新版附加列名称|说明|
 |:------|-------|:-|
-|`dts_record_id`|`new_dts_sync_dts_record_id`|增量日志的记录id，为该日志唯一标识。 **说明：**
+|`dts_record_id`|`new_dts_sync_dts_record_id`|增量日志的记录ID，为该日志唯一标识。 **说明：**
 
 -   正常情况下是全局唯一自增的，在容灾的情况下会有回退且无法保证自增和唯一。
 -   如果增量日志的操作类型为UPDATE，那么增量更新会被拆分成两条记录（分别记录更新前和更新后的值），且`dts_record_id`的值相同。 |
 |`dts_operation_flag`|`new_dts_sync_dts_operation_flag`|操作类型，取值： -   I：INSERT操作。
 -   D：DELETE操作。
 -   U：UPDATE操作。 |
-|`dts_instance_id`|`new_dts_sync_dts_instance_id`|数据库的server id。|
+|`dts_instance_id`|`new_dts_sync_dts_instance_id`|数据库的server ID。|
 |`dts_db_name`|`new_dts_sync_dts_db_name`|数据库名称。|
 |`dts_table_name`|`new_dts_sync_dts_table_name`|表名。|
 |`dts_utc_timestamp`|`new_dts_sync_dts_utc_timestamp`|操作时间戳，即binlog的时间戳（UTC 时间）。|
@@ -122,7 +122,7 @@ DTS在将数据变更同步至DataHub实例的Topic时，目标Topic中除了存
 
     当操作类型为INSERT时，所有列的值为新插入的值，即为更新后的值，所以`dts_before_flag`取值为N，`dts_after_flag`取值为Y，示例如下。
 
-    ![INSERT操作](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4230649951/p69960.png)
+    ![INSERT操作](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4230649951/p69960.png)
 
 -   UPDATE
 
@@ -130,13 +130,13 @@ DTS在将数据变更同步至DataHub实例的Topic时，目标Topic中除了存
 
     第一条增量日志记录了更新前的值，所以`dts_before_flag`取值为Y，`dts_after_flag`取值为N。第二条增量日志记录了更新后的值，所以 `dts_before_flag`取值为N，`dts_after_flag`取值为Y，示例如下。
 
-    ![UPDATE操作](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4230649951/p69955.png)
+    ![UPDATE操作](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4230649951/p69955.png)
 
 -   DELETE
 
     当操作类型为DELETE时，增量日志中所有的列值为被删除的值，即列值不变，所以`dts_before_flag`取值为Y， `dts_after_flag`取值为N，示例如下。
 
-    ![DELETE操作](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/4230649951/p69961.png)
+    ![DELETE操作](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/4230649951/p69961.png)
 
 
 ## 后续操作

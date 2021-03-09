@@ -30,6 +30,25 @@ RDS MariaDB |
 
     **说明：** 关于阿里云RDS的定义规范和创建数据库的操作方法，请参见[创建数据库和账号](/cn.zh-CN/RDS MySQL 数据库/快速入门/创建数据库和账号.md)。
 
+-   如您需进行RDS PostgreSQL实例间迁移，由于业务切换到目标端后，新写入的Sequence不会按照源库的Sequence最大值作为初始值去递增，您需要在业务切换前，在源库中查询对应Sequence的最大值，然后在目标库中将其作为对应Sequence的初始值。查询源库Sequence值的相关命令如下：
+
+    ```
+    do language plpgsql $$
+    declare
+      nsp name;
+      rel name;
+      val int8;
+    begin
+      for nsp,rel in select nspname,relname from pg_class t2 , pg_namespace t3 where t2.relnamespace=t3.oid and t2.relkind='S'
+      loop
+        execute format($_$select last_value from %I.%I$_$, nsp, rel) into val;
+        raise notice '%',
+        format($_$select setval('%I.%I'::regclass, %s);$_$, nsp, rel, val+1);
+      end loop;
+    end;
+    $$;
+    ```
+
 
 ## 费用说明
 

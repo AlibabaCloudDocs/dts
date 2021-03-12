@@ -6,8 +6,7 @@
 
 |类型|重点内容|具体内容|
 |--|----|----|
-|新功能|新版控制台|源为RDS SQL Server的数据迁移和同步链路，在原先基于SQL Server日志解析进行数据迁移或同步的基础上，新增CDC的模式，解决了日志截断导致迁移或同步任务中断，不支持迁移或同步堆表、无主键表等问题。|
-|支持配置如下迁移链路：-   Db2 for LUW 迁移至云原生数仓AnalyticDB PostgreSQL、MySQL（自建MySQL、RDS MySQL）。
+|新功能|新版控制台|支持配置如下迁移链路：-   Db2 for LUW 迁移至云原生数仓AnalyticDB PostgreSQL、MySQL（自建MySQL、RDS MySQL）。
 -   Db2 for i 迁移至MySQL（自建MySQL、RDS MySQL）。
 
 **说明：** 具体配置步骤，请参见[从自建Db2迁移至RDS MySQL](/cn.zh-CN/数据迁移/从自建数据库迁移至阿里云/源库为Db2/从自建Db2迁移至RDS MySQL.md)。 |

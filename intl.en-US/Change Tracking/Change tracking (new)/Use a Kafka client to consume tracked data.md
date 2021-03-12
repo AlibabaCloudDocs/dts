@@ -20,7 +20,7 @@ Click [here](https://github.com/LioRoger/subscribe_example) to download the demo
 
 **Note:** If you use a Kafka client of version 2.0, you must change the version number in the subscribe\_example-master/javaimpl/pom.xml file to 2.0.0.
 
-![kafka2.0](../images/p171738.png)
+![kafka2.0](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/en-US/9940455161/p171738.png)
 
 |Step|File or directory|
 |----|-----------------|

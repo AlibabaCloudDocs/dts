@@ -1,8 +1,8 @@
 # 从自建PostgreSQL（10.1-12版本）增量迁移至RDS PostgreSQL
 
-本文介绍如何使用数据传输服务DTS（Data Transmission Service），将自建PostgreSQL增量迁移至RDS PostgreSQL实例。DTS支持结构迁移、全量数据迁移和增量数据迁移，同时使用这三种迁移类型可以实现在自建应用不停服的情况下，平滑地完成自建PostgreSQL数据库迁移上云。
+本文介绍如何使用数据传输服务DTS（Data Transmission Service），将自建PostgreSQL或RDS PostgreSQL实例增量迁移至自建PostgreSQL或RDS PostgreSQL实例。DTS支持结构迁移、全量数据迁移和增量数据迁移，同时使用这三种迁移类型可以实现在自建应用不停服的情况下，平滑地完成数据库迁移。本文介绍自建PostgreSQL增量迁移至RDS PostgreSQL的配置方式。
 
--   自建PostgreSQL的数据库版本为10.1-12版本。
+-   自建PostgreSQL的数据库版本为10.1~12版本。
 -   已创建RDS PostgreSQL，详情请参见[创建RDS PostgreSQL实例](~~53730~~)。
 
     **说明：** 为保障兼容性，建议RDS PostgreSQL的数据库版本与自建PostgreSQL的数据库版本相同。
@@ -22,7 +22,7 @@
 
     **说明：** 当释放迁移任务或迁移失败时，DTS会主动清理该replication slot；如果RDS PostgreSQL发生了主备切换，则需要您登录备库来手动清理。
 
-    ![Amazon slot查询信息](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/9832559951/p66313.png)
+    ![Amazon slot查询信息](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9832559951/p66313.png)
 
 -   对于迁移失败的任务，DTS会触发自动恢复。当您需要将业务切换至目标实例，请务必先终止或释放该任务，避免该任务被自动恢复后，导致源端数据覆盖目标实例的数据。
 
@@ -35,10 +35,7 @@
 
     **说明：** 为避免数据迁移对业务的影响，请在业务低峰期执行数据迁移，您还可以根据源库的读写压力情况调整迁移速率，详情请参见[调整全量迁移速率](/intl.zh-CN/数据迁移/迁移任务管理/调整全量迁移速率.md)。
 
--   增量数据迁移阶段仅支持DML操作（INSERT、DELETE、UPDATE）的同步。
-
-    **说明：** 仅2020年10月1日后创建的数据迁移任务支持同步DDL操作，您需要在配置迁移任务前，在源库中创建触发器和函数来捕获DDL信息，详情请参见[通过触发器和函数实现PostgreSQL的DDL增量迁移](/intl.zh-CN/最佳实践/通过触发器和函数实现PostgreSQL的DDL增量迁移.md)。
-
+-   增量数据迁移阶段不支持迁移bit类型的数据。
 -   由于业务切换到目标端后，新写入的Sequence不会按照源库的Sequence最大值作为初始值去递增，您需要在业务切换前，在源库中查询对应Sequence的最大值，然后在目标库中将其作为对应Sequence的初始值。
 -   DTS的校验对象为数据内容，暂不支持Sequence等元数据的校验，您需要自行校验。
 
@@ -46,8 +43,8 @@
 
 |迁移类型|链路配置费用|公网流量费用|
 |----|------|------|
-|结构迁移和全量数据迁移|不收费。|通过公网将数据迁移出阿里云时将收费，详情请参见[产品定价](/intl.zh-CN/产品定价/产品定价.md)。|
-|增量数据迁移|收费，详情请参见[产品定价](/intl.zh-CN/产品定价/产品定价.md)。|
+|结构迁移和全量数据迁移|不收费。|通过公网将数据迁移出阿里云时将收费，详情请参见[产品定价]()。|
+|增量数据迁移|收费，详情请参见[产品定价]()。|
 
 ## 数据库账号的权限要求
 
@@ -59,20 +56,33 @@
 数据库账号创建及授权方法：
 
 -   自建PostgreSQL数据库请参见[CREATE USER](https://www.postgresql.org/docs/10/sql-createuser.html)和[GRANT](https://www.postgresql.org/docs/10/sql-grant.html)语法。
--   RDS PostgreSQL实例请参见[创建账号](https://www.alibabacloud.com/help/zh/doc-detail/96753.htm)。
+-   RDS PostgreSQL实例请参见[创建账号](https://help.aliyun.com/document_detail/96753.html)[创建账号](https://www.alibabacloud.com/help/zh/doc-detail/96753.htm)。
 
 ## 数据迁移流程说明
 
 为解决对象间的依赖，提高迁移成功率，DTS对PostgreSQL结构及数据的迁移顺序如下表所示。
 
-**说明：** 关于结构迁移、全量数据迁移、增量数据迁移的术语介绍，请参见[名词解释](/intl.zh-CN/产品简介/名词解释.md)。
+**说明：** 关于结构迁移、全量数据迁移、增量数据迁移的术语介绍，请参见[名词解释]()。
 
 |DTS自动执行的迁移流程|迁移说明|
 |------------|----|
 |1.结构迁移|DTS迁移TABLE、VIEW、SEQUENCE、FUNCTION、USER DEFINED TYPE、RULE、DOMAIN、OPERATION、AGGREGATE的结构信息至目标库。 **说明：** 不支持迁移插件、使用C语言编写的FUNCTION。 |
 |2.全量数据迁移|DTS将迁移对象的存量数据全部迁移至目标库。|
 |3.结构迁移|DTS迁移TRIGGER、FOREIGN KEY的结构信息至目标库。|
-|4.增量数据迁移|在全量数据迁移的基础上，DTS将迁移对象的增量更新迁移至目标库。 **说明：** 增量数据迁移阶段不支持迁移bit类型的数据。 |
+|4.增量数据迁移|在全量数据迁移的基础上，DTS将迁移对象的增量更新迁移至目标库。在增量数据迁移阶段，DTS支持同步的SQL语句如下：
+
+-   DML：INSERT、UPDATE、DELETE
+-   DDL：
+
+    -   CREATE TABLE、DROP TABLE
+    -   ALTER TABLE（包括RENAME TABLE、ADD COLUMN、ADD COLUMN DEFAULT、ALTER COLUMN TYPE、DROP COLUMN、ADD CONSTRAINT、ADD CONSTRAINT CHECK、ALTER COLUMN DROP DEFAULT）
+    -   CREATE INDEX ON TABLE、DROP INDEX
+    -   DROP RULE
+    -   CREATE SEQUENCE、ALTER SEQUENCE RENAME TO、DROP SEQUENCE
+**说明：** 您也可以在配置迁移任务前，在源库中创建触发器和函数来捕获DDL信息，详情请参见[通过触发器和函数实现PostgreSQL的DDL增量迁移](/intl.zh-CN/最佳实践/通过触发器和函数实现PostgreSQL的DDL增量迁移.md)。仅2020年10月1日后创建的数据迁移任务支持通过该操作实现同步DDL操作。
+
+
+通过增量数据迁移可以实现在自建应用不停服的情况下，平滑地完成数据迁移。**说明：** 增量数据迁移阶段不支持迁移bit类型的数据。 |
 
 ## 准备工作
 
@@ -80,15 +90,15 @@
 
 2.  修改配置文件postgresql.conf，将配置文件中的`wal_level`设置为`logical`。
 
-    ![设置wal_level](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/9832559951/p73217.png)
+    ![设置wal_level](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/9832559951/p73217.png)
 
     **说明：** 如果不需要增量数据迁移，可跳过本步骤。
 
-3.  将DTS的IP地址加入至自建PostgreSQL的配置文件pg\_hba.conf中。您只需添加目标数据库所在区域对应的DTS IP地址段，详情请参见[迁移、同步或订阅本地数据库时需添加的IP白名单](/intl.zh-CN/准备工作/迁移、同步或订阅本地数据库时需添加的IP白名单.md)。
+3.  将DTS的IP地址加入至自建PostgreSQL的配置文件pg\_hba.conf中。您只需添加目标数据库所在区域对应的DTS IP地址段，详情请参见[迁移、同步或订阅本地数据库时需添加的IP白名单]()。
 
     **说明：** 关于该配置文件的设置请参见[pg\_hba.conf文件](https://www.postgresql.org/docs/current/auth-pg-hba-conf.html)。如果您已将信任地址配置为`0.0.0.0/0`（如下图所示），可跳过本步骤。
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/0932559951/p73782.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0932559951/p73782.png)
 
 4.  在源库中创建触发器和函数来捕获DDL信息实现DDL操作的同步，详情请参见[通过触发器和函数实现PostgreSQL的DDL增量迁移](/intl.zh-CN/最佳实践/通过触发器和函数实现PostgreSQL的DDL增量迁移.md)。
 
@@ -97,24 +107,24 @@
 
 ## 操作步骤
 
-1.  登录[数据传输控制台](https://dts-intl.console.aliyun.com/)。
+1.  登录[数据传输控制台](https://dts.console.aliyun.com/)[数据传输控制台](https://dts-intl.console.aliyun.com/)。
 
 2.  在左侧导航栏，单击**数据迁移**。
 
 3.  在迁移任务列表页面顶部，选择迁移的目标集群所属地域。
 
-    ![选择地域](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
+    ![选择地域](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/2767559951/p50439.png)
 
 4.  单击页面右上角的**创建迁移任务**。
 
 5.  配置迁移任务的源库及目标库信息。
 
-    ![源库和目标库连接配置](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/0932559951/p47957.png)
+    ![源库和目标库连接配置](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0932559951/p47957.png)
 
     |类别|配置|说明|
     |:-|:-|:-|
     |无|任务名称|DTS会自动生成一个任务名称，建议配置具有业务意义的名称（无唯一性要求），便于后续识别。|
-    |源库信息|实例类型|根据源库的部署位置进行选择，本文以**有公网IP的自建数据库**为例介绍配置流程。 **说明：** 当自建数据库为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览](/intl.zh-CN/准备工作/准备工作概览.md)。 |
+    |源库信息|实例类型|根据源库的部署位置进行选择，本文以**有公网IP的自建数据库**为例介绍配置流程。 **说明：** 当自建数据库为其他实例类型时，您还需要执行相应的准备工作，详情请参见[准备工作概览]()。 |
     |实例地区|当实例类型选择为**有公网IP的自建数据库**时，**实例地区**无需设置。|
     |数据库类型|选择**PostgreSQL**。|
     |主机名或IP地址|填入自建PostgreSQL数据库的访问地址，本案例中填入公网地址。|
@@ -135,14 +145,14 @@
 
 7.  选择迁移类型和迁移对象。
 
-    ![](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/0932559951/p73234.png)
+    ![](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/0932559951/p73234.png)
 
     |配置|说明|
     |:-|:-|
     |迁移类型|    -   如果只需要进行全量数据迁移，则同时选中**结构迁移**和**全量数据迁移**。
     -   如果需要进行不停机迁移，则同时选中**结构迁移**、**全量数据迁移**和**增量数据迁移**。本案例中同时选中这三个迁移类型。
 **说明：** 如果没有选中**增量数据迁移**，为保障数据一致性，数据迁移期间请勿在源库中写入新的数据。 |
-    |迁移对象|在迁移对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
+    |迁移对象|在迁移对象框中单击待迁移的对象，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。
 
 **说明：**
 
@@ -155,7 +165,7 @@
     **说明：**
 
     -   在迁移任务正式启动之前，会先进行预检查。只有通过预检查，DTS才能迁移数据。
-    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
+    -   如果预检查失败，单击具体检查项后的![提示](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p47468.png)图标，查看失败详情。根据提示修复后，重新进行预检查。
 9.  预检查通过后，单击**下一步**。
 
 10. 在弹出的购买配置确认对话框，选择**链路规格**并选中**数据传输（按量付费）服务条款**。
@@ -178,6 +188,6 @@
     1.  观察迁移任务的进度变更为**增量迁移**，并显示为**无延迟**状态时，将源库停写几分钟，此时**增量迁移**的状态可能会显示延迟的时间。
     2.  等待迁移任务的**增量迁移**再次进入**无延迟**状态后，手动结束迁移任务。
 
-        ![结束增量迁移任务](https://static-aliyun-doc.oss-cn-hangzhou.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
+        ![结束增量迁移任务](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/6767559951/p47604.png)
 
 

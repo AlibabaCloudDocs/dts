@@ -29,10 +29,6 @@
 
     **说明：** 为避免数据迁移对业务的影响，请在业务低峰期执行数据迁移，您还可以根据源库的读写压力情况调整迁移速率，详情请参见[调整全量迁移速率](/cn.zh-CN/数据迁移/迁移任务管理/调整全量迁移速率.md)。
 
--   增量数据迁移阶段仅支持DML操作（INSERT、DELETE、UPDATE）的同步。
-
-    **说明：** 仅2020年10月1日后创建的数据迁移任务支持同步DDL操作，您需要在配置迁移任务前，在源库中创建触发器和函数来捕获DDL信息，详情请参见[通过触发器和函数实现PostgreSQL的DDL增量迁移](/cn.zh-CN/最佳实践/通过触发器和函数实现PostgreSQL的DDL增量迁移.md)。
-
 -   DTS的校验对象为数据内容，暂不支持Sequence等元数据的校验，您需要自行校验。
 -   由于业务切换到目标端后，新写入的Sequence不会按照源库的Sequence最大值作为初始值去递增，您需要在业务切换前，在源库中查询对应Sequence的最大值，然后在目标库中将其作为对应Sequence的初始值。查询源库Sequence值的相关命令如下：
 
@@ -71,7 +67,7 @@
 数据库账号创建及授权方法：
 
 -   自建PostgreSQL数据库请参见[CREATE USER](https://www.postgresql.org/docs/10/sql-createuser.html)和[GRANT](https://www.postgresql.org/docs/10/sql-grant.html)语法。
--   RDS PostgreSQL实例请参见[创建账号](https://help.aliyun.com/document_detail/96753.html)。
+-   RDS PostgreSQL实例请参见[创建账号](https://help.aliyun.com/document_detail/96753.html)[创建账号](https://www.alibabacloud.com/help/zh/doc-detail/96753.htm)。
 
 ## 数据迁移流程说明
 
@@ -84,7 +80,20 @@
 |1.结构迁移|DTS迁移TABLE、VIEW、SEQUENCE、FUNCTION、USER DEFINED TYPE、RULE、DOMAIN、OPERATION、AGGREGATE的结构信息至目标库。 **说明：** 不支持迁移插件、使用C语言编写的FUNCTION。 |
 |2.全量数据迁移|DTS将迁移对象的存量数据全部迁移至目标库。|
 |3.结构迁移|DTS迁移TRIGGER、FOREIGN KEY的结构信息至目标库。|
-|4.增量数据迁移|在全量数据迁移的基础上，DTS将迁移对象的增量更新迁移至目标库。 **说明：** 增量数据迁移阶段不支持迁移bit类型的数据。 |
+|4.增量数据迁移|在全量数据迁移的基础上，DTS将迁移对象的增量更新迁移至目标库。在增量数据迁移阶段，DTS支持同步的SQL语句如下：
+
+-   DML：INSERT、UPDATE、DELETE
+-   DDL：
+
+    -   CREATE TABLE、DROP TABLE
+    -   ALTER TABLE（包括RENAME TABLE、ADD COLUMN、ADD COLUMN DEFAULT、ALTER COLUMN TYPE、DROP COLUMN、ADD CONSTRAINT、ADD CONSTRAINT CHECK、ALTER COLUMN DROP DEFAULT）
+    -   CREATE INDEX ON TABLE、DROP INDEX
+    -   DROP RULE
+    -   CREATE SEQUENCE、ALTER SEQUENCE RENAME TO、DROP SEQUENCE
+**说明：** 您也可以在配置迁移任务前，在源库中创建触发器和函数来捕获DDL信息，详情请参见[通过触发器和函数实现PostgreSQL的DDL增量迁移](/cn.zh-CN/最佳实践/通过触发器和函数实现PostgreSQL的DDL增量迁移.md)。仅2020年10月1日后创建的数据迁移任务支持通过该操作实现同步DDL操作。
+
+
+通过增量数据迁移可以实现在自建应用不停服的情况下，平滑地完成数据迁移。**说明：** 增量数据迁移阶段不支持迁移bit类型的数据。 |
 
 ## 准备工作一：安装逻辑流复制插件及调整设置
 
@@ -161,11 +170,11 @@
 
 ## 准备工作二：在目标实例中创建数据库和schema
 
-根据待迁移对象所属的数据库和schema信息，在目标RDS PostgreSQL中创建相应数据库和schema（schema名称须一致），详情请参见[创建数据库](https://help.aliyun.com/document_detail/96758.html)和[schema管理](https://help.aliyun.com/document_detail/26159.html)。
+根据待迁移对象所属的数据库和schema信息，在目标RDS PostgreSQL中创建相应数据库和schema（schema名称须一致），详情请参见[创建数据库](https://help.aliyun.com/document_detail/96758.html)[创建数据库](https://www.alibabacloud.com/help/zh/doc-detail/96758.htm)和[schema管理](https://help.aliyun.com/document_detail/26159.html)[schema管理](https://www.alibabacloud.com/help/zh/doc-detail/26159.htm)。
 
 ## 操作步骤
 
-1.  登录[数据传输控制台](https://dts.console.aliyun.com/)。
+1.  登录[数据传输控制台](https://dts.console.aliyun.com/)[数据传输控制台](https://dts-intl.console.aliyun.com/)。
 2.  在左侧导航栏，单击**数据迁移**。
 3.  在迁移任务列表页面顶部，选择迁移的目标实例所属地域。
 

@@ -7,7 +7,7 @@
 -   自建Oracle数据库已开启ARCHIVELOG（归档模式），设置合理的归档日志保持周期，并且确保归档日志能够被访问，详情请参见[ARCHIVELOG](https://docs.oracle.com/database/121/ADMIN/archredo.htm#ADMIN008)。
 -   自建Oracle数据库为源库时，您需要先执行相应的准备工作，详情请参见[准备工作概览]()。
 -   自建Oracle数据库中的待迁移表需具备主键或非空唯一索引。
--   阿里云消息队列Kafka的版本为0.10.1.0-2.x，自建Kafka版本为0.10.1.0-2.7.0版本
+-   阿里云消息队列Kafka的版本为0.10.1.0~2.x，自建Kafka版本为0.10.1.0~2.7.0版本
 -   目标Kafka实例的存储空间须大于自建Oracle数据库占用的存储空间。
 -   目标Kafka实例中已创建用于接收同步数据的Topic，详情请参见[创建Topic](https://help.aliyun.com/document_detail/99952.html#title-7lc-gsy-p0n)[创建Topic](https://www.alibabacloud.com/help/zh/doc-detail/99952.html#title-7lc-gsy-p0n)。
 
@@ -108,7 +108,7 @@
     |:-|:-|
     |迁移类型|同时选中**结构迁移**、**全量数据迁移**和**增量数据迁移**。**说明：** 如果未选中**增量数据迁移**，为保障数据一致性，全量数据迁移期间请勿在源库中写入新的数据。 |
     |投递到kafka的数据格式|迁移到Kafka集群中的数据以avro格式存储，您需要根据avro schema定义进行数据解析，schema定义详情请参见[DTS avro schema定义](https://github.com/LioRoger/subscribe_example/tree/master/avro)。|
-    |迁移到Kafka Partition策略|根据业务需求选择迁移的策略，详细介绍请参见[Kafka Partition同步策略说明](/intl.zh-CN/数据同步/同步作业管理/Kafka Partition同步策略说明.md)。|
+    |迁移到Kafka Partition策略|根据业务需求选择迁移的策略，详细介绍请参见[Kafka Partition迁移策略说明](/intl.zh-CN/数据迁移/迁移任务管理/Kafka Partition迁移策略说明.md)。|
     |迁移对象|在迁移对象框中单击待迁移的表，然后单击![向右小箭头](https://static-aliyun-doc.oss-accelerate.aliyuncs.com/assets/img/zh-CN/8502659951/p40698.png)图标将其移动至已选择对象框。**说明：** DTS会自动将表名映射为步骤5选择的Topic名称。如需更换迁移的目标Topic，请参见[库表列映射](/intl.zh-CN/数据迁移/迁移任务管理/库表列映射.md)。 |
     |源、目标库无法连接重试时|默认重试12小时，您也可以自定义重试时间。如果DTS在设置的时间内重新连接上源、目标库，迁移任务将自动恢复。否则，迁移任务将失败。**说明：** 由于连接重试期间，DTS将收取任务运行费用，建议您根据业务需要自定义重试时间，或者在源和目标库实例释放后尽快释放DTS实例。 |
     |目标库对象名称大小写策略|您可以配置目标实例中迁移对象的库名、表名和列名的英文大小写策略。默认情况下选择**DTS默认策略**，您也可以选择与源库、目标库默认策略保持一致。更多信息，请参见[目标库对象名称大小写策略](/intl.zh-CN/数据迁移/迁移任务管理/目标库对象名称大小写策略.md)。|
